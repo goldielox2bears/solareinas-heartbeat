@@ -1,4 +1,4 @@
-import heroImage from "@/assets/hero-sanctuary.jpg";
+const heroImage = "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png";
 import { Button } from "@/components/ui/button";
 
 const SanctuaryHero = () => {
