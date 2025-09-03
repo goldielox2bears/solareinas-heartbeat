@@ -1,35 +1,42 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-const rescueAnimals = [
-  {
-    id: 1,
-    name: "Luna",
-    type: "Horse",
-    story: "Rescued from neglect, Luna now roams freely across our meadows, her spirit restored.",
-    sponsored: false,
-    image: "🐴"
-  },
-  {
-    id: 2,
-    name: "Oliver",
-    type: "Goat",
-    story: "Once alone, Oliver now leads his herd with gentle confidence through the oak groves.",
-    sponsored: true,
-    sponsor: "The Johnson Family",
-    image: "🐐"
-  },
-  {
-    id: 3,
-    name: "Sage",
-    type: "Sheep",
-    story: "Found wandering, Sage has become the peaceful heart of our flock.",
-    sponsored: false,
-    image: "🐑"
-  }
-];
+import { useEffect, useState } from "react";
+import { supabase, type Animal } from "@/lib/supabase";
 
 const RescueLedger = () => {
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('animals')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        setAnimals(data || []);
+      } catch (error) {
+        console.error('Error fetching animals:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAnimals();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-16 px-6 bg-gradient-peaceful">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-muted-foreground">Loading our rescue family...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-16 px-6 bg-gradient-peaceful">
       <div className="max-w-6xl mx-auto">
@@ -44,24 +51,51 @@ const RescueLedger = () => {
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rescueAnimals.map((animal) => (
+          {animals.map((animal) => (
             <Card key={animal.id} className="shadow-gentle hover:shadow-sanctuary transition-gentle">
               <CardHeader className="text-center">
-                <div className="text-6xl mb-4">{animal.image}</div>
+                <div className="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                  {animal.photo_url ? (
+                    <img 
+                      src={animal.photo_url} 
+                      alt={animal.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-muted flex items-center justify-center text-4xl">
+                      {animal.species === 'Horse' ? '🐴' : 
+                       animal.species === 'Goat' ? '🐐' : 
+                       animal.species === 'Sheep' ? '🐑' : 
+                       animal.species === 'Dog' ? '🐕' :
+                       animal.species === 'Cat' ? '🐱' : '🐾'}
+                    </div>
+                  )}
+                </div>
                 <CardTitle className="text-xl font-medium text-foreground">
                   {animal.name}
                 </CardTitle>
-                <p className="text-muted-foreground">{animal.type}</p>
+                <p className="text-muted-foreground">{animal.species}</p>
+                {animal.age && (
+                  <p className="text-sm text-muted-foreground">Age: {animal.age}</p>
+                )}
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {animal.story}
-                </p>
+                {animal.story && (
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {animal.story}
+                  </p>
+                )}
                 
-                {animal.sponsored ? (
+                {animal.sponsor_status === 'sponsored' && animal.sponsor_name ? (
                   <div className="p-3 bg-sanctuary-sage/20 rounded-lg">
                     <p className="text-xs text-foreground font-medium">
-                      Sponsored by {animal.sponsor}
+                      Sponsored by {animal.sponsor_name}
+                    </p>
+                  </div>
+                ) : animal.sponsor_status === 'pending' ? (
+                  <div className="p-3 bg-yellow-100 rounded-lg">
+                    <p className="text-xs text-foreground font-medium">
+                      Sponsorship Pending
                     </p>
                   </div>
                 ) : (
@@ -73,6 +107,12 @@ const RescueLedger = () => {
             </Card>
           ))}
         </div>
+        
+        {animals.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">No animals in our sanctuary yet.</p>
+          </div>
+        )}
       </div>
     </section>
   );
