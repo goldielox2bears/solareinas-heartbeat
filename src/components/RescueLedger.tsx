@@ -1,14 +1,20 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
+import { Edit2, Save, X } from "lucide-react";
+import { toast } from "sonner";
 
 type Animal = Database['public']['Tables']['animals']['Row'];
 
 const RescueLedger = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editForm, setEditForm] = useState({ name: '', story: '' });
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -30,6 +36,44 @@ const RescueLedger = () => {
 
     fetchAnimals();
   }, []);
+
+  const startEditing = (animal: Animal) => {
+    setEditingId(animal.id);
+    setEditForm({ name: animal.name, story: animal.story || '' });
+  };
+
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditForm({ name: '', story: '' });
+  };
+
+  const saveChanges = async (animalId: string) => {
+    try {
+      const { error } = await supabase
+        .from('animals')
+        .update({
+          name: editForm.name,
+          story: editForm.story
+        })
+        .eq('id', animalId);
+
+      if (error) throw error;
+
+      // Update local state
+      setAnimals(prev => prev.map(animal => 
+        animal.id === animalId 
+          ? { ...animal, name: editForm.name, story: editForm.story }
+          : animal
+      ));
+
+      setEditingId(null);
+      setEditForm({ name: '', story: '' });
+      toast.success('Animal updated successfully!');
+    } catch (error) {
+      console.error('Error updating animal:', error);
+      toast.error('Failed to update animal');
+    }
+  };
 
   if (loading) {
     return (
@@ -71,41 +115,105 @@ const RescueLedger = () => {
                        animal.species === 'Goat' ? '🐐' : 
                        animal.species === 'Sheep' ? '🐑' : 
                        animal.species === 'Dog' ? '🐕' :
-                       animal.species === 'Cat' ? '🐱' : '🐾'}
+                       animal.species === 'Cat' ? '🐱' : 
+                       animal.species === 'Mule' ? '🐴' : '🐾'}
                     </div>
                   )}
                 </div>
-                <CardTitle className="text-xl font-medium text-foreground">
-                  {animal.name}
-                </CardTitle>
+                
+                {/* Edit mode for name */}
+                {editingId === animal.id ? (
+                  <div className="space-y-3">
+                    <Input
+                      value={editForm.name}
+                      onChange={(e) => setEditForm(prev => ({ ...prev, name: e.target.value }))}
+                      className="text-center font-medium"
+                      placeholder="Animal name"
+                    />
+                  </div>
+                ) : (
+                  <CardTitle className="text-xl font-medium text-foreground">
+                    {animal.name}
+                  </CardTitle>
+                )}
+                
                 <p className="text-muted-foreground">{animal.species}</p>
                 {animal.age && (
                   <p className="text-sm text-muted-foreground">Age: {animal.age}</p>
                 )}
               </CardHeader>
+              
               <CardContent className="space-y-4">
-                {animal.story && (
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {animal.story}
-                  </p>
-                )}
-                
-                {animal.sponsor_status === 'sponsored' && animal.sponsor_name ? (
-                  <div className="p-3 bg-sanctuary-sage/20 rounded-lg">
-                    <p className="text-xs text-foreground font-medium">
-                      Sponsored by {animal.sponsor_name}
-                    </p>
-                  </div>
-                ) : animal.sponsor_status === 'pending' ? (
-                  <div className="p-3 bg-yellow-100 rounded-lg">
-                    <p className="text-xs text-foreground font-medium">
-                      Sponsorship Pending
-                    </p>
+                {/* Edit mode for story */}
+                {editingId === animal.id ? (
+                  <div className="space-y-3">
+                    <Textarea
+                      value={editForm.story}
+                      onChange={(e) => setEditForm(prev => ({ ...prev, story: e.target.value }))}
+                      placeholder="Animal's story..."
+                      className="min-h-[100px] text-sm"
+                    />
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={() => saveChanges(animal.id)}
+                        size="sm"
+                        className="flex-1"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        Save
+                      </Button>
+                      <Button
+                        onClick={cancelEditing}
+                        variant="outline"
+                        size="sm"
+                        className="flex-1"
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Cancel
+                      </Button>
+                    </div>
                   </div>
                 ) : (
-                  <Button variant="steward" size="sm" className="w-full">
-                    Become {animal.name}'s Steward
-                  </Button>
+                  <>
+                    {animal.story && (
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {animal.story}
+                      </p>
+                    )}
+                    
+                    <Button
+                      onClick={() => startEditing(animal)}
+                      variant="outline"
+                      size="sm"
+                      className="w-full mb-2"
+                    >
+                      <Edit2 className="w-4 h-4 mr-2" />
+                      Edit Details
+                    </Button>
+                  </>
+                )}
+                
+                {/* Sponsorship status (only show when not editing) */}
+                {editingId !== animal.id && (
+                  <>
+                    {animal.sponsor_status === 'sponsored' && animal.sponsor_name ? (
+                      <div className="p-3 bg-sanctuary-sage/20 rounded-lg">
+                        <p className="text-xs text-foreground font-medium">
+                          Sponsored by {animal.sponsor_name}
+                        </p>
+                      </div>
+                    ) : animal.sponsor_status === 'pending' ? (
+                      <div className="p-3 bg-yellow-100 rounded-lg">
+                        <p className="text-xs text-foreground font-medium">
+                          Sponsorship Pending
+                        </p>
+                      </div>
+                    ) : (
+                      <Button variant="steward" size="sm" className="w-full">
+                        Become {animal.name}'s Steward
+                      </Button>
+                    )}
+                  </>
                 )}
               </CardContent>
             </Card>
