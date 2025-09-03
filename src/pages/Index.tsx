@@ -1,3 +1,6 @@
+import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import SanctuaryHero from "@/components/SanctuaryHero";
 import RescueLedger from "@/components/RescueLedger";
@@ -5,6 +8,23 @@ import FreeHerdCircle from "@/components/FreeHerdCircle";
 import GivingWall from "@/components/GivingWall";
 
 const Index = () => {
+  const { user, signOut, loading } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-peaceful flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading sanctuary...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen">
       <SanctuaryNavigation />
@@ -35,12 +55,28 @@ const Index = () => {
               you belong here. This is where transformation begins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white/20 text-primary-foreground border border-white/30 hover:bg-white/30 transition-gentle px-8 py-3 rounded-xl">
-                Become a Steward
-              </button>
-              <button className="bg-white text-primary hover:bg-white/90 transition-gentle px-8 py-3 rounded-xl font-medium">
-                Join the Free Herd
-              </button>
+              {user ? (
+                <>
+                  <Button variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
+                    Welcome, {user.email}
+                  </Button>
+                  <Button 
+                    onClick={handleSignOut}
+                    className="bg-white text-primary hover:bg-white/90"
+                  >
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
+                    <Link to="/auth">Become a Steward</Link>
+                  </Button>
+                  <Button asChild className="bg-white text-primary hover:bg-white/90">
+                    <Link to="/auth">Join the Free Herd</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </footer>
