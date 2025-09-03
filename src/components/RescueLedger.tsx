@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
-import { Edit2, Save, X } from "lucide-react";
+import { Edit2, Save, X, Upload, Image } from "lucide-react";
 import { toast } from "sonner";
 
 type Animal = Database['public']['Tables']['animals']['Row'];
@@ -15,6 +15,7 @@ const RescueLedger = () => {
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState({ name: '', story: '' });
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -45,6 +46,48 @@ const RescueLedger = () => {
   const cancelEditing = () => {
     setEditingId(null);
     setEditForm({ name: '', story: '' });
+  };
+
+  const handlePhotoUpload = async (animalId: string, file: File) => {
+    if (!file) return;
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${animalId}.${fileExt}`;
+      const filePath = `animals/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('animal-photos')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('animal-photos')
+        .getPublicUrl(filePath);
+
+      const { error: updateError } = await supabase
+        .from('animals')
+        .update({ photo_url: data.publicUrl })
+        .eq('id', animalId);
+
+      if (updateError) throw updateError;
+
+      // Update local state
+      setAnimals(prev => prev.map(animal => 
+        animal.id === animalId 
+          ? { ...animal, photo_url: data.publicUrl }
+          : animal
+      ));
+
+      toast.success('Photo updated successfully!');
+    } catch (error) {
+      console.error('Error uploading photo:', error);
+      toast.error('Failed to upload photo');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const saveChanges = async (animalId: string) => {
@@ -102,7 +145,7 @@ const RescueLedger = () => {
           {animals.map((animal) => (
             <Card key={animal.id} className="shadow-gentle hover:shadow-sanctuary transition-gentle">
               <CardHeader className="text-center">
-                <div className="w-full h-48 mb-4 overflow-hidden rounded-lg">
+                <div className="w-full h-48 mb-4 overflow-hidden rounded-lg relative group">
                   {animal.photo_url ? (
                     <img 
                       src={animal.photo_url} 
@@ -119,6 +162,29 @@ const RescueLedger = () => {
                        animal.species === 'Mule' ? '🐴' : '🐾'}
                     </div>
                   )}
+                  
+                  {/* Photo upload overlay */}
+                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <label className="cursor-pointer">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) handlePhotoUpload(animal.id, file);
+                        }}
+                        disabled={uploading}
+                      />
+                      <div className="bg-white bg-opacity-90 rounded-full p-3 hover:bg-opacity-100 transition-colors">
+                        {uploading ? (
+                          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                        ) : (
+                          <Upload className="w-6 h-6 text-primary" />
+                        )}
+                      </div>
+                    </label>
+                  </div>
                 </div>
                 
                 {/* Edit mode for name */}
