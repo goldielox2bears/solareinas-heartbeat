@@ -5,8 +5,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/integrations/supabase/types";
-import { Edit2, Save, X, Upload, Image } from "lucide-react";
+import { Edit2, Save, X, Upload, Image, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 type Animal = Database['public']['Tables']['animals']['Row'];
 
@@ -16,6 +17,14 @@ const RescueLedger = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState({ name: '', story: '' });
   const [uploading, setUploading] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newAnimal, setNewAnimal] = useState({
+    name: '',
+    species: '',
+    age: '',
+    story: ''
+  });
+  const [creating, setCreating] = useState(false);
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -118,6 +127,46 @@ const RescueLedger = () => {
     }
   };
 
+  const createAnimal = async () => {
+    if (!newAnimal.name || !newAnimal.species) {
+      toast.error('Please provide at least a name and species');
+      return;
+    }
+
+    setCreating(true);
+    try {
+      const animalData = {
+        name: newAnimal.name,
+        species: newAnimal.species,
+        age: newAnimal.age ? parseInt(newAnimal.age) : null,
+        story: newAnimal.story || null,
+        sponsor_status: 'available' as const
+      };
+
+      const { data, error } = await supabase
+        .from('animals')
+        .insert([animalData])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Add to local state
+      setAnimals(prev => [data, ...prev]);
+      
+      // Reset form
+      setNewAnimal({ name: '', species: '', age: '', story: '' });
+      setShowAddForm(false);
+      
+      toast.success(`${data.name} has been added to the sanctuary!`);
+    } catch (error) {
+      console.error('Error creating animal:', error);
+      toast.error('Failed to add animal');
+    } finally {
+      setCreating(false);
+    }
+  };
+
   if (loading) {
     return (
       <section className="py-16 px-6 bg-gradient-peaceful">
@@ -140,6 +189,102 @@ const RescueLedger = () => {
             made possible by the generosity of our Stewards.
           </p>
         </div>
+        
+        {/* Add New Animal Button */}
+        <div className="mb-8 text-center">
+          <Button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="mb-4"
+            variant={showAddForm ? "outline" : "default"}
+          >
+            <Plus className="w-4 h-4 mr-2" />
+            {showAddForm ? 'Cancel' : 'Add New Animal'}
+          </Button>
+        </div>
+
+        {/* Add Animal Form */}
+        {showAddForm && (
+          <Card className="mb-8 shadow-gentle">
+            <CardHeader>
+              <CardTitle className="text-xl font-medium text-foreground">
+                Add New Animal to Sanctuary
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div>
+                  <Input
+                    placeholder="Animal name"
+                    value={newAnimal.name}
+                    onChange={(e) => setNewAnimal(prev => ({ ...prev, name: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Select
+                    value={newAnimal.species}
+                    onValueChange={(value) => setNewAnimal(prev => ({ ...prev, species: value }))}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select species" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Horse">Horse</SelectItem>
+                      <SelectItem value="Goat">Goat</SelectItem>
+                      <SelectItem value="Sheep">Sheep</SelectItem>
+                      <SelectItem value="Dog">Dog</SelectItem>
+                      <SelectItem value="Cat">Cat</SelectItem>
+                      <SelectItem value="Mule">Mule</SelectItem>
+                      <SelectItem value="Donkey">Donkey</SelectItem>
+                      <SelectItem value="Pig">Pig</SelectItem>
+                      <SelectItem value="Cow">Cow</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div>
+                <Input
+                  placeholder="Age (optional)"
+                  type="number"
+                  value={newAnimal.age}
+                  onChange={(e) => setNewAnimal(prev => ({ ...prev, age: e.target.value }))}
+                />
+              </div>
+              <div>
+                <Textarea
+                  placeholder="Animal's rescue story..."
+                  value={newAnimal.story}
+                  onChange={(e) => setNewAnimal(prev => ({ ...prev, story: e.target.value }))}
+                  className="min-h-[100px]"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  onClick={createAnimal}
+                  disabled={creating || !newAnimal.name || !newAnimal.species}
+                  className="flex-1"
+                >
+                  {creating ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  ) : (
+                    <Plus className="w-4 h-4 mr-2" />
+                  )}
+                  Add to Sanctuary
+                </Button>
+                <Button
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setNewAnimal({ name: '', species: '', age: '', story: '' });
+                  }}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {animals.map((animal) => (
