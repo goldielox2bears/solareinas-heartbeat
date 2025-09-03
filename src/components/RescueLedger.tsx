@@ -168,12 +168,19 @@ const RescueLedger = () => {
             .getPublicUrl(filePath);
 
           // Update the animal with photo URL
-          await supabase
+          const { error: updateError } = await supabase
             .from('animals')
             .update({ photo_url: urlData.publicUrl })
             .eq('id', data.id);
 
-          data.photo_url = urlData.publicUrl;
+          if (!updateError) {
+            data.photo_url = urlData.publicUrl;
+            console.log('Photo uploaded successfully:', urlData.publicUrl);
+          } else {
+            console.error('Error updating photo URL:', updateError);
+          }
+        } else {
+          console.error('Error uploading photo:', uploadError);
         }
       }
 
@@ -364,13 +371,13 @@ const RescueLedger = () => {
             <Card key={animal.id} className="shadow-gentle hover:shadow-sanctuary transition-gentle">
               <CardHeader className="text-center">
                 <div className="w-full h-48 mb-4 overflow-hidden rounded-lg relative group">
-                  {animal.photo_url ? (
-                    <img 
-                      src={animal.photo_url} 
-                      alt={animal.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
+                   {animal.photo_url ? (
+                     <img 
+                       src={`${animal.photo_url}?t=${Date.now()}`}
+                       alt={animal.name}
+                       className="w-full h-full object-cover"
+                     />
+                   ) : (
                     <div className="w-full h-full bg-muted flex items-center justify-center text-4xl">
                       {animal.species === 'Horse' ? '🐴' : 
                        animal.species === 'Goat' ? '🐐' : 
