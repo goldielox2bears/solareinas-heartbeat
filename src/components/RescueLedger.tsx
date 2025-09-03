@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { Edit2, Save, X, Upload, Image, Plus } from "lucide-react";
 import { toast } from "sonner";
@@ -25,6 +25,7 @@ const RescueLedger = () => {
     story: ''
   });
   const [creating, setCreating] = useState(false);
+  const [newAnimalPhoto, setNewAnimalPhoto] = useState<File | null>(null);
 
   useEffect(() => {
     const fetchAnimals = async () => {
@@ -151,11 +152,37 @@ const RescueLedger = () => {
 
       if (error) throw error;
 
+      // Upload photo if provided
+      if (newAnimalPhoto) {
+        const fileExt = newAnimalPhoto.name.split('.').pop();
+        const fileName = `${data.id}.${fileExt}`;
+        const filePath = `animals/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('animal-photos')
+          .upload(filePath, newAnimalPhoto, { upsert: true });
+
+        if (!uploadError) {
+          const { data: urlData } = supabase.storage
+            .from('animal-photos')
+            .getPublicUrl(filePath);
+
+          // Update the animal with photo URL
+          await supabase
+            .from('animals')
+            .update({ photo_url: urlData.publicUrl })
+            .eq('id', data.id);
+
+          data.photo_url = urlData.publicUrl;
+        }
+      }
+
       // Add to local state
       setAnimals(prev => [data, ...prev]);
       
       // Reset form
       setNewAnimal({ name: '', species: '', age: '', story: '' });
+      setNewAnimalPhoto(null);
       setShowAddForm(false);
       
       toast.success(`${data.name} has been added to the sanctuary!`);
@@ -257,6 +284,51 @@ const RescueLedger = () => {
                   className="min-h-[100px]"
                 />
               </div>
+              
+              {/* Photo Upload Section */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-foreground">Photo (optional)</label>
+                <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center hover:border-muted-foreground/50 transition-colors">
+                  {newAnimalPhoto ? (
+                    <div className="space-y-3">
+                      <div className="w-32 h-32 mx-auto rounded-lg overflow-hidden">
+                        <img 
+                          src={URL.createObjectURL(newAnimalPhoto)} 
+                          alt="Preview" 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <p className="text-sm text-muted-foreground">{newAnimalPhoto.name}</p>
+                      <Button
+                        onClick={() => setNewAnimalPhoto(null)}
+                        variant="outline"
+                        size="sm"
+                      >
+                        Remove Photo
+                      </Button>
+                    </div>
+                  ) : (
+                    <label className="cursor-pointer block">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) setNewAnimalPhoto(file);
+                        }}
+                      />
+                      <Upload className="w-8 h-8 mx-auto mb-2 text-muted-foreground" />
+                      <p className="text-sm text-muted-foreground">
+                        Click to upload a photo
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        JPG, PNG up to 10MB
+                      </p>
+                    </label>
+                  )}
+                </div>
+              </div>
               <div className="flex gap-2">
                 <Button
                   onClick={createAnimal}
@@ -274,6 +346,7 @@ const RescueLedger = () => {
                   onClick={() => {
                     setShowAddForm(false);
                     setNewAnimal({ name: '', species: '', age: '', story: '' });
+                    setNewAnimalPhoto(null);
                   }}
                   variant="outline"
                   className="flex-1"
