@@ -201,6 +201,22 @@ const RescueLedger = () => {
     }
   };
 
+  const deleteAnimal = async (animalId: string, animalName: string) => {
+    if (!window.confirm('Remove ' + animalName + '? This cannot be undone.')) return;
+    try {
+      const { error } = await supabase
+        .from('animals')
+        .delete()
+        .eq('id', animalId);
+      if (error) throw error;
+      setAnimals(prev => prev.filter(a => a.id !== animalId));
+      toast.success(animalName + ' removed from the sanctuary.');
+    } catch (error) {
+      console.error('Error deleting animal:', error);
+      toast.error('Failed to remove animal');
+    }
+  };
+
   if (loading) {
     return (
       <section className="py-16 px-6 bg-gradient-peaceful">
@@ -480,6 +496,15 @@ const RescueLedger = () => {
                     >
                       <Edit2 className="w-4 h-4 mr-2" />
                       Edit Details
+                    </Button>
+                    <Button
+                      onClick={() => deleteAnimal(animal.id, animal.name)}
+                      variant="destructive"
+                      size="sm"
+                      className="w-full"
+                    >
+                      <X className="w-4 h-4 mr-2" />
+                      Remove
                     </Button>
                   </>
                 )}
