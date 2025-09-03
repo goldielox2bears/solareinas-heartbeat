@@ -8,10 +8,12 @@ import type { Database } from "@/integrations/supabase/types";
 import { Edit2, Save, X, Upload, Image, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useAdmin } from "@/hooks/useAdmin";
 
 type Animal = Database['public']['Tables']['animals']['Row'];
 
 const RescueLedger = () => {
+  const { isAdmin } = useAdmin();
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -240,20 +242,22 @@ const RescueLedger = () => {
           </p>
         </div>
         
-        {/* Add New Animal Button */}
-        <div className="mb-8 text-center">
-          <Button
-            onClick={() => setShowAddForm(!showAddForm)}
-            className="mb-4"
-            variant={showAddForm ? "outline" : "default"}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            {showAddForm ? 'Cancel' : 'Add New Animal'}
-          </Button>
-        </div>
+        {/* Add New Animal Button - Admin Only */}
+        {isAdmin && (
+          <div className="mb-8 text-center">
+            <Button
+              onClick={() => setShowAddForm(!showAddForm)}
+              className="mb-4"
+              variant={showAddForm ? "outline" : "default"}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              {showAddForm ? 'Cancel' : 'Add New Animal'}
+            </Button>
+          </div>
+        )}
 
-        {/* Add Animal Form */}
-        {showAddForm && (
+        {/* Add Animal Form - Admin Only */}
+        {isAdmin && showAddForm && (
           <Card className="mb-8 shadow-gentle">
             <CardHeader>
               <CardTitle className="text-xl font-medium text-foreground">
@@ -404,28 +408,30 @@ const RescueLedger = () => {
                     </div>
                   )}
                   
-                  {/* Photo upload overlay */}
-                  <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <label className="cursor-pointer">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) handlePhotoUpload(animal.id, file);
-                        }}
-                        disabled={uploading}
-                      />
-                      <div className="bg-white bg-opacity-90 rounded-full p-3 hover:bg-opacity-100 transition-colors">
-                        {uploading ? (
-                          <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                        ) : (
-                          <Upload className="w-6 h-6 text-primary" />
-                        )}
-                      </div>
-                    </label>
-                  </div>
+                  {/* Photo upload overlay - Admin Only */}
+                  {isAdmin && (
+                    <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <label className="cursor-pointer">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) handlePhotoUpload(animal.id, file);
+                          }}
+                          disabled={uploading}
+                        />
+                        <div className="bg-white bg-opacity-90 rounded-full p-3 hover:bg-opacity-100 transition-colors">
+                          {uploading ? (
+                            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                          ) : (
+                            <Upload className="w-6 h-6 text-primary" />
+                          )}
+                        </div>
+                      </label>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Edit mode for name */}
@@ -488,24 +494,29 @@ const RescueLedger = () => {
                       </p>
                     )}
                     
-                    <Button
-                      onClick={() => startEditing(animal)}
-                      variant="outline"
-                      size="sm"
-                      className="w-full mb-2"
-                    >
-                      <Edit2 className="w-4 h-4 mr-2" />
-                      Edit Details
-                    </Button>
-                    <Button
-                      onClick={() => deleteAnimal(animal.id, animal.name)}
-                      variant="destructive"
-                      size="sm"
-                      className="w-full"
-                    >
-                      <X className="w-4 h-4 mr-2" />
-                      Remove
-                    </Button>
+                    {/* Admin Only Edit/Remove Buttons */}
+                    {isAdmin && (
+                      <>
+                        <Button
+                          onClick={() => startEditing(animal)}
+                          variant="outline"
+                          size="sm"
+                          className="w-full mb-2"
+                        >
+                          <Edit2 className="w-4 h-4 mr-2" />
+                          Edit Details
+                        </Button>
+                        <Button
+                          onClick={() => deleteAnimal(animal.id, animal.name)}
+                          variant="destructive"
+                          size="sm"
+                          className="w-full"
+                        >
+                          <X className="w-4 h-4 mr-2" />
+                          Remove
+                        </Button>
+                      </>
+                    )}
                   </>
                 )}
                 
