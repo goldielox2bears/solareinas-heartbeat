@@ -1,6 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const SanctuaryNavigation = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4">
@@ -27,14 +31,30 @@ const SanctuaryNavigation = () => {
             </a>
           </div>
           
-          {/* Identity Buttons */}
+          {/* Auth Buttons */}
           <div className="flex items-center space-x-3">
-            <Button variant="gentle" size="sm">
-              🧡 Steward Portal
-            </Button>
-            <Button variant="secondary" size="sm">
-              🌾 Volunteer Hub
-            </Button>
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground hidden sm:block">
+                  Welcome back
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => signOut()}
+                >
+                  Sign Out
+                </Button>
+              </>
+            ) : (
+              <Button 
+                variant="default" 
+                size="sm"
+                onClick={() => navigate('/auth')}
+              >
+                Sign In
+              </Button>
+            )}
           </div>
         </div>
       </div>
