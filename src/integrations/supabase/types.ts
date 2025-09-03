@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      animals: {
+        Row: {
+          age: number | null
+          created_at: string
+          id: string
+          name: string
+          photo_url: string | null
+          species: string
+          sponsor_name: string | null
+          sponsor_status: string
+          story: string | null
+          updated_at: string
+        }
+        Insert: {
+          age?: number | null
+          created_at?: string
+          id?: string
+          name: string
+          photo_url?: string | null
+          species: string
+          sponsor_name?: string | null
+          sponsor_status?: string
+          story?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age?: number | null
+          created_at?: string
+          id?: string
+          name?: string
+          photo_url?: string | null
+          species?: string
+          sponsor_name?: string | null
+          sponsor_status?: string
+          story?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
