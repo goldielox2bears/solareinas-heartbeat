@@ -1,7 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { supabase, type Animal, isSupabaseConfigured } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
+
+type Animal = Database['public']['Tables']['animals']['Row'];
 
 const RescueLedger = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
@@ -10,15 +13,6 @@ const RescueLedger = () => {
   useEffect(() => {
     const fetchAnimals = async () => {
       try {
-        // Check if Supabase is properly configured
-        if (!isSupabaseConfigured()) {
-          console.warn('Supabase not configured, using fallback data');
-          // Use fallback data for development
-          setAnimals([]);
-          setLoading(false);
-          return;
-        }
-
         const { data, error } = await supabase
           .from('animals')
           .select('*')
