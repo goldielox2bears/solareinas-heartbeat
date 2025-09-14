@@ -9,6 +9,7 @@ import { Edit2, Save, X, Upload, Image, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAdmin } from "@/hooks/useAdmin";
+import { AnimalPhotoUpload } from "@/components/AnimalPhotoUpload";
 
 type Animal = Database['public']['Tables']['animals']['Row'];
 
@@ -506,6 +507,21 @@ const RescueLedger = () => {
                           <Edit2 className="w-4 h-4 mr-2" />
                           Edit Details
                         </Button>
+                        
+                        {/* Photo Upload Component */}
+                        <div className="mb-2">
+                          <AnimalPhotoUpload 
+                            animalId={animal.id} 
+                            animalName={animal.name}
+                            onUploadSuccess={(photoUrl) => {
+                              // Update the animal in the local state
+                              setAnimals(prev => prev.map(a => 
+                                a.id === animal.id ? { ...a, photo_url: photoUrl } : a
+                              ));
+                            }}
+                          />
+                        </div>
+                        
                         <Button
                           onClick={() => deleteAnimal(animal.id, animal.name)}
                           variant="destructive"
