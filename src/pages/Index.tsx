@@ -57,6 +57,9 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
                 <>
+                  <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
+                    <Link to="/volunteer-signup">Volunteer With Us</Link>
+                  </Button>
                   <Button variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
                     Welcome, {user.email}
                   </Button>
@@ -69,6 +72,9 @@ const Index = () => {
                 </>
               ) : (
                 <>
+                  <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
+                    <Link to="/volunteer-signup">Volunteer With Us</Link>
+                  </Button>
                   <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
                     <Link to="/auth">Become a Steward</Link>
                   </Button>
