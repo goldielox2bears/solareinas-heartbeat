@@ -92,6 +92,51 @@ export type Database = {
         }
         Relationships: []
       }
+      volunteer_applications: {
+        Row: {
+          application_type: string
+          approval_status: string
+          available_from: string
+          available_to: string
+          created_at: string
+          date_joined: string
+          full_name: string
+          hours_per_week: number
+          id: string
+          updated_at: string
+          user_id: string | null
+          volunteer_interests: string[]
+        }
+        Insert: {
+          application_type: string
+          approval_status?: string
+          available_from: string
+          available_to: string
+          created_at?: string
+          date_joined?: string
+          full_name: string
+          hours_per_week: number
+          id?: string
+          updated_at?: string
+          user_id?: string | null
+          volunteer_interests?: string[]
+        }
+        Update: {
+          application_type?: string
+          approval_status?: string
+          available_from?: string
+          available_to?: string
+          created_at?: string
+          date_joined?: string
+          full_name?: string
+          hours_per_week?: number
+          id?: string
+          updated_at?: string
+          user_id?: string | null
+          volunteer_interests?: string[]
+        }
+        Relationships: []
+      }
       volunteers: {
         Row: {
           avatar_emoji: string | null

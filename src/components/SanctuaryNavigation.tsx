@@ -26,6 +26,16 @@ const SanctuaryNavigation = () => {
             <a href="#volunteers" className="text-muted-foreground hover:text-foreground transition-gentle">
               Free Herd Circle
             </a>
+            <a 
+              href="/volunteer-signup" 
+              className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/volunteer-signup');
+              }}
+            >
+              Join Us
+            </a>
             <a href="#giving" className="text-muted-foreground hover:text-foreground transition-gentle">
               Gratitude Flows
             </a>
