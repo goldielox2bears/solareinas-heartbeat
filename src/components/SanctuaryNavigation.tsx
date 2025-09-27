@@ -36,6 +36,16 @@ const SanctuaryNavigation = () => {
             >
               Join Us
             </a>
+            <a 
+              href="/sponsor-animal" 
+              className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/sponsor-animal');
+              }}
+            >
+              Sponsor Animal
+            </a>
             <a href="#giving" className="text-muted-foreground hover:text-foreground transition-gentle">
               Gratitude Flows
             </a>

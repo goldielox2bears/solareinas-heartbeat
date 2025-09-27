@@ -17,8 +17,13 @@ export type Database = {
       animals: {
         Row: {
           age: number | null
+          annual_sponsorship_cents: number | null
+          available_for_sponsorship: boolean | null
           created_at: string
+          current_sponsors_count: number | null
           id: string
+          max_sponsors: number | null
+          monthly_sponsorship_cents: number | null
           name: string
           photo_url: string | null
           species: string
@@ -29,8 +34,13 @@ export type Database = {
         }
         Insert: {
           age?: number | null
+          annual_sponsorship_cents?: number | null
+          available_for_sponsorship?: boolean | null
           created_at?: string
+          current_sponsors_count?: number | null
           id?: string
+          max_sponsors?: number | null
+          monthly_sponsorship_cents?: number | null
           name: string
           photo_url?: string | null
           species: string
@@ -41,8 +51,13 @@ export type Database = {
         }
         Update: {
           age?: number | null
+          annual_sponsorship_cents?: number | null
+          available_for_sponsorship?: boolean | null
           created_at?: string
+          current_sponsors_count?: number | null
           id?: string
+          max_sponsors?: number | null
+          monthly_sponsorship_cents?: number | null
           name?: string
           photo_url?: string | null
           species?: string
@@ -91,6 +106,71 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      sponsorships: {
+        Row: {
+          amount_cents: number
+          animal_id: string
+          created_at: string
+          end_date: string | null
+          founding_guardian: boolean
+          id: string
+          payment_method: string | null
+          special_requests: string | null
+          sponsor_email: string
+          sponsor_name: string
+          sponsorship_type: string
+          start_date: string
+          status: string
+          stripe_subscription_id: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount_cents: number
+          animal_id: string
+          created_at?: string
+          end_date?: string | null
+          founding_guardian?: boolean
+          id?: string
+          payment_method?: string | null
+          special_requests?: string | null
+          sponsor_email: string
+          sponsor_name: string
+          sponsorship_type: string
+          start_date?: string
+          status?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          animal_id?: string
+          created_at?: string
+          end_date?: string | null
+          founding_guardian?: boolean
+          id?: string
+          payment_method?: string | null
+          special_requests?: string | null
+          sponsor_email?: string
+          sponsor_name?: string
+          sponsorship_type?: string
+          start_date?: string
+          status?: string
+          stripe_subscription_id?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sponsorships_animal_id_fkey"
+            columns: ["animal_id"]
+            isOneToOne: false
+            referencedRelation: "animals"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       volunteer_applications: {
         Row: {
