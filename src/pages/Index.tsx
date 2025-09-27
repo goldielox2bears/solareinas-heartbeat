@@ -51,7 +51,7 @@ const Index = () => {
               Step Into the Sanctuary
             </h3>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              Your generosity makes this possible. Your hands are welcome here.
+              Your generosity makes this possible. Your heart and hands are welcome here.
               This is where restoration begins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
