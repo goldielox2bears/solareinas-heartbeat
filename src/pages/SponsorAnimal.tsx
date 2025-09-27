@@ -170,7 +170,7 @@ export default function SponsorAnimal() {
             Step into the sanctuary you've helped create
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-muted-foreground">
-            Your generosity makes this possible. Your hands are welcome here.
+            Your generosity makes this possible. Your heart and hands are welcome here.
           </p>
           <p className="text-lg mb-8 text-foreground">
             Support the care of a rescued animal and receive love, updates, and lasting impact.

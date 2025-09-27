@@ -38,7 +38,7 @@ const SanctuaryHero = () => {
           </div>
           
           <p className="text-sm opacity-80">
-            Your generosity makes this possible — Your hands are welcome here
+            Your generosity makes this possible — Your heart and hands are welcome here
           </p>
         </div>
       </div>
