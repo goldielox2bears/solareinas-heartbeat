@@ -51,14 +51,17 @@ const Index = () => {
               Step Into the Sanctuary
             </h3>
             <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              Whether your heart calls you to give or to serve with your hands, 
-              you belong here. This is where transformation begins.
+              Your generosity makes this possible. Your hands are welcome here.
+              This is where restoration begins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
                 <>
                   <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
                     <Link to="/volunteer-signup">Volunteer With Us</Link>
+                  </Button>
+                  <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
+                    <Link to="/sponsor-animal">Give Support</Link>
                   </Button>
                   <Button variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
                     Welcome, {user.email}
@@ -76,7 +79,7 @@ const Index = () => {
                     <Link to="/volunteer-signup">Volunteer With Us</Link>
                   </Button>
                   <Button asChild variant="outline" className="bg-white/20 text-primary-foreground border-white/30 hover:bg-white/30">
-                    <Link to="/auth">Become a Steward</Link>
+                    <Link to="/sponsor-animal">Give Support</Link>
                   </Button>
                   <Button asChild className="bg-white text-primary hover:bg-white/90">
                     <Link to="/auth">Join the Free Herd</Link>

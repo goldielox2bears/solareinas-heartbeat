@@ -114,8 +114,8 @@ export default function SponsorAnimal() {
       if (error) throw error;
 
       toast({
-        title: "Sponsorship Created!",
-        description: `Thank you for sponsoring ${selectedAnimal.name}. You'll receive a confirmation email soon.`,
+        title: "Support Created!",
+        description: `Thank you for supporting ${selectedAnimal.name}. You'll receive a confirmation email soon.`,
       });
 
       setIsDialogOpen(false);
@@ -130,7 +130,7 @@ export default function SponsorAnimal() {
       console.error('Error creating sponsorship:', error);
       toast({
         title: "Error",
-        description: "Failed to create sponsorship. Please try again.",
+        description: "Failed to create your support. Please try again.",
         variant: "destructive"
       });
     } finally {
@@ -167,16 +167,16 @@ export default function SponsorAnimal() {
       <section className="py-16 px-4 text-center bg-gradient-to-b from-primary/10 to-background">
         <div className="container mx-auto max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-foreground">
-            Adopt an Animal. Save a Life. Share the Journey.
+            Step into the sanctuary you've helped create
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-muted-foreground">
-            Be a Hero to a Horse, Dog, Mule or Cat.
+            Your generosity makes this possible. Your hands are welcome here.
           </p>
           <p className="text-lg mb-8 text-foreground">
-            Sponsor the care of a rescued animal and receive love, updates, and lasting impact.
+            Support the care of a rescued animal and receive love, updates, and lasting impact.
           </p>
           <p className="text-base text-muted-foreground max-w-3xl mx-auto">
-            When you adopt an animal, you're not taking them home — you're giving them a second chance to live freely, safely, and loved on our ranch. Your contribution directly supports their daily needs, veterinary care, and overall well-being.
+            When you support an animal, you're not taking them home — you're giving them a second chance to live freely, safely, and loved on our ranch. Your generous gift directly supports their daily needs, veterinary care, and overall well-being.
           </p>
         </div>
       </section>
@@ -185,7 +185,7 @@ export default function SponsorAnimal() {
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
-            Choose Your Animal to Sponsor
+            Your Gift of Support
           </h2>
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <Card className="text-center">
@@ -194,9 +194,9 @@ export default function SponsorAnimal() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-primary mb-2">€75</div>
-                <div className="text-muted-foreground mb-4">Monthly</div>
+                <div className="text-muted-foreground mb-4">Monthly Gift</div>
                 <div className="text-xl font-semibold">€900</div>
-                <div className="text-muted-foreground">Annual</div>
+                <div className="text-muted-foreground">Annual Gift</div>
               </CardContent>
             </Card>
             <Card className="text-center">
@@ -205,9 +205,9 @@ export default function SponsorAnimal() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-primary mb-2">€40</div>
-                <div className="text-muted-foreground mb-4">Monthly</div>
+                <div className="text-muted-foreground mb-4">Monthly Gift</div>
                 <div className="text-xl font-semibold">€480</div>
-                <div className="text-muted-foreground">Annual</div>
+                <div className="text-muted-foreground">Annual Gift</div>
               </CardContent>
             </Card>
             <Card className="text-center">
@@ -216,9 +216,9 @@ export default function SponsorAnimal() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold text-primary mb-2">€20</div>
-                <div className="text-muted-foreground mb-4">Monthly</div>
+                <div className="text-muted-foreground mb-4">Monthly Gift</div>
                 <div className="text-xl font-semibold">€240</div>
-                <div className="text-muted-foreground">Annual</div>
+                <div className="text-muted-foreground">Annual Gift</div>
               </CardContent>
             </Card>
           </div>
@@ -229,7 +229,7 @@ export default function SponsorAnimal() {
       <section className="py-12 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
-            Your Sponsorship Includes
+            In Appreciation of Your Support
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {getSponsorshipInfo().map((benefit, index) => (
@@ -300,16 +300,16 @@ export default function SponsorAnimal() {
                         onClick={() => handleSponsorClick(animal)}
                         disabled={animal.current_sponsors_count >= animal.max_sponsors}
                       >
-                        {animal.current_sponsors_count >= animal.max_sponsors ? 'Fully Sponsored' : 'Sponsor This Animal'}
+                        {animal.current_sponsors_count >= animal.max_sponsors ? 'Fully Supported' : 'Give Your Support'}
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="max-w-md">
-                      <DialogHeader>
-                        <DialogTitle>Sponsor {animal.name}</DialogTitle>
-                        <DialogDescription>
-                          Complete the form below to become a sponsor for {animal.name}.
-                        </DialogDescription>
-                      </DialogHeader>
+                      <DialogContent className="max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Support {animal.name}</DialogTitle>
+                          <DialogDescription>
+                            Complete the form below to become a steward for {animal.name}.
+                          </DialogDescription>
+                        </DialogHeader>
                       <div className="space-y-4">
                         <div>
                           <Label htmlFor="sponsor_name">Your Name *</Label>
@@ -331,21 +331,21 @@ export default function SponsorAnimal() {
                           />
                         </div>
                         <div>
-                          <Label htmlFor="sponsorship_type">Sponsorship Type</Label>
+                          <Label htmlFor="sponsorship_type">Your Gift of Support</Label>
                           <div className="flex gap-2 mt-2">
                             <Button
                               variant={form.sponsorship_type === 'monthly' ? 'default' : 'outline'}
                               onClick={() => setForm(prev => ({ ...prev, sponsorship_type: 'monthly' }))}
                               className="flex-1"
                             >
-                              Monthly ({formatPrice(animal.monthly_sponsorship_cents)})
+                              Monthly Gift ({formatPrice(animal.monthly_sponsorship_cents)})
                             </Button>
                             <Button
                               variant={form.sponsorship_type === 'annual' ? 'default' : 'outline'}
                               onClick={() => setForm(prev => ({ ...prev, sponsorship_type: 'annual' }))}
                               className="flex-1"
                             >
-                              Annual ({formatPrice(animal.annual_sponsorship_cents)})
+                              Annual Gift ({formatPrice(animal.annual_sponsorship_cents)})
                             </Button>
                           </div>
                         </div>
@@ -364,7 +364,7 @@ export default function SponsorAnimal() {
                           className="w-full"
                           disabled={submitting}
                         >
-                          {submitting ? 'Creating Sponsorship...' : 'Become a Sponsor'}
+                          {submitting ? 'Creating Your Support...' : 'Give Your Support'}
                         </Button>
                       </div>
                     </DialogContent>
@@ -380,22 +380,22 @@ export default function SponsorAnimal() {
       <section className="py-16 px-4 bg-primary/10">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl font-bold mb-6 text-foreground">
-            Make a Difference Today
+            Your Gift Grows into Care, Trees, and Hope
           </h2>
           <p className="text-lg mb-8 text-muted-foreground">
-            You can choose to sponsor your animal on a monthly or annual basis. 100% of your contribution goes directly to the food, veterinary care, enrichment, and loving environment for the animal you choose.
+            You can choose to support your animal on a monthly or annual basis. 100% of your generous gift goes directly to the food, veterinary care, enrichment, and loving environment for the animal you choose.
           </p>
           
           <Card className="max-w-2xl mx-auto mb-8">
             <CardHeader>
               <CardTitle className="flex items-center justify-center gap-2">
                 <Star className="h-6 w-6 text-primary" />
-                Founding Guardian Bonus
+                Founding Steward Invitation
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-sm">
-                Sponsor an animal before our official opening and receive exclusive "Founding Guardian" perks, including a special mention on our website and a small, handcrafted gift from the sanctuary!
+                Support an animal before our official opening and receive exclusive "Founding Steward" recognition, including a special mention on our website and a small, handcrafted gift from the sanctuary as our thanks!
               </p>
             </CardContent>
           </Card>
@@ -405,7 +405,7 @@ export default function SponsorAnimal() {
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="text-lg px-8 py-4"
           >
-            Ready to Be a Hero?
+            Step Into the Sanctuary
           </Button>
         </div>
       </section>

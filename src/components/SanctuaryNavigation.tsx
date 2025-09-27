@@ -44,7 +44,7 @@ const SanctuaryNavigation = () => {
                 navigate('/sponsor-animal');
               }}
             >
-              Sponsor Animal
+              Give Support
             </a>
             <a href="#giving" className="text-muted-foreground hover:text-foreground transition-gentle">
               Gratitude Flows
