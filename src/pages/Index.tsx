@@ -3,6 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import SanctuaryHero from "@/components/SanctuaryHero";
+import SanctuaryWelcome from "@/components/SanctuaryWelcome";
+import SanctuaryGallery from "@/components/SanctuaryGallery";
+import SanctuaryImpact from "@/components/SanctuaryImpact";
+import SanctuaryResidents from "@/components/SanctuaryResidents";
+import SanctuaryTestimonials from "@/components/SanctuaryTestimonials";
+import SanctuaryResources from "@/components/SanctuaryResources";
 import RescueLedger from "@/components/RescueLedger";
 import FreeHerdCircle from "@/components/FreeHerdCircle";
 import GivingWall from "@/components/GivingWall";
@@ -31,6 +37,14 @@ const Index = () => {
       
       <main>
         <SanctuaryHero />
+        
+        {/* Sanctuary Section */}
+        <SanctuaryWelcome />
+        <SanctuaryGallery />
+        <SanctuaryImpact />
+        <SanctuaryResidents />
+        <SanctuaryTestimonials />
+        <SanctuaryResources />
         
         <section id="rescue">
           <RescueLedger />
