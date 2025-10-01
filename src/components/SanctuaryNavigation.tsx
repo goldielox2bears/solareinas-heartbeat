@@ -1,9 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
+import { useAdmin } from "@/hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
 
 const SanctuaryNavigation = () => {
   const { user, signOut } = useAuth();
+  const { isAdmin } = useAdmin();
   const navigate = useNavigate();
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
@@ -53,6 +55,15 @@ const SanctuaryNavigation = () => {
           
           {/* Auth Buttons */}
           <div className="flex items-center space-x-3">
+            {isAdmin && (
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate('/admin')}
+              >
+                Admin Panel
+              </Button>
+            )}
             {user ? (
               <>
                 <span className="text-sm text-muted-foreground hidden sm:block">
