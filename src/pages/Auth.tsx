@@ -12,6 +12,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [resetSent, setResetSent] = useState(false);
+  const [tab, setTab] = useState("signin");
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -87,7 +88,7 @@ const Auth = () => {
         </div>
 
         <Card className="shadow-sanctuary border-sanctuary-stone">
-          <Tabs defaultValue="signin" className="w-full">
+          <Tabs value={tab} onValueChange={setTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="signin">Sign In</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -122,6 +123,15 @@ const Auth = () => {
                       required
                       placeholder="Your password"
                     />
+                  </div>
+                  <div className="text-right">
+                    <button
+                      type="button"
+                      onClick={() => setTab('reset')}
+                      className="text-sm text-primary hover:text-primary/80 underline"
+                    >
+                      Forgot your password?
+                    </button>
                   </div>
                 </CardContent>
                 <CardFooter>
