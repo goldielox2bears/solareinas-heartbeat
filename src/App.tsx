@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import AuthGuard from "@/components/AuthGuard";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import VolunteerSignup from "./pages/VolunteerSignup";
@@ -25,7 +26,11 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/volunteer-signup" element={<VolunteerSignup />} />
             <Route path="/sponsor-animal" element={<SponsorAnimal />} />
-            <Route path="/admin" element={<AdminPanel />} />
+            <Route path="/admin" element={
+              <AuthGuard requireAuth>
+                <AdminPanel />
+              </AuthGuard>
+            } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
