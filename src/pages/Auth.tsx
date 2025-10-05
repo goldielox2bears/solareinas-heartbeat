@@ -11,6 +11,7 @@ const Auth = () => {
   const { user, signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -50,6 +51,27 @@ const Auth = () => {
     setIsLoading(false);
   };
 
+  const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get('email') as string;
+
+    const { supabase } = await import('@/integrations/supabase/client');
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth`
+    });
+
+    if (error) {
+      console.error('Password reset error:', error);
+    } else {
+      setResetSent(true);
+    }
+    
+    setIsLoading(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-peaceful flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -66,9 +88,10 @@ const Auth = () => {
 
         <Card className="shadow-sanctuary border-sanctuary-stone">
           <Tabs defaultValue="signin" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="signin">Sign In</TabsTrigger>
               <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="reset">Reset Password</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin">
@@ -172,6 +195,53 @@ const Auth = () => {
                   >
                     {isLoading ? 'Creating account...' : 'Create Account'}
                   </Button>
+                </CardFooter>
+              </form>
+            </TabsContent>
+
+            <TabsContent value="reset">
+              <form onSubmit={handlePasswordReset}>
+                <CardHeader>
+                  <CardTitle className="text-center">Reset Password</CardTitle>
+                  <CardDescription className="text-center">
+                    {resetSent 
+                      ? "Check your email for a password reset link" 
+                      : "Enter your email to receive a password reset link"}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {!resetSent && (
+                    <div className="space-y-2">
+                      <Label htmlFor="reset-email">Email</Label>
+                      <Input
+                        id="reset-email"
+                        name="email"
+                        type="email"
+                        required
+                        placeholder="your@email.com"
+                      />
+                    </div>
+                  )}
+                </CardContent>
+                <CardFooter>
+                  {!resetSent ? (
+                    <Button 
+                      type="submit" 
+                      className="w-full bg-gradient-steward hover:opacity-90 transition-gentle"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? 'Sending...' : 'Send Reset Link'}
+                    </Button>
+                  ) : (
+                    <Button 
+                      type="button"
+                      onClick={() => setResetSent(false)}
+                      className="w-full"
+                      variant="outline"
+                    >
+                      Send Another Link
+                    </Button>
+                  )}
                 </CardFooter>
               </form>
             </TabsContent>
