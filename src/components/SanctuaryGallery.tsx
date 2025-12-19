@@ -28,8 +28,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: landHealing,
-      alt: "Habitat restoration work in progress",
-      title: "Land Healing"
+      alt: "Removing diseased trees during olive harvest to maintain healthy groves",
+      title: "Land Treatment"
     },
     {
       src: enrichmentPlay,
