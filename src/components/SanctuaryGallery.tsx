@@ -48,8 +48,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: peacefulEvening,
-      alt: "Sunset over sanctuary grounds",
-      title: "Peaceful Evening"
+      alt: "Rescued Siamese cat relaxing on hay at the sanctuary",
+      title: "Rescue Program"
     },
     {
       src: sustainablePractices,
