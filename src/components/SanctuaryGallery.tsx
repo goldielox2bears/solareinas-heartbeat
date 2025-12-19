@@ -3,47 +3,56 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 
+import freeRangeLiving from "@/assets/gallery/free-range-living.jpg";
+import dailyCare from "@/assets/gallery/daily-care.jpg";
+import landHealing from "@/assets/gallery/land-healing.jpg";
+import enrichmentPlay from "@/assets/gallery/enrichment-play.jpg";
+import medicalCare from "@/assets/gallery/medical-care.jpg";
+import education from "@/assets/gallery/education.jpg";
+import peacefulEvening from "@/assets/gallery/peaceful-evening.jpg";
+import sustainablePractices from "@/assets/gallery/sustainable-practices.jpg";
+
 const SanctuaryGallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const galleryImages = [
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: freeRangeLiving,
       alt: "Rescued animals roaming freely in open pasture",
       title: "Free Range Living"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
-      alt: "Volunteer feeding time with rescued birds",
+      src: dailyCare,
+      alt: "Volunteer feeding time with rescued animals",
       title: "Daily Care"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: landHealing,
       alt: "Habitat restoration work in progress",
       title: "Land Healing"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: enrichmentPlay,
       alt: "Animal enrichment activities",
       title: "Enrichment Play"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: medicalCare,
       alt: "Veterinary care session",
       title: "Medical Care"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: education,
       alt: "Community education program",
       title: "Education"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: peacefulEvening,
       alt: "Sunset over sanctuary grounds",
       title: "Peaceful Evening"
     },
     {
-      src: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
+      src: sustainablePractices,
       alt: "Regenerative pasture management",
       title: "Sustainable Practices"
     }
