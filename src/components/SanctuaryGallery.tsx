@@ -23,8 +23,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: dailyCare,
-      alt: "Volunteer feeding time with rescued animals",
-      title: "Daily Care"
+      alt: "We work with volunteer families that are reconnecting with the land and the responsibility of animal care at every age",
+      title: "Animal Care"
     },
     {
       src: landHealing,
