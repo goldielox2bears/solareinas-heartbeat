@@ -1,65 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Badge } from "@/components/ui/badge";
 import { Heart, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
+
+interface Animal {
+  id: string;
+  name: string;
+  species: string;
+  photo_url: string | null;
+  story: string | null;
+  sponsor_status: string;
+  age: number | null;
+  monthly_sponsorship_cents: number | null;
+  available_for_sponsorship: boolean | null;
+}
 
 const SanctuaryResidents = () => {
-  const residents = [
-    {
-      id: 1,
-      name: "Luna",
-      species: "Great Horned Owl",
-      image: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
-      story: "Found as a nestling with a broken wing, Luna has made remarkable progress through dedicated rehabilitation.",
-      status: "Learning to fly again",
-      statusType: "recovery" as const,
-      age: "2 years",
-      arrivalDate: "March 2023",
-      sponsorshipCost: "€25/month",
-      progress: 75
-    },
-    {
-      id: 2,
-      name: "Phoenix",
-      species: "Red-Tailed Hawk",
-      image: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
-      story: "Rescued after a car collision, Phoenix underwent extensive surgery and is now thriving in our flight enclosure.",
-      status: "Ready for release",
-      statusType: "ready" as const,
-      age: "4 years",
-      arrivalDate: "August 2023",
-      sponsorshipCost: "€30/month",
-      progress: 95
-    },
-    {
-      id: 3,
-      name: "Sage",
-      species: "Fox",
-      image: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
-      story: "Orphaned kit who couldn't be reunited with his family. Sage is learning essential survival skills for future release.",
-      status: "In training",
-      statusType: "training" as const,
-      age: "8 months",
-      arrivalDate: "June 2024",
-      sponsorshipCost: "€20/month",
-      progress: 60
-    },
-    {
-      id: 4,
-      name: "Willow",
-      species: "Barn Owl",
-      image: "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png",
-      story: "Permanent sanctuary resident due to vision impairment. Willow serves as an education ambassador, helping visitors learn about owl conservation.",
-      status: "Sanctuary resident",
-      statusType: "permanent" as const,
-      age: "6 years",
-      arrivalDate: "January 2021",
-      sponsorshipCost: "€35/month",
-      progress: 100
-    }
-  ];
+  const [animals, setAnimals] = useState<Animal[]>([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAnimals = async () => {
+      const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .eq("available_for_sponsorship", true)
+        .limit(6);
+      
+      if (error) {
+        console.error("Error fetching animals:", error);
+      } else {
+        setAnimals(data || []);
+      }
+      setLoading(false);
+    };
+
+    fetchAnimals();
+  }, []);
+
+  const formatCurrency = (cents: number | null) => {
+    if (!cents) return "Contact us";
+    return `€${(cents / 100).toFixed(0)}/month`;
+  };
 
   const getStatusColor = (type: string) => {
     switch (type) {
@@ -85,89 +72,83 @@ const SanctuaryResidents = () => {
 
         {/* Residents Carousel */}
         <div className="relative">
-          <Carousel className="w-full max-w-5xl mx-auto">
-            <CarouselContent className="-ml-4">
-              {residents.map((resident) => (
-                <CarouselItem key={resident.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="h-full bg-background/80 backdrop-blur-sm shadow-gentle hover:shadow-warm transition-all duration-300">
-                    <CardHeader className="p-0">
-                      <div className="relative">
-                        <img
-                          src={resident.image}
-                          alt={`${resident.name} the ${resident.species}`}
-                          className="w-full h-48 object-cover rounded-t-xl"
-                        />
-                        <div className="absolute top-4 right-4">
-                          <Badge className={getStatusColor(resident.statusType)}>
-                            {resident.status}
-                          </Badge>
-                        </div>
-                        <div className="absolute bottom-4 left-4 right-4">
-                          <div className="bg-black/50 backdrop-blur-sm rounded-lg p-2 text-white">
-                            <div className="flex justify-between items-center text-sm">
-                              <span>Recovery Progress</span>
-                              <span>{resident.progress}%</span>
-                            </div>
-                            <div className="w-full bg-white/20 rounded-full h-1 mt-1">
-                              <div 
-                                className="bg-white h-1 rounded-full transition-all duration-1000"
-                                style={{ width: `${resident.progress}%` }}
-                              />
-                            </div>
+          {loading ? (
+            <div className="text-center text-muted-foreground">Loading residents...</div>
+          ) : animals.length === 0 ? (
+            <div className="text-center text-muted-foreground">No animals available at the moment.</div>
+          ) : (
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent className="-ml-4">
+                {animals.map((animal) => (
+                  <CarouselItem key={animal.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <Card className="h-full bg-background/80 backdrop-blur-sm shadow-gentle hover:shadow-warm transition-all duration-300">
+                      <CardHeader className="p-0">
+                        <div className="relative">
+                          <img
+                            src={animal.photo_url || "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png"}
+                            alt={`${animal.name} the ${animal.species}`}
+                            className="w-full h-48 object-cover rounded-t-xl"
+                          />
+                          <div className="absolute top-4 right-4">
+                            <Badge className={getStatusColor(animal.sponsor_status)}>
+                              {animal.sponsor_status === "available" ? "Needs Sponsor" : animal.sponsor_status}
+                            </Badge>
                           </div>
                         </div>
-                      </div>
-                    </CardHeader>
-                    
-                    <CardContent className="p-6">
-                      <CardTitle className="text-xl mb-2 text-foreground">
-                        {resident.name}
-                      </CardTitle>
-                      <CardDescription className="text-primary font-medium mb-3">
-                        {resident.species}
-                      </CardDescription>
+                      </CardHeader>
                       
-                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                        {resident.story}
-                      </p>
+                      <CardContent className="p-6">
+                        <CardTitle className="text-xl mb-2 text-foreground">
+                          {animal.name}
+                        </CardTitle>
+                        <CardDescription className="text-primary font-medium mb-3">
+                          {animal.species}
+                        </CardDescription>
+                        
+                        <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                          {animal.story || "A beautiful soul waiting for your support."}
+                        </p>
+                        
+                        {animal.age && (
+                          <div className="text-xs text-muted-foreground mb-4">
+                            <span className="font-medium">Age:</span> {animal.age} years
+                          </div>
+                        )}
+                      </CardContent>
                       
-                      <div className="grid grid-cols-2 gap-4 text-xs text-muted-foreground mb-4">
-                        <div>
-                          <span className="font-medium">Age:</span> {resident.age}
+                      <CardFooter className="p-6 pt-0 space-y-3">
+                        <div className="w-full text-center">
+                          <div className="text-lg font-semibold text-primary mb-1">
+                            {formatCurrency(animal.monthly_sponsorship_cents)}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Monthly sponsorship
+                          </div>
                         </div>
-                        <div>
-                          <span className="font-medium">Arrived:</span> {resident.arrivalDate}
+                        
+                        <div className="flex gap-2 w-full">
+                          <Button 
+                            variant="steward" 
+                            size="sm" 
+                            className="flex-1"
+                            onClick={() => navigate(`/sponsor/${animal.id}`)}
+                          >
+                            <Heart className="w-4 h-4 mr-1" />
+                            Sponsor {animal.name}
+                          </Button>
+                          <Button variant="outline" size="sm">
+                            <ArrowRight className="w-4 h-4" />
+                          </Button>
                         </div>
-                      </div>
-                    </CardContent>
-                    
-                    <CardFooter className="p-6 pt-0 space-y-3">
-                      <div className="w-full text-center">
-                        <div className="text-lg font-semibold text-primary mb-1">
-                          {resident.sponsorshipCost}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          Monthly sponsorship
-                        </div>
-                      </div>
-                      
-                      <div className="flex gap-2 w-full">
-                        <Button variant="steward" size="sm" className="flex-1">
-                          <Heart className="w-4 h-4 mr-1" />
-                          Sponsor {resident.name}
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          <ArrowRight className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardFooter>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
-          </Carousel>
+                      </CardFooter>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          )}
         </div>
 
         {/* Call to Action */}
