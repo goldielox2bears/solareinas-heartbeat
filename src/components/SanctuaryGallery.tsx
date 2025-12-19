@@ -33,8 +33,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: enrichmentPlay,
-      alt: "Animal enrichment activities",
-      title: "Enrichment Play"
+      alt: "A dermal condition affecting 3 horses - veterinarians are working to understand and treat the issue with topical ointments and regular deworming",
+      title: "Medical Care: Dermal Treatment"
     },
     {
       src: medicalCare,
