@@ -43,8 +43,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: education,
-      alt: "Community education program",
-      title: "Education"
+      alt: "Young volunteer families reconnecting with the land through hands-on animal care",
+      title: "Education & Connection"
     },
     {
       src: peacefulEvening,
