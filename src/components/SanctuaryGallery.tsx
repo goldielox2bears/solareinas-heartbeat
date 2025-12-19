@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { X } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import freeRangeLiving from "@/assets/gallery/free-range-living.jpg";
 import dailyCare from "@/assets/gallery/daily-care.jpg";
@@ -13,7 +13,7 @@ import peacefulEvening from "@/assets/gallery/peaceful-evening.jpg";
 import sustainablePractices from "@/assets/gallery/sustainable-practices.jpg";
 
 const SanctuaryGallery = () => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const galleryImages = [
     {
@@ -70,41 +70,68 @@ const SanctuaryGallery = () => {
           </p>
         </div>
 
-        {/* Photo Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-12">
           {galleryImages.map((image, index) => (
-            <Dialog key={index}>
-              <DialogTrigger asChild>
-                <div className="group cursor-pointer overflow-hidden rounded-xl shadow-gentle hover:shadow-warm transition-all duration-300">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-end">
-                    <div className="p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <p className="text-sm font-medium">{image.title}</p>
-                    </div>
-                  </div>
+            <div
+              key={index}
+              className="group cursor-pointer overflow-hidden rounded-xl shadow-gentle hover:shadow-warm transition-all duration-300 relative"
+              onClick={() => setSelectedIndex(index)}
+            >
+              <img
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-end">
+                <div className="p-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-sm font-medium">{image.title}</p>
                 </div>
-              </DialogTrigger>
-              <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
-                <div className="relative">
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
-                  />
-                  <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4 text-white">
-                    <h3 className="font-medium mb-1">{image.title}</h3>
-                    <p className="text-sm opacity-90">{image.alt}</p>
-                  </div>
-                </div>
-              </DialogContent>
-            </Dialog>
+              </div>
+            </div>
           ))}
         </div>
+
+        {/* Lightbox Dialog */}
+        <Dialog open={selectedIndex !== null} onOpenChange={(open) => !open && setSelectedIndex(null)}>
+          <DialogContent className="max-w-4xl w-full p-0 bg-transparent border-none">
+            {selectedIndex !== null && (
+              <div className="relative">
+                <img
+                  src={galleryImages[selectedIndex].src}
+                  alt={galleryImages[selectedIndex].alt}
+                  className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+                />
+                <div className="absolute bottom-4 left-4 right-4 bg-black/50 backdrop-blur-sm rounded-lg p-4 text-white">
+                  <h3 className="font-medium mb-1">{galleryImages[selectedIndex].title}</h3>
+                  <p className="text-sm opacity-90">{galleryImages[selectedIndex].alt}</p>
+                </div>
+                
+                {/* Navigation Arrows */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedIndex(selectedIndex === 0 ? galleryImages.length - 1 : selectedIndex - 1);
+                  }}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedIndex(selectedIndex === galleryImages.length - 1 ? 0 : selectedIndex + 1);
+                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Video Section */}
         <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 shadow-gentle">
