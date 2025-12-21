@@ -38,8 +38,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: medicalCare,
-      alt: "Veterinary care session",
-      title: "Medical Care"
+      alt: "Our rescued horses and mules graze and move freely. No box stalls to encourage healthy movement.",
+      title: "Free Range Herd"
     },
     {
       src: education,
