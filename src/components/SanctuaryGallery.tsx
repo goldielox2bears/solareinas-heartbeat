@@ -48,8 +48,8 @@ const SanctuaryGallery = () => {
     },
     {
       src: peacefulEvening,
-      alt: "Rescued Siamese cat relaxing on hay at the sanctuary",
-      title: "Rescue Program"
+      alt: "Olive Harvest - By harvesting our olives and offering the purest form of estate grown, organic olive oil we support our helpers, like Buffy. She is 14 years old and is supervising!",
+      title: "Olive Harvest"
     },
     {
       src: sustainablePractices,
