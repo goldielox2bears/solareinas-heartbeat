@@ -9,10 +9,10 @@ const SanctuaryImpact = () => {
   });
 
   const finalCounts = {
-    animals: 180,
-    species: 12,
-    volunteers: 1200,
-    acres: 25
+    animals: 46,
+    species: 7,
+    volunteers: 16420,
+    acres: 4
   };
 
   useEffect(() => {
