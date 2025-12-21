@@ -33,12 +33,6 @@ const SanctuaryTestimonials = () => {
     }
   ];
 
-  const pressLogos = [
-    { name: "Wildlife Today", logo: "🦅" },
-    { name: "Conservation Weekly", logo: "🌿" },
-    { name: "Local News 12", logo: "📺" },
-    { name: "Ranch Life Magazine", logo: "📖" }
-  ];
 
   return (
     <section id="sanctuary-testimonials" className="py-24 px-6 bg-background">
@@ -86,32 +80,6 @@ const SanctuaryTestimonials = () => {
           ))}
         </div>
 
-        {/* Press & Recognition */}
-        <div className="bg-gradient-peaceful rounded-2xl p-8 md:p-12 text-center">
-          <h3 className="text-2xl md:text-3xl font-light mb-8 text-foreground">
-            As Featured In
-          </h3>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            {pressLogos.map((press, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl mb-2">{press.logo}</div>
-                <div className="text-sm font-medium text-muted-foreground">{press.name}</div>
-              </div>
-            ))}
-          </div>
-          
-          <div className="mt-8">
-            <p className="text-muted-foreground mb-4">
-              Recognized for excellence in wildlife rehabilitation and community engagement
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 text-xs text-muted-foreground">
-              <span className="bg-primary/10 px-3 py-1 rounded-full">Wildlife Sanctuary of the Year 2023</span>
-              <span className="bg-secondary/20 px-3 py-1 rounded-full">Conservation Excellence Award</span>
-              <span className="bg-accent/20 px-3 py-1 rounded-full">Community Partner Recognition</span>
-            </div>
-          </div>
-        </div>
 
         {/* Social Feed Preview */}
         <div className="mt-16">
