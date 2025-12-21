@@ -46,11 +46,15 @@ const SanctuaryImpact = () => {
     };
   }, []);
 
-  const outcomeData = [
-    { label: "Successfully Released", percentage: 65, color: "bg-green-500" },
-    { label: "Permanent Sanctuary", percentage: 25, color: "bg-primary" },
-    { label: "Relocated to Reserves", percentage: 10, color: "bg-secondary" }
+  const upcomingProjects = [
+    { name: "Fencing", cost: 4000, icon: "🚧" },
+    { name: "Shade Areas for Horses", cost: 1800, icon: "☀️" },
+    { name: "Feed Storage", cost: 1600, icon: "🌾" },
+    { name: "Animal Cleaning", cost: 400, icon: "🧹" },
+    { name: "Carrots and Pumpkin Garden", cost: 350, icon: "🥕" }
   ];
+
+  const totalProjectCost = upcomingProjects.reduce((sum, p) => sum + p.cost, 0);
 
   return (
     <section id="sanctuary-impact" className="py-24 px-6 bg-card/50">
@@ -115,35 +119,28 @@ const SanctuaryImpact = () => {
           </div>
         </div>
 
-        {/* Outcome Infographic */}
+        {/* Projects and Visitors */}
         <div className="bg-background/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-gentle">
           <h3 className="text-2xl md:text-3xl font-light mb-8 text-center text-foreground">
-            Rehabilitation Outcomes
+            Upcoming Projects
           </h3>
           
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            {/* Before & After Visualization */}
+            {/* Upcoming Projects */}
             <div className="space-y-6">
-              <div className="text-center">
-                <h4 className="text-lg font-medium mb-4 text-foreground">Where Our Animals Go</h4>
-                <div className="space-y-3">
-                  {outcomeData.map((outcome, index) => (
-                    <div key={index} className="flex items-center gap-4">
-                      <div className="flex-1">
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-sm font-medium text-foreground">{outcome.label}</span>
-                          <span className="text-sm text-muted-foreground">{outcome.percentage}%</span>
-                        </div>
-                        <div className="w-full bg-muted rounded-full h-2">
-                          <div 
-                            className={`h-2 rounded-full ${outcome.color} transition-all duration-1000 ease-out`}
-                            style={{ width: `${outcome.percentage}%` }}
-                          />
-                        </div>
-                      </div>
+              <div className="text-center mb-4">
+                <p className="text-muted-foreground">Help us reach our goal of <span className="text-primary font-semibold">€{totalProjectCost.toLocaleString()}</span></p>
+              </div>
+              <div className="space-y-3">
+                {upcomingProjects.map((project, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-card rounded-xl">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{project.icon}</span>
+                      <span className="font-medium text-foreground">{project.name}</span>
                     </div>
-                  ))}
-                </div>
+                    <span className="text-primary font-semibold">€{project.cost.toLocaleString()}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
