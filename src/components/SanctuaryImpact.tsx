@@ -147,29 +147,37 @@ const SanctuaryImpact = () => {
               </div>
             </div>
 
-            {/* Species Breakdown */}
+            {/* Countries Visitors Come From */}
             <div className="space-y-6">
-              <h4 className="text-lg font-medium text-center text-foreground">Species We Care For</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-card rounded-xl">
-                  <div className="text-2xl mb-2">🦅</div>
-                  <div className="text-sm text-muted-foreground">Birds of Prey</div>
-                  <div className="font-medium text-foreground">5 species</div>
+              <h4 className="text-lg font-medium text-center text-foreground">Countries Our Visitors Come From</h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇺🇸</div>
+                  <div className="text-sm font-medium text-foreground">USA</div>
                 </div>
-                <div className="text-center p-4 bg-card rounded-xl">
-                  <div className="text-2xl mb-2">🦌</div>
-                  <div className="text-sm text-muted-foreground">Mammals</div>
-                  <div className="font-medium text-foreground">4 species</div>
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇨🇿</div>
+                  <div className="text-sm font-medium text-foreground">Czech Republic</div>
                 </div>
-                <div className="text-center p-4 bg-card rounded-xl">
-                  <div className="text-2xl mb-2">🐍</div>
-                  <div className="text-sm text-muted-foreground">Reptiles</div>
-                  <div className="font-medium text-foreground">2 species</div>
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇩🇪</div>
+                  <div className="text-sm font-medium text-foreground">Germany</div>
                 </div>
-                <div className="text-center p-4 bg-card rounded-xl">
-                  <div className="text-2xl mb-2">🐸</div>
-                  <div className="text-sm text-muted-foreground">Amphibians</div>
-                  <div className="font-medium text-foreground">1 species</div>
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇨🇦</div>
+                  <div className="text-sm font-medium text-foreground">Canada</div>
+                </div>
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇿🇦</div>
+                  <div className="text-sm font-medium text-foreground">South Africa</div>
+                </div>
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇳🇱</div>
+                  <div className="text-sm font-medium text-foreground">Netherlands</div>
+                </div>
+                <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇪🇸</div>
+                  <div className="text-sm font-medium text-foreground">Spain</div>
                 </div>
               </div>
             </div>
