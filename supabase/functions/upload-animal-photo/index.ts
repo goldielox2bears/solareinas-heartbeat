@@ -13,6 +13,57 @@ serve(async (req) => {
   }
 
   try {
+    // Get the authorization header
+    const authHeader = req.headers.get('authorization')
+    if (!authHeader) {
+      console.error('No authorization header provided')
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized: No authorization header' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // Create supabase client with user's auth token to verify authentication
+    const supabaseAuth = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      { global: { headers: { Authorization: authHeader } } }
+    )
+
+    // Verify user is authenticated
+    const { data: { user }, error: authError } = await supabaseAuth.auth.getUser()
+    if (authError || !user) {
+      console.error('Authentication failed:', authError?.message)
+      return new Response(
+        JSON.stringify({ error: 'Unauthorized: Invalid or expired token' }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    console.log(`User authenticated: ${user.id}`)
+
+    // Check if user is an admin using the is_admin function
+    const { data: isAdmin, error: adminCheckError } = await supabaseAuth.rpc('is_admin', { user_id: user.id })
+    
+    if (adminCheckError) {
+      console.error('Admin check failed:', adminCheckError.message)
+      return new Response(
+        JSON.stringify({ error: 'Failed to verify admin status' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    if (!isAdmin) {
+      console.error(`User ${user.id} is not an admin`)
+      return new Response(
+        JSON.stringify({ error: 'Forbidden: Admin access required' }),
+        { status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    console.log(`Admin verified: ${user.id}`)
+
+    // Use service role client for storage operations (after admin verification)
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
@@ -66,7 +117,7 @@ serve(async (req) => {
     const fileExt = file.name.split('.').pop()
     const fileName = `${folder}${animalId}-${Date.now()}.${fileExt}`
 
-    console.log(`Uploading file: ${fileName} for animal: ${animal.name}`)
+    console.log(`Uploading file: ${fileName} for animal: ${animal.name} by admin: ${user.id}`)
 
     // Upload to Supabase Storage
     const { data: uploadData, error: uploadError } = await supabase.storage
