@@ -26,11 +26,11 @@ const SanctuaryWelcome = () => {
           <div className="grid md:grid-cols-3 gap-8 text-center">
             <div className="space-y-4">
               <div className="w-16 h-16 bg-gradient-steward rounded-full flex items-center justify-center mx-auto">
-                <span className="text-2xl">🦅</span>
+                <span className="text-2xl">🌿</span>
               </div>
-              <h4 className="text-lg font-medium text-foreground">Rehabilitation</h4>
+              <h4 className="text-lg font-medium text-foreground">Retreat Experiences</h4>
               <p className="text-muted-foreground">
-                Providing medical care and safe haven for wildlife in need, with the goal of releasing back to nature when possible.
+                Unplug your life, feel the earth under your feet and fur through your fingers. We offer connection and grounding to living in the moment.
               </p>
             </div>
             
