@@ -23,7 +23,7 @@ const SanctuaryWelcome = () => {
           <h3 className="text-2xl md:text-3xl font-light mb-6 text-center text-foreground">
             Why We Exist
           </h3>
-          <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div className="space-y-4">
               <div className="w-16 h-16 bg-gradient-steward rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl">🌿</span>
@@ -51,6 +51,16 @@ const SanctuaryWelcome = () => {
               <h4 className="text-lg font-medium text-foreground">Community Impact</h4>
               <p className="text-muted-foreground">
                 Building connections between people and nature through education, volunteer opportunities, and shared purpose.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="w-16 h-16 bg-gradient-sanctuary rounded-full flex items-center justify-center mx-auto">
+                <span className="text-2xl">🐾</span>
+              </div>
+              <h4 className="text-lg font-medium text-foreground">Animal Welfare</h4>
+              <p className="text-muted-foreground">
+                We help animals in need and provide a safe haven for them, helping more animals through partnerships and an extended, loving community.
               </p>
             </div>
           </div>
