@@ -8,7 +8,7 @@ import SanctuaryGallery from "@/components/SanctuaryGallery";
 import SanctuaryImpact from "@/components/SanctuaryImpact";
 import SanctuaryResidents from "@/components/SanctuaryResidents";
 import SanctuaryTestimonials from "@/components/SanctuaryTestimonials";
-import SanctuaryResources from "@/components/SanctuaryResources";
+
 import RescueLedger from "@/components/RescueLedger";
 import FreeHerdCircle from "@/components/FreeHerdCircle";
 import GivingWall from "@/components/GivingWall";
@@ -43,7 +43,6 @@ const Index = () => {
         <SanctuaryGallery />
         <SanctuaryImpact />
         <SanctuaryTestimonials />
-        <SanctuaryResources />
         
         <section id="rescue">
           <RescueLedger />
