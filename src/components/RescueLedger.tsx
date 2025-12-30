@@ -237,7 +237,7 @@ const RescueLedger = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-light text-foreground mb-4">
-            Our Residents
+            Meet Our Residents
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Meet the sweet souls we are working for. Each animal carries a story and their transformation is made possible by the generosity of our Stewards and Free Herd community.
