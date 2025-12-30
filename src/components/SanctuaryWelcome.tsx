@@ -10,10 +10,10 @@ const SanctuaryWelcome = () => {
         {/* Mission Statement */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-light mb-6 text-foreground">
-            Welcome to Our Sanctuary
+            Welcome to Our Ranch Rescue
           </h2>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Home to 30+ rescued species, we're nurturing life and habitat through rehabilitation, 
+            A Safe Haven for animals where we honour their soul with love and purpose. We are nurturing life and habitat through rehabilitation, 
             regenerative land stewardship, and community impact.
           </p>
         </div>
