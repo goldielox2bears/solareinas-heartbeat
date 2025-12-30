@@ -46,7 +46,7 @@ const SanctuaryNavigation = () => {
                 }
               }}
             >
-              Rescue Ledger
+              Residents
             </a>
             <a 
               href="/#volunteers" 
