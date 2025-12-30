@@ -1,4 +1,5 @@
 const heroImage = "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png";
+import heroLogo from "@/assets/solareinas-logo.png";
 import { Button } from "@/components/ui/button";
 
 const SanctuaryHero = () => {
@@ -15,9 +16,11 @@ const SanctuaryHero = () => {
       {/* Hero Text - Top Third */}
       <div className="relative z-10 flex-1 flex items-start justify-center pt-24 md:pt-32">
         <div className="text-center text-white px-6 max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-light mb-6 animate-gentle-fade">
-            Solareinas Ranch
-          </h1>
+          <img 
+            src={heroLogo} 
+            alt="Solareinas Ranch - Sierra Nevada" 
+            className="h-32 md:h-48 w-auto mb-6 animate-gentle-fade"
+          />
           <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed">
             A quiet invitation to step into the sanctuary you've helped create
           </p>
