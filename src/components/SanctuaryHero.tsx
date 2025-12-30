@@ -21,15 +21,15 @@ const SanctuaryHero = () => {
             alt="Solareinas Ranch - Sierra Nevada" 
             className="h-48 md:h-72 w-auto mx-auto mb-6 animate-gentle-fade"
           />
-          <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed">
-            A quiet invitation to step into the sanctuary you've helped create
-          </p>
         </div>
       </div>
       
       {/* Hero Actions - Bottom Third */}
       <div className="relative z-10 flex-1 flex items-end justify-center pb-24 md:pb-32">
         <div className="text-center text-white px-6 max-w-4xl">
+          <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed mb-8">
+            A quiet invitation to step into the sanctuary you've helped create
+          </p>
           {/* Identity-based CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
             <Button variant="steward" size="lg" className="min-w-48">
