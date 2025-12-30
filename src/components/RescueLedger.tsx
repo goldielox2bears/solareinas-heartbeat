@@ -553,15 +553,25 @@ const RescueLedger = () => {
                         </p>
                       </div>
                     ) : (
-                      <Button 
-                        variant="steward" 
-                        size="sm" 
-                        className="w-full"
-                        onClick={() => navigate(`/sponsor/${animal.id}`)}
-                      >
-                        <Heart className="w-4 h-4 mr-2" />
-                        Become {animal.name}'s Steward
-                      </Button>
+                      <div className="space-y-2">
+                        <Button 
+                          variant="steward" 
+                          size="sm" 
+                          className="w-full"
+                          onClick={() => navigate(`/sponsor/${animal.id}`)}
+                        >
+                          <Heart className="w-4 h-4 mr-2" />
+                          Become {animal.name}'s Steward
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          className="w-full"
+                          onClick={() => navigate(`/gift?animal=${animal.id}`)}
+                        >
+                          Give a One-Time Gift
+                        </Button>
+                      </div>
                     )}
                   </>
                 )}

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SanctuaryImpact = () => {
+  const navigate = useNavigate();
   const [counts, setCounts] = useState({
     animals: 0,
     species: 0,
@@ -134,13 +136,17 @@ const SanctuaryImpact = () => {
               </div>
               <div className="space-y-3">
                 {upcomingProjects.map((project, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-card rounded-xl">
+                  <button
+                    key={index}
+                    onClick={() => navigate(`/gift?project=${encodeURIComponent(project.name)}`)}
+                    className="w-full flex items-center justify-between p-3 bg-card rounded-xl hover:bg-accent/50 transition-colors cursor-pointer group"
+                  >
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{project.icon}</span>
-                      <span className="font-medium text-foreground">{project.name}</span>
+                      <span className="font-medium text-foreground group-hover:text-primary transition-colors">{project.name}</span>
                     </div>
-                    <span className="text-primary font-semibold">€{project.cost.toLocaleString()}</span>
-                  </div>
+                    <span className="text-primary font-semibold group-hover:underline">€{project.cost.toLocaleString()}</span>
+                  </button>
                 ))}
               </div>
             </div>
@@ -188,7 +194,10 @@ const SanctuaryImpact = () => {
             Every number represents a life transformed through your support
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-gradient-steward text-primary-foreground px-8 py-3 rounded-xl font-medium shadow-warm hover:shadow-sanctuary transition-all duration-300">
+            <button 
+              onClick={() => navigate("/gift")}
+              className="bg-gradient-steward text-primary-foreground px-8 py-3 rounded-xl font-medium shadow-warm hover:shadow-sanctuary transition-all duration-300"
+            >
               💝 Support Our Mission
             </button>
             <button className="bg-gradient-sanctuary text-foreground px-8 py-3 rounded-xl font-medium shadow-gentle hover:shadow-warm transition-all duration-300">
