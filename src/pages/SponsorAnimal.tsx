@@ -187,15 +187,15 @@ export default function SponsorAnimal() {
           <h2 className="text-3xl font-bold text-center mb-8 text-foreground">
             Your Gift of Support
           </h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             <Card className="text-center">
               <CardHeader>
                 <CardTitle className="text-2xl">Horse / Mule</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-primary mb-2">€75</div>
+                <div className="text-3xl font-bold text-primary mb-2">€100</div>
                 <div className="text-muted-foreground mb-4">Monthly Gift</div>
-                <div className="text-xl font-semibold">€900</div>
+                <div className="text-xl font-semibold">€600</div>
                 <div className="text-muted-foreground">Annual Gift</div>
               </CardContent>
             </Card>
@@ -204,9 +204,20 @@ export default function SponsorAnimal() {
                 <CardTitle className="text-2xl">Dog</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-primary mb-2">€40</div>
+                <div className="text-3xl font-bold text-primary mb-2">€35</div>
                 <div className="text-muted-foreground mb-4">Monthly Gift</div>
-                <div className="text-xl font-semibold">€480</div>
+                <div className="text-xl font-semibold">€400</div>
+                <div className="text-muted-foreground">Annual Gift</div>
+              </CardContent>
+            </Card>
+            <Card className="text-center">
+              <CardHeader>
+                <CardTitle className="text-2xl">Pig</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-primary mb-2">€35</div>
+                <div className="text-muted-foreground mb-4">Monthly Gift</div>
+                <div className="text-xl font-semibold">€400</div>
                 <div className="text-muted-foreground">Annual Gift</div>
               </CardContent>
             </Card>
@@ -215,9 +226,9 @@ export default function SponsorAnimal() {
                 <CardTitle className="text-2xl">Cat</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-primary mb-2">€20</div>
+                <div className="text-3xl font-bold text-primary mb-2">€35</div>
                 <div className="text-muted-foreground mb-4">Monthly Gift</div>
-                <div className="text-xl font-semibold">€240</div>
+                <div className="text-xl font-semibold">€400</div>
                 <div className="text-muted-foreground">Annual Gift</div>
               </CardContent>
             </Card>
