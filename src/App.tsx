@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import VolunteerSignup from "./pages/VolunteerSignup";
 import SponsorAnimal from "./pages/SponsorAnimal";
+import SponsorAnimalDetail from "./pages/SponsorAnimalDetail";
 import AdminPanel from "./pages/AdminPanel";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/volunteer-signup" element={<VolunteerSignup />} />
             <Route path="/sponsor-animal" element={<SponsorAnimal />} />
+            <Route path="/sponsor/:animalId" element={<SponsorAnimalDetail />} />
             <Route path="/admin" element={
               <AuthGuard requireAuth>
                 <AdminPanel />

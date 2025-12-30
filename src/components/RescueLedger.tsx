@@ -5,7 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
-import { Edit2, Save, X, Upload, Image, Plus } from "lucide-react";
+import { Edit2, Save, X, Upload, Image, Plus, Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAdmin } from "@/hooks/useAdmin";
@@ -14,6 +15,7 @@ import { AnimalPhotoUpload } from "@/components/AnimalPhotoUpload";
 type Animal = Database['public']['Tables']['animals']['Row'];
 
 const RescueLedger = () => {
+  const navigate = useNavigate();
   const { isAdmin } = useAdmin();
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
@@ -551,7 +553,13 @@ const RescueLedger = () => {
                         </p>
                       </div>
                     ) : (
-                      <Button variant="steward" size="sm" className="w-full">
+                      <Button 
+                        variant="steward" 
+                        size="sm" 
+                        className="w-full"
+                        onClick={() => navigate(`/sponsor/${animal.id}`)}
+                      >
+                        <Heart className="w-4 h-4 mr-2" />
                         Become {animal.name}'s Steward
                       </Button>
                     )}
