@@ -54,7 +54,7 @@ const SanctuaryGallery = () => {
     {
       src: sustainablePractices,
       alt: "Regenerative pasture management",
-      title: "Sustainable Practices"
+      title: "Expert String Stalker"
     }
   ];
 
