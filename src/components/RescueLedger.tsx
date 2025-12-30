@@ -238,8 +238,7 @@ const RescueLedger = () => {
             Rescue Ledger
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Meet the souls you've helped save. Each animal carries a story of transformation, 
-            made possible by the generosity of our Stewards.
+            Meet the sweet souls we are working for. Each animal carries a story and their transformation is made possible by the generosity of our Stewards and Free Herd community.
           </p>
         </div>
         
