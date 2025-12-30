@@ -6,11 +6,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import impactReportImage from "@/assets/impact-report.jpg";
 
 const SanctuaryImpact = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [isReportOpen, setIsReportOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
   const [counts, setCounts] = useState({
     animals: 0,
     species: 0,
@@ -232,6 +239,67 @@ const SanctuaryImpact = () => {
               alt="Solareinas Impact Report - Two years of rescue in action" 
               className="w-full rounded-xl"
             />
+            
+            {/* Email Signup Form */}
+            <div className="bg-card/50 rounded-xl p-6 space-y-4">
+              <h4 className="text-lg font-medium text-center text-foreground">
+                Stay Connected with Our Journey
+              </h4>
+              <p className="text-sm text-muted-foreground text-center">
+                Receive updates on our animals, projects, and ways to support.
+              </p>
+              
+              {isSubscribed ? (
+                <div className="text-center py-4">
+                  <div className="text-2xl mb-2">💚</div>
+                  <p className="text-primary font-medium">Thank you for joining our community!</p>
+                  <p className="text-sm text-muted-foreground mt-1">We will be in touch soon.</p>
+                </div>
+              ) : (
+                <form 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (!email.trim()) return;
+                    
+                    setIsSubmitting(true);
+                    // Simulate submission - in production, this would save to database
+                    setTimeout(() => {
+                      setIsSubscribed(true);
+                      setIsSubmitting(false);
+                      toast({
+                        title: "Welcome to our community!",
+                        description: "You will receive updates about our sanctuary.",
+                      });
+                    }, 500);
+                  }}
+                  className="space-y-3"
+                >
+                  <Input
+                    type="text"
+                    placeholder="Your name (optional)"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="bg-background"
+                  />
+                  <Input
+                    type="email"
+                    placeholder="Your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="bg-background"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-primary text-primary-foreground px-6 py-2.5 rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-50"
+                  >
+                    {isSubmitting ? "Joining..." : "Join Our Community"}
+                  </button>
+                </form>
+              )}
+            </div>
+
             <div className="text-center space-y-4">
               <p className="text-muted-foreground">
                 Every gift helps us continue this vital work for animals and land alike.
