@@ -47,6 +47,7 @@ const SanctuaryImpact = () => {
   }, []);
 
   const upcomingProjects = [
+    { name: "Free Herd Volunteer Cabin", cost: 9600, icon: "🏠" },
     { name: "Fencing", cost: 4000, icon: "🚧" },
     { name: "Shade Areas for Horses", cost: 1800, icon: "☀️" },
     { name: "Feed Storage", cost: 1600, icon: "🌾" },
