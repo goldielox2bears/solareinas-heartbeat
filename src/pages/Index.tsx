@@ -40,13 +40,12 @@ const Index = () => {
         
         {/* Sanctuary Section */}
         <SanctuaryWelcome />
-        <SanctuaryGallery />
-        <SanctuaryImpact />
-        <SanctuaryTestimonials />
-        
         <section id="rescue">
           <RescueLedger />
         </section>
+        <SanctuaryGallery />
+        <SanctuaryImpact />
+        <SanctuaryTestimonials />
         
         <section id="volunteers">
           <FreeHerdCircle />
