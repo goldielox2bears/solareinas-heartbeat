@@ -31,6 +31,20 @@ const sponsorshipSchema = z.object({
   special_requests: z.string().max(500, "Special requests must be less than 500 characters").optional()
 });
 
+const CUSTOM_GIFT_OPTIONS = [20, 30, 50, 75, 100, 1000];
+
+const getSpeciesPricing = (species: string) => {
+  const speciesLower = species.toLowerCase();
+  if (speciesLower.includes('horse') || speciesLower.includes('mule')) {
+    return { monthly: 10000, annual: 60000 }; // €100/month, €600/annual
+  }
+  if (speciesLower.includes('dog') || speciesLower.includes('pig')) {
+    return { monthly: 3500, annual: 40000 }; // €35/month, €400/annual
+  }
+  // Default fallback
+  return { monthly: 3500, annual: 40000 };
+};
+
 export default function SponsorAnimalDetail() {
   const { animalId } = useParams<{ animalId: string }>();
   const navigate = useNavigate();
@@ -38,7 +52,8 @@ export default function SponsorAnimalDetail() {
   
   const [animal, setAnimal] = useState<Animal | null>(null);
   const [loading, setLoading] = useState(true);
-  const [sponsorshipType, setSponsorshipType] = useState<'monthly' | 'one-time'>('monthly');
+  const [sponsorshipType, setSponsorshipType] = useState<'monthly' | 'annual' | 'custom'>('monthly');
+  const [customAmount, setCustomAmount] = useState<number>(50);
   const [form, setForm] = useState({
     sponsor_name: '',
     sponsor_email: '',
@@ -113,9 +128,20 @@ export default function SponsorAnimalDetail() {
 
     setSubmitting(true);
     try {
-      const amount_cents = sponsorshipType === 'monthly' 
-        ? animal.monthly_sponsorship_cents 
-        : animal.annual_sponsorship_cents;
+      const pricing = getSpeciesPricing(animal.species);
+      let amount_cents: number;
+      let dbSponsorshipType: string;
+
+      if (sponsorshipType === 'monthly') {
+        amount_cents = pricing.monthly;
+        dbSponsorshipType = 'monthly';
+      } else if (sponsorshipType === 'annual') {
+        amount_cents = pricing.annual;
+        dbSponsorshipType = 'annual';
+      } else {
+        amount_cents = customAmount * 100;
+        dbSponsorshipType = 'one-time';
+      }
 
       const { error } = await supabase
         .from('sponsorships')
@@ -123,7 +149,7 @@ export default function SponsorAnimalDetail() {
           animal_id: animal.id,
           sponsor_name: form.sponsor_name.trim(),
           sponsor_email: form.sponsor_email.trim(),
-          sponsorship_type: sponsorshipType === 'monthly' ? 'monthly' : 'one-time',
+          sponsorship_type: dbSponsorshipType,
           amount_cents,
           special_requests: form.special_requests?.trim() || null,
           founding_guardian: true
@@ -257,55 +283,102 @@ export default function SponsorAnimalDetail() {
                 {/* Sponsorship Type Selection */}
                 <div className="space-y-3">
                   <Label className="text-base font-medium">Choose Your Gift</Label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setSponsorshipType('monthly')}
-                      className={`relative p-4 rounded-lg border-2 transition-all text-left ${
-                        sponsorshipType === 'monthly' 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50'
-                      }`}
-                    >
-                      {sponsorshipType === 'monthly' && (
-                        <div className="absolute top-2 right-2">
-                          <Check className="w-5 h-5 text-primary" />
-                        </div>
-                      )}
-                      <div className="flex items-center gap-2 mb-2">
-                        <Calendar className="w-5 h-5 text-primary" />
-                        <span className="font-medium">Monthly</span>
-                      </div>
-                      <div className="text-2xl font-bold text-primary">
-                        {formatPrice(animal.monthly_sponsorship_cents)}
-                      </div>
-                      <div className="text-xs text-muted-foreground">per month</div>
-                    </button>
+                  {(() => {
+                    const pricing = getSpeciesPricing(animal.species);
+                    return (
+                      <div className="space-y-3">
+                        <div className="grid grid-cols-2 gap-3">
+                          <button
+                            type="button"
+                            onClick={() => setSponsorshipType('monthly')}
+                            className={`relative p-4 rounded-lg border-2 transition-all text-left ${
+                              sponsorshipType === 'monthly' 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            {sponsorshipType === 'monthly' && (
+                              <div className="absolute top-2 right-2">
+                                <Check className="w-5 h-5 text-primary" />
+                              </div>
+                            )}
+                            <div className="flex items-center gap-2 mb-2">
+                              <Calendar className="w-5 h-5 text-primary" />
+                              <span className="font-medium">Monthly</span>
+                            </div>
+                            <div className="text-2xl font-bold text-primary">
+                              €{pricing.monthly / 100}
+                            </div>
+                            <div className="text-xs text-muted-foreground">per month</div>
+                          </button>
 
-                    <button
-                      type="button"
-                      onClick={() => setSponsorshipType('one-time')}
-                      className={`relative p-4 rounded-lg border-2 transition-all text-left ${
-                        sponsorshipType === 'one-time' 
-                          ? 'border-primary bg-primary/5' 
-                          : 'border-border hover:border-primary/50'
-                      }`}
-                    >
-                      {sponsorshipType === 'one-time' && (
-                        <div className="absolute top-2 right-2">
-                          <Check className="w-5 h-5 text-primary" />
+                          <button
+                            type="button"
+                            onClick={() => setSponsorshipType('annual')}
+                            className={`relative p-4 rounded-lg border-2 transition-all text-left ${
+                              sponsorshipType === 'annual' 
+                                ? 'border-primary bg-primary/5' 
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            {sponsorshipType === 'annual' && (
+                              <div className="absolute top-2 right-2">
+                                <Check className="w-5 h-5 text-primary" />
+                              </div>
+                            )}
+                            <div className="flex items-center gap-2 mb-2">
+                              <Heart className="w-5 h-5 text-primary" />
+                              <span className="font-medium">Annual</span>
+                            </div>
+                            <div className="text-2xl font-bold text-primary">
+                              €{pricing.annual / 100}
+                            </div>
+                            <div className="text-xs text-muted-foreground">one-time gift</div>
+                          </button>
                         </div>
-                      )}
-                      <div className="flex items-center gap-2 mb-2">
-                        <Heart className="w-5 h-5 text-primary" />
-                        <span className="font-medium">One-Time</span>
+
+                        {/* Custom Gift Option */}
+                        <button
+                          type="button"
+                          onClick={() => setSponsorshipType('custom')}
+                          className={`relative w-full p-4 rounded-lg border-2 transition-all text-left ${
+                            sponsorshipType === 'custom' 
+                              ? 'border-primary bg-primary/5' 
+                              : 'border-border hover:border-primary/50'
+                          }`}
+                        >
+                          {sponsorshipType === 'custom' && (
+                            <div className="absolute top-2 right-2">
+                              <Check className="w-5 h-5 text-primary" />
+                            </div>
+                          )}
+                          <div className="flex items-center gap-2 mb-2">
+                            <Gift className="w-5 h-5 text-primary" />
+                            <span className="font-medium">Custom Gift</span>
+                          </div>
+                          <div className="text-sm text-muted-foreground">Choose your own amount</div>
+                        </button>
+
+                        {sponsorshipType === 'custom' && (
+                          <div className="pt-2">
+                            <Label htmlFor="custom-amount" className="text-sm mb-2 block">Select Amount</Label>
+                            <select
+                              id="custom-amount"
+                              value={customAmount}
+                              onChange={(e) => setCustomAmount(Number(e.target.value))}
+                              className="w-full p-3 rounded-lg border border-border bg-background text-foreground focus:border-primary focus:ring-1 focus:ring-primary"
+                            >
+                              {CUSTOM_GIFT_OPTIONS.map((amount) => (
+                                <option key={amount} value={amount}>
+                                  €{amount}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        )}
                       </div>
-                      <div className="text-2xl font-bold text-primary">
-                        {formatPrice(animal.annual_sponsorship_cents)}
-                      </div>
-                      <div className="text-xs text-muted-foreground">annual gift</div>
-                    </button>
-                  </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Form Fields */}
@@ -379,11 +452,23 @@ export default function SponsorAnimalDetail() {
                       Processing...
                     </>
                   ) : (
-                    <>
-                      <Heart className="w-4 h-4 mr-2" />
-                      Give Your Support — {formatPrice(sponsorshipType === 'monthly' ? animal.monthly_sponsorship_cents : animal.annual_sponsorship_cents)}
-                      {sponsorshipType === 'monthly' && '/month'}
-                    </>
+                    (() => {
+                      const pricing = getSpeciesPricing(animal.species);
+                      let displayAmount: string;
+                      if (sponsorshipType === 'monthly') {
+                        displayAmount = `€${pricing.monthly / 100}/month`;
+                      } else if (sponsorshipType === 'annual') {
+                        displayAmount = `€${pricing.annual / 100}`;
+                      } else {
+                        displayAmount = `€${customAmount}`;
+                      }
+                      return (
+                        <>
+                          <Heart className="w-4 h-4 mr-2" />
+                          Give Your Support — {displayAmount}
+                        </>
+                      );
+                    })()
                   )}
                 </Button>
 
