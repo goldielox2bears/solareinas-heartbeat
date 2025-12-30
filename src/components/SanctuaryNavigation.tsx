@@ -12,20 +12,53 @@ const SanctuaryNavigation = () => {
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <div 
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => navigate('/')}
+          >
             <span className="text-2xl">🌿</span>
             <span className="text-xl font-light text-foreground">Solareinas Ranch</span>
           </div>
           
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#sanctuary" className="text-muted-foreground hover:text-foreground transition-gentle">
+            <a 
+              href="/#sanctuary" 
+              className="text-muted-foreground hover:text-foreground transition-gentle"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/#sanctuary');
+                if (window.location.pathname === '/') {
+                  document.getElementById('sanctuary')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               The Sanctuary
             </a>
-            <a href="#rescue" className="text-muted-foreground hover:text-foreground transition-gentle">
+            <a 
+              href="/#rescue" 
+              className="text-muted-foreground hover:text-foreground transition-gentle"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/#rescue');
+                if (window.location.pathname === '/') {
+                  document.getElementById('rescue')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Rescue Ledger
             </a>
-            <a href="#volunteers" className="text-muted-foreground hover:text-foreground transition-gentle">
+            <a 
+              href="/#volunteers" 
+              className="text-muted-foreground hover:text-foreground transition-gentle"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/#volunteers');
+                if (window.location.pathname === '/') {
+                  document.getElementById('volunteers')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Free Herd Circle
             </a>
             <a 
@@ -48,7 +81,17 @@ const SanctuaryNavigation = () => {
             >
               Give Support
             </a>
-            <a href="#giving" className="text-muted-foreground hover:text-foreground transition-gentle">
+            <a 
+              href="/#giving" 
+              className="text-muted-foreground hover:text-foreground transition-gentle"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/#giving');
+                if (window.location.pathname === '/') {
+                  document.getElementById('giving')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
               Gratitude Flows
             </a>
           </div>
