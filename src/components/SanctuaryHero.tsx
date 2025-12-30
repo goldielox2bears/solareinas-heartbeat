@@ -14,7 +14,7 @@ const SanctuaryHero = () => {
       </div>
       
       {/* Hero Text - Top Third */}
-      <div className="relative z-10 flex-1 flex items-start justify-center pt-24 md:pt-32">
+      <div className="relative z-10 flex-1 flex items-start justify-center pt-8 md:pt-12">
         <div className="text-center text-white px-6 max-w-4xl">
           <img 
             src={heroLogo} 
