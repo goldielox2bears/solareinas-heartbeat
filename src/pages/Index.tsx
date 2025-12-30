@@ -12,6 +12,7 @@ import SanctuaryTestimonials from "@/components/SanctuaryTestimonials";
 import RescueLedger from "@/components/RescueLedger";
 import FreeHerdCircle from "@/components/FreeHerdCircle";
 import GivingWall from "@/components/GivingWall";
+import SustainabilitySection from "@/components/SustainabilitySection";
 
 const Index = () => {
   const { user, signOut, loading } = useAuth();
@@ -44,6 +45,7 @@ const Index = () => {
           <RescueLedger />
         </section>
         <SanctuaryGallery />
+        <SustainabilitySection />
         <SanctuaryImpact />
         <SanctuaryTestimonials />
         
