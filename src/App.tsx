@@ -11,6 +11,7 @@ import VolunteerSignup from "./pages/VolunteerSignup";
 import SponsorAnimal from "./pages/SponsorAnimal";
 import SponsorAnimalDetail from "./pages/SponsorAnimalDetail";
 import AdminPanel from "./pages/AdminPanel";
+import GiftPage from "./pages/GiftPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/volunteer-signup" element={<VolunteerSignup />} />
             <Route path="/sponsor-animal" element={<SponsorAnimal />} />
             <Route path="/sponsor/:animalId" element={<SponsorAnimalDetail />} />
+            <Route path="/gift" element={<GiftPage />} />
             <Route path="/admin" element={
               <AuthGuard requireAuth>
                 <AdminPanel />
