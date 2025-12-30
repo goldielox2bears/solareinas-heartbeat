@@ -15,6 +15,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
+import SanctuaryNavigation from '@/components/SanctuaryNavigation';
 
 const volunteerInterests = [
   'Animal Care',
@@ -99,7 +100,9 @@ export const VolunteerSignupForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+      <SanctuaryNavigation />
+      <div className="py-12 px-4 pt-24">
       <div className="max-w-2xl mx-auto">
         <Card>
           <CardHeader>
@@ -329,6 +332,7 @@ export const VolunteerSignupForm = () => {
             </Form>
           </CardContent>
         </Card>
+      </div>
       </div>
     </div>
   );
