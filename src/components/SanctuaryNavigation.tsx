@@ -81,19 +81,6 @@ const SanctuaryNavigation = () => {
             >
               Give Support
             </a>
-            <a 
-              href="/#giving" 
-              className="text-muted-foreground hover:text-foreground transition-gentle"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/#giving');
-                if (window.location.pathname === '/') {
-                  document.getElementById('giving')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              Gratitude Flows
-            </a>
           </div>
           
           {/* Auth Buttons */}
