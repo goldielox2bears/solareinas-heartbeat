@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import impactReportImage from "@/assets/impact-report.jpg";
 
 const SanctuaryImpact = () => {
   const navigate = useNavigate();
+  const [isReportOpen, setIsReportOpen] = useState(false);
   const [counts, setCounts] = useState({
     animals: 0,
     species: 0,
@@ -200,12 +208,47 @@ const SanctuaryImpact = () => {
             >
               💝 Support Our Mission
             </button>
-            <button className="bg-gradient-sanctuary text-foreground px-8 py-3 rounded-xl font-medium shadow-gentle hover:shadow-warm transition-all duration-300">
-              📊 Download Impact Report
+            <button 
+              onClick={() => setIsReportOpen(true)}
+              className="bg-gradient-sanctuary text-foreground px-8 py-3 rounded-xl font-medium shadow-gentle hover:shadow-warm transition-all duration-300"
+            >
+              📊 View Our Impact Report
             </button>
           </div>
         </div>
       </div>
+
+      {/* Impact Report Dialog */}
+      <Dialog open={isReportOpen} onOpenChange={setIsReportOpen}>
+        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-light text-center">
+              Two Years of Solareinas Ranch Rescue in Action
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-6">
+            <img 
+              src={impactReportImage} 
+              alt="Solareinas Impact Report - Two years of rescue in action" 
+              className="w-full rounded-xl"
+            />
+            <div className="text-center space-y-4">
+              <p className="text-muted-foreground">
+                Every gift helps us continue this vital work for animals and land alike.
+              </p>
+              <button 
+                onClick={() => {
+                  setIsReportOpen(false);
+                  navigate("/gift");
+                }}
+                className="bg-gradient-steward text-primary-foreground px-8 py-3 rounded-xl font-medium shadow-warm hover:shadow-sanctuary transition-all duration-300"
+              >
+                💝 Support Our Mission
+              </button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
