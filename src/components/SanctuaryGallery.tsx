@@ -19,7 +19,7 @@ const SanctuaryGallery = () => {
     {
       src: freeRangeLiving,
       alt: "Urgent Medical Care - Buffy had surgery to remove a cancer growth. She has recovered and is ranging freely again!",
-      title: "Free Range Living"
+      title: "Successful Cancer Treatment"
     },
     {
       src: dailyCare,
