@@ -40,9 +40,9 @@ const Index = () => {
         
         {/* Sanctuary Section */}
         <SanctuaryWelcome />
+        <SanctuaryResidents />
         <SanctuaryGallery />
         <SanctuaryImpact />
-        <SanctuaryResidents />
         <SanctuaryTestimonials />
         <SanctuaryResources />
         
