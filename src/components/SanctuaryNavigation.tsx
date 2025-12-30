@@ -33,7 +33,7 @@ const SanctuaryNavigation = () => {
                 }
               }}
             >
-              The Sanctuary
+              The Rescue
             </a>
             <a 
               href="/#rescue" 
