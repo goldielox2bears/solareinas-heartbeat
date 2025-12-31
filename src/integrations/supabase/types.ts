@@ -142,6 +142,7 @@ export type Database = {
       }
       sponsorships: {
         Row: {
+          admin_verified: boolean
           amount_cents: number
           animal_id: string
           created_at: string
@@ -158,8 +159,11 @@ export type Database = {
           stripe_subscription_id: string | null
           updated_at: string
           user_id: string | null
+          verified_at: string | null
+          verified_by: string | null
         }
         Insert: {
+          admin_verified?: boolean
           amount_cents: number
           animal_id: string
           created_at?: string
@@ -176,8 +180,11 @@ export type Database = {
           stripe_subscription_id?: string | null
           updated_at?: string
           user_id?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
         }
         Update: {
+          admin_verified?: boolean
           amount_cents?: number
           animal_id?: string
           created_at?: string
@@ -194,6 +201,8 @@ export type Database = {
           stripe_subscription_id?: string | null
           updated_at?: string
           user_id?: string | null
+          verified_at?: string | null
+          verified_by?: string | null
         }
         Relationships: [
           {
