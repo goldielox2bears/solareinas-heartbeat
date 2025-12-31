@@ -72,6 +72,16 @@ const SanctuaryNavigation = () => {
               Join Us
             </a>
             <a 
+              href="/market" 
+              className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate('/market');
+              }}
+            >
+              Market
+            </a>
+            <a 
               href="/sponsor-animal" 
               className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
               onClick={(e) => {
