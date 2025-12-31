@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets } from "lucide-react";
+import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets, Hand, Flower2 } from "lucide-react";
 import { toast } from "sonner";
 
 const products = [
@@ -15,6 +15,7 @@ const products = [
     description: "One elegant 750ml bottle of Estate Grown Extra Virgin Olive Oil, complete with pouring spout. Includes a pamphlet sharing the story of the Rescue and Regenerative Agriculture.",
     icon: Wine,
     highlight: false,
+    category: "olive-oil",
   },
   {
     id: "case-of-six",
@@ -25,6 +26,7 @@ const products = [
     icon: Gift,
     highlight: true,
     savings: "ONE BOTTLE FREE",
+    category: "olive-oil",
   },
   {
     id: "soap-single",
@@ -34,6 +36,7 @@ const products = [
     description: "Hand-crafted estate soap made with our own hand-picked olives. No palm oil, 100% sustainable, made on our solar-powered ranch.",
     icon: Droplets,
     highlight: false,
+    category: "soap",
   },
   {
     id: "soap-three",
@@ -44,6 +47,28 @@ const products = [
     icon: Sun,
     highlight: true,
     savings: "SAVE €2",
+    category: "soap",
+  },
+  {
+    id: "balm-single",
+    name: "Hand Balm",
+    subtitle: "60ml Tin",
+    price: 12,
+    description: "100% ranch-made with olive oil and shea butter. Keeps your skin beautifully nourished with purest, sustainably sourced ingredients. Lightly scented with ranch-grown lavender.",
+    icon: Hand,
+    highlight: false,
+    category: "balm",
+  },
+  {
+    id: "balm-gift",
+    name: "Hand Balm Gift Pack",
+    subtitle: "Set of Three Tins",
+    price: 30,
+    description: "Three 60ml tins of our nourishing hand balm — the perfect gift for anyone who works with their hands. Olive oil, shea butter, and ranch-grown lavender.",
+    icon: Flower2,
+    highlight: true,
+    savings: "SAVE €6",
+    category: "balm",
   },
 ];
 
