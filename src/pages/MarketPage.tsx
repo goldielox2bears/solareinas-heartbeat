@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag } from "lucide-react";
+import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets } from "lucide-react";
 import { toast } from "sonner";
 
 const products = [
@@ -25,6 +25,25 @@ const products = [
     icon: Gift,
     highlight: true,
     savings: "ONE BOTTLE FREE",
+  },
+  {
+    id: "soap-single",
+    name: "Olive Oil Soap",
+    subtitle: "Single Bar",
+    price: 9,
+    description: "Hand-crafted estate soap made with our own hand-picked olives. No palm oil, 100% sustainable, made on our solar-powered ranch.",
+    icon: Droplets,
+    highlight: false,
+  },
+  {
+    id: "soap-three",
+    name: "Olive Oil Soap Trio",
+    subtitle: "Set of Three Bars",
+    price: 25,
+    description: "Three bars of authentic hand-crafted olive oil soap. A beautiful gift set, sustainably made with estate olives and 100% solar energy.",
+    icon: Sun,
+    highlight: true,
+    savings: "SAVE €2",
   },
 ];
 
