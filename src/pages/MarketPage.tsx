@@ -3,7 +3,30 @@ import { useNavigate } from "react-router-dom";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Heart, TreePine, Users, Sparkles } from "lucide-react";
+import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag } from "lucide-react";
+import { toast } from "sonner";
+
+const products = [
+  {
+    id: "single-bottle",
+    name: "Single Bottle",
+    subtitle: "750ml Recycled Wine Bottle",
+    price: 25,
+    description: "One elegant 750ml bottle of Estate Grown Extra Virgin Olive Oil, complete with pouring spout. Includes a pamphlet sharing the story of the Rescue and Regenerative Agriculture.",
+    icon: Wine,
+    highlight: false,
+  },
+  {
+    id: "case-of-six",
+    name: "Case of Six",
+    subtitle: "The Perfect Gift",
+    price: 125,
+    description: "Six 750ml bottles — perfect for sharing with friends and family. Each bottle includes a pouring spout and story pamphlet. A thoughtful gift that gives back.",
+    icon: Gift,
+    highlight: true,
+    savings: "Save €25",
+  },
+];
 
 const giftTiers = [
   {
@@ -47,11 +70,44 @@ const taglines = [
 const MarketPage = () => {
   const navigate = useNavigate();
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
+  const [cart, setCart] = useState<{ [key: string]: number }>({});
 
   const handleGiftSelect = (amount: number) => {
     setSelectedTier(amount);
-    // Navigate to gift page with pre-selected amount
     navigate(`/gift?amount=${amount}&source=olive-oil`);
+  };
+
+  const updateCart = (productId: string, delta: number) => {
+    setCart(prev => {
+      const newQty = Math.max(0, (prev[productId] || 0) + delta);
+      if (newQty === 0) {
+        const { [productId]: _, ...rest } = prev;
+        return rest;
+      }
+      return { ...prev, [productId]: newQty };
+    });
+  };
+
+  const getCartTotal = () => {
+    return Object.entries(cart).reduce((total, [productId, qty]) => {
+      const product = products.find(p => p.id === productId);
+      return total + (product?.price || 0) * qty;
+    }, 0);
+  };
+
+  const getCartItemCount = () => {
+    return Object.values(cart).reduce((sum, qty) => sum + qty, 0);
+  };
+
+  const handleCheckout = () => {
+    if (getCartItemCount() === 0) {
+      toast.error("Your cart is empty");
+      return;
+    }
+    // For now, show a toast - payment integration can be added later
+    toast.success("Thank you for your interest! We'll be in touch about your order.", {
+      description: "Shipping details will be confirmed via email.",
+    });
   };
 
   return (
@@ -74,6 +130,134 @@ const MarketPage = () => {
           <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-2xl mx-auto">
             Hand-picked. First cold pressed. Grown in living soil restored by your support.
           </p>
+        </div>
+      </section>
+
+      {/* Products for Purchase Section */}
+      <section className="py-20 px-6 bg-gradient-to-b from-background to-card/30">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
+              <ShoppingBag className="w-4 h-4" />
+              <span className="text-sm font-medium">Shop the Harvest</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
+              Bring Regeneration to Your Table
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Purchase our Estate Grown Extra Virgin Olive Oil directly. Bottled in recycled wine bottles 
+              with an elegant pouring spout — perfect for your kitchen or as a meaningful gift.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {products.map((product) => (
+              <Card 
+                key={product.id}
+                className={`relative overflow-hidden transition-all duration-300 hover:shadow-warm border-2 ${
+                  product.highlight 
+                    ? 'border-primary bg-gradient-to-br from-primary/5 to-sanctuary-amber/10' 
+                    : 'border-border'
+                }`}
+              >
+                {product.highlight && product.savings && (
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+                      {product.savings}
+                    </span>
+                  </div>
+                )}
+                <CardContent className="p-8">
+                  <div className="text-center space-y-4">
+                    <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center ${
+                      product.highlight ? 'bg-primary text-primary-foreground' : 'bg-secondary/50'
+                    }`}>
+                      <product.icon className="w-8 h-8" />
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-xl font-medium text-foreground">{product.name}</h3>
+                      <p className="text-sm text-muted-foreground">{product.subtitle}</p>
+                    </div>
+                    
+                    <div className="text-3xl font-semibold text-foreground">
+                      €{product.price}
+                    </div>
+                    
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {product.description}
+                    </p>
+
+                    {/* Quantity Selector */}
+                    <div className="flex items-center justify-center gap-4 pt-4">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="h-10 w-10 rounded-full"
+                        onClick={() => updateCart(product.id, -1)}
+                        disabled={(cart[product.id] || 0) === 0}
+                      >
+                        <Minus className="w-4 h-4" />
+                      </Button>
+                      <span className="text-xl font-medium w-8 text-center">
+                        {cart[product.id] || 0}
+                      </span>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="h-10 w-10 rounded-full"
+                        onClick={() => updateCart(product.id, 1)}
+                      >
+                        <Plus className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Cart Summary */}
+          {getCartItemCount() > 0 && (
+            <div className="mt-10 max-w-md mx-auto">
+              <Card className="border-2 border-primary/30 bg-card">
+                <CardContent className="p-6">
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">Subtotal</span>
+                      <span className="text-lg font-medium">€{getCartTotal()}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Truck className="w-4 h-4" />
+                      <span>Plus shipping (calculated at checkout)</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <BookOpen className="w-4 h-4" />
+                      <span>Includes story pamphlet with each order</span>
+                    </div>
+                    <Button 
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6"
+                      onClick={handleCheckout}
+                    >
+                      <ShoppingBag className="w-5 h-5 mr-2" />
+                      Proceed to Checkout
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Pamphlet Note */}
+          <div className="mt-12 text-center">
+            <div className="inline-flex items-center gap-3 px-6 py-4 rounded-xl bg-secondary/30 border border-border">
+              <BookOpen className="w-5 h-5 text-primary" />
+              <p className="text-sm text-muted-foreground">
+                Every purchase includes a pamphlet sharing the story of how your support helps 
+                the Rescue and Regenerative Agriculture.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
