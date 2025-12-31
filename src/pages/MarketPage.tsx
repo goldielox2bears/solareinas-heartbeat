@@ -172,7 +172,7 @@ const MarketPage = () => {
           </h1>
           
           <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-2xl mx-auto">
-            Hand-picked. First cold pressed. Grown in living soil restored by your support.
+            Hand-picked. First cold pressed. Grown in living soil. 100% of profits support the animals and land. Thank you for sharing our love!
           </p>
         </div>
       </section>
