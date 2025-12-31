@@ -12,6 +12,7 @@ import SponsorAnimal from "./pages/SponsorAnimal";
 import SponsorAnimalDetail from "./pages/SponsorAnimalDetail";
 import AdminPanel from "./pages/AdminPanel";
 import GiftPage from "./pages/GiftPage";
+import MarketPage from "./pages/MarketPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/sponsor-animal" element={<SponsorAnimal />} />
             <Route path="/sponsor/:animalId" element={<SponsorAnimalDetail />} />
             <Route path="/gift" element={<GiftPage />} />
+            <Route path="/market" element={<MarketPage />} />
             <Route path="/admin" element={
               <AuthGuard requireAuth>
                 <AdminPanel />
