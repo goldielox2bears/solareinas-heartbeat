@@ -24,7 +24,7 @@ const products = [
     description: "Six 750ml bottles — perfect for sharing with friends and family. Each bottle includes a pouring spout and story pamphlet. A thoughtful gift that gives back.",
     icon: Gift,
     highlight: true,
-    savings: "Save €25",
+    savings: "ONE BOTTLE FREE",
   },
 ];
 
