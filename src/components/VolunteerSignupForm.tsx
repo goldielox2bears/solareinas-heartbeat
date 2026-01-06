@@ -3,7 +3,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
+import { CalendarIcon, CheckCircle2, Heart, Clock, Mail } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
@@ -50,6 +51,8 @@ type FormData = z.infer<typeof formSchema>;
 
 export const VolunteerSignupForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedName, setSubmittedName] = useState('');
   const { toast } = useToast();
 
   const form = useForm<FormData>({
@@ -82,11 +85,8 @@ export const VolunteerSignupForm = () => {
 
       if (error) throw error;
 
-      toast({
-        title: 'Application Submitted!',
-        description: 'Thank you for your interest in volunteering. Your application is pending review by our team.',
-      });
-
+      setSubmittedName(data.fullName);
+      setIsSubmitted(true);
       form.reset();
     } catch (error: any) {
       toast({
@@ -98,6 +98,94 @@ export const VolunteerSignupForm = () => {
       setIsSubmitting(false);
     }
   };
+
+  // Success confirmation view
+  if (isSubmitted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-amber-50">
+        <SanctuaryNavigation />
+        <div className="py-12 px-4 pt-24">
+          <div className="max-w-2xl mx-auto">
+            <Card className="border-0 shadow-xl bg-white/90 backdrop-blur">
+              <CardContent className="pt-12 pb-10 px-8">
+                {/* Success Icon */}
+                <div className="flex justify-center mb-6">
+                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="w-12 h-12 text-green-600" />
+                  </div>
+                </div>
+
+                {/* Main Message */}
+                <h1 className="text-3xl font-bold text-center text-foreground mb-3">
+                  Welcome to the Free Herd, {submittedName}!
+                </h1>
+                <p className="text-center text-muted-foreground text-lg mb-8">
+                  Your application has been received and is now pending review.
+                </p>
+
+                {/* Timeline Steps */}
+                <div className="space-y-6 mb-10">
+                  <h2 className="text-xl font-semibold text-center text-foreground mb-4">
+                    What Happens Next
+                  </h2>
+                  
+                  <div className="flex items-start gap-4 p-4 bg-amber-50 rounded-lg border border-amber-200">
+                    <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-5 h-5 text-amber-700" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Review Period: 3-5 Business Days</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Our stewardship team will review your application and assess the best fit for your interests and availability.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-5 h-5 text-blue-700" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Approval Notification</h3>
+                      <p className="text-muted-foreground text-sm">
+                        Once approved, you will receive details about orientation, scheduling, and how to prepare for your first day at the sanctuary.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4 p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Heart className="w-5 h-5 text-green-700" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">Join the Community</h3>
+                      <p className="text-muted-foreground text-sm">
+                        As an active volunteer, you will become part of our Free Herd community—helping animals heal and reconnecting families with the land.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button asChild variant="default" size="lg">
+                    <Link to="/">Return to Sanctuary</Link>
+                  </Button>
+                  <Button asChild variant="outline" size="lg">
+                    <Link to="/sponsor-animal">Become a Steward</Link>
+                  </Button>
+                </div>
+
+                <p className="text-center text-sm text-muted-foreground mt-8">
+                  Questions? Reach out to our team—we are here to help you step into this journey.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
