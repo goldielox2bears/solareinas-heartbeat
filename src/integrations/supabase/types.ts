@@ -68,6 +68,39 @@ export type Database = {
         }
         Relationships: []
       }
+      community_testimonials: {
+        Row: {
+          approval_status: string
+          content: string
+          created_at: string
+          id: string
+          photo_url: string | null
+          rating: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          approval_status?: string
+          content: string
+          created_at?: string
+          id?: string
+          photo_url?: string | null
+          rating: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          approval_status?: string
+          content?: string
+          created_at?: string
+          id?: string
+          photo_url?: string | null
+          rating?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string

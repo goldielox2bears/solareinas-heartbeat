@@ -1,9 +1,29 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Star, LogIn } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import TestimonialSubmissionForm from "./TestimonialSubmissionForm";
+
+interface CommunityTestimonial {
+  id: string;
+  content: string;
+  rating: number;
+  photo_url: string | null;
+  created_at: string;
+  user_id: string;
+}
 
 const SanctuaryTestimonials = () => {
-  const testimonials = [
+  const { user, loading: authLoading } = useAuth();
+  const [communityTestimonials, setCommunityTestimonials] = useState<CommunityTestimonial[]>([]);
+  const [userProfile, setUserProfile] = useState<{ display_name: string | null; first_name: string | null } | null>(null);
+  const [showForm, setShowForm] = useState(false);
+
+  const staticTestimonials = [
     {
       id: 1,
       name: "Dr. Maria Santos",
@@ -33,6 +53,47 @@ const SanctuaryTestimonials = () => {
     }
   ];
 
+  useEffect(() => {
+    fetchCommunityTestimonials();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserProfile();
+    }
+  }, [user]);
+
+  const fetchCommunityTestimonials = async () => {
+    const { data } = await supabase
+      .from('community_testimonials')
+      .select('*')
+      .eq('approval_status', 'approved')
+      .order('created_at', { ascending: false });
+    
+    if (data) {
+      setCommunityTestimonials(data);
+    }
+  };
+
+  const fetchUserProfile = async () => {
+    if (!user) return;
+    
+    const { data } = await supabase
+      .from('profiles')
+      .select('display_name, first_name')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    
+    if (data) {
+      setUserProfile(data);
+    }
+  };
+
+  const handleSubmitSuccess = () => {
+    setShowForm(false);
+    fetchCommunityTestimonials();
+  };
+
 
   return (
     <section id="sanctuary-testimonials" className="py-24 px-6 bg-background">
@@ -46,9 +107,78 @@ const SanctuaryTestimonials = () => {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
+        {/* Share Your Story Section */}
+        <div className="mb-16">
+          {authLoading ? null : user ? (
+            showForm ? (
+              <TestimonialSubmissionForm
+                userId={user.id}
+                userDisplayName={userProfile?.display_name || userProfile?.first_name || undefined}
+                onSubmitSuccess={handleSubmitSuccess}
+              />
+            ) : (
+              <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 text-center">
+                <h4 className="text-xl font-medium text-foreground mb-2">Share Your Story</h4>
+                <p className="text-muted-foreground mb-6">
+                  Are you a Free Herd participant or Steward? We'd love to hear about your experience!
+                </p>
+                <Button onClick={() => setShowForm(true)}>Share My Experience</Button>
+              </div>
+            )
+          ) : (
+            <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 text-center">
+              <h4 className="text-xl font-medium text-foreground mb-2">Share Your Story</h4>
+              <p className="text-muted-foreground mb-6">
+                Sign in to share your experience as a Free Herd participant or Steward
+              </p>
+              <Link to="/auth">
+                <Button>
+                  <LogIn className="w-4 h-4 mr-2" />
+                  Sign In to Share
+                </Button>
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Community Testimonials */}
+        {communityTestimonials.length > 0 && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-light text-center mb-8 text-foreground">
+              From Our Community
+            </h3>
+            <div className="grid md:grid-cols-3 gap-8">
+              {communityTestimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="bg-card/80 backdrop-blur-sm shadow-gentle hover:shadow-warm transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-primary text-primary" />
+                      ))}
+                    </div>
+                    <blockquote className="text-muted-foreground mb-6 italic">
+                      "{testimonial.content}"
+                    </blockquote>
+                    <div className="flex items-center gap-3">
+                      <Avatar className="w-12 h-12">
+                        {testimonial.photo_url && <AvatarImage src={testimonial.photo_url} alt="Community member" />}
+                        <AvatarFallback>🌾</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium text-foreground">Community Member</div>
+                        <div className="text-sm text-primary font-medium">Free Herd / Steward</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Static Testimonials Grid */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
-          {testimonials.map((testimonial) => (
+          {staticTestimonials.map((testimonial) => (
             <Card key={testimonial.id} className="bg-card/80 backdrop-blur-sm shadow-gentle hover:shadow-warm transition-all duration-300">
               <CardContent className="p-6">
                 {/* Rating Stars */}
