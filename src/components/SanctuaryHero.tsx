@@ -8,10 +8,10 @@ const SanctuaryHero = () => {
     <section className="relative min-h-screen flex flex-col overflow-hidden">
       {/* Hero Background */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 pointer-events-none" />
       </div>
       
       {/* Hero Text - Top Third */}
