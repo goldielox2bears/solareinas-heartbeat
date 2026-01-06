@@ -1,6 +1,7 @@
 const heroImage = "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png";
 import heroLogo from "@/assets/solareinas-logo.png";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const SanctuaryHero = () => {
   return (
@@ -32,11 +33,11 @@ const SanctuaryHero = () => {
           </p>
           {/* Identity-based CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
-            <Button variant="steward" size="lg" className="min-w-48">
-              🧡 For Stewards
+            <Button asChild variant="steward" size="lg" className="min-w-48">
+              <Link to="/sponsor-animal">🧡 For Stewards</Link>
             </Button>
-            <Button variant="sanctuary" size="lg" className="min-w-48">
-              🌾 Join the Free Herd
+            <Button asChild variant="sanctuary" size="lg" className="min-w-48">
+              <Link to="/volunteer-signup">🌾 Join the Free Herd</Link>
             </Button>
           </div>
           
