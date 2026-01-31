@@ -1,7 +1,8 @@
 import heroImage from "@/assets/library/horse-mural.jpeg";
-import heroLogo from "@/assets/srr-logo-brand.png";
+import heroLogoSrc from "@/assets/srr-logo-source.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import TransparentLogo from "@/components/TransparentLogo";
 
 const SanctuaryHero = () => {
   return (
@@ -16,10 +17,12 @@ const SanctuaryHero = () => {
       
       {/* Logo - Top Right Corner */}
       <div className="absolute top-16 right-4 md:top-20 md:right-8 z-10">
-        <img 
-          src={heroLogo} 
-          alt="Solareinas Ranch - Sierra Nevada" 
+        <TransparentLogo
+          src={heroLogoSrc}
+          alt="Solareinas Ranch - Sierra Nevada"
           className="h-36 md:h-60 w-auto"
+          threshold={44}
+          feather={26}
         />
       </div>
       
