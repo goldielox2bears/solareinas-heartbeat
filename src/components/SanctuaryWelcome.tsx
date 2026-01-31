@@ -8,14 +8,14 @@ const SanctuaryWelcome = () => {
       <div className="absolute inset-0 bg-gradient-peaceful opacity-50" />
       
       {/* Centered Logo Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0" style={{ paddingTop: '25%' }}>
         <video
           src={logoVideo}
           autoPlay
           loop
           muted
           playsInline
-          className="w-64 md:w-80 lg:w-96 h-auto opacity-35"
+          className="w-64 md:w-80 lg:w-96 h-auto opacity-45"
         />
       </div>
       
