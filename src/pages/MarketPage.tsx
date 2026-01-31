@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets, Hand, Flower2 } from "lucide-react";
 import { toast } from "sonner";
+import oliveOilLabel from "@/assets/olive-oil-label.png";
+import oneOfOneBadge from "@/assets/one-of-one-badge.png";
 
 const products = [
   {
@@ -160,20 +162,39 @@ const MarketPage = () => {
       
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-foreground/80 mb-8">
-            <Leaf className="w-4 h-4" />
-            <span className="text-sm font-medium">Estate Grown · First Cold Pressed</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Product Image */}
+            <div className="relative">
+              <img 
+                src={oliveOilLabel} 
+                alt="Solareinas Ranch Retreat Estate Grown Extra Virgin Olive Oil" 
+                className="w-full max-w-lg mx-auto rounded-2xl shadow-warm"
+              />
+              <img 
+                src={oneOfOneBadge}
+                alt="One Of One - Limited Edition"
+                className="absolute -top-4 -right-4 md:-right-8 w-24 h-24 md:w-32 md:h-32 drop-shadow-lg"
+              />
+            </div>
+            
+            {/* Hero Text */}
+            <div className="text-center md:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-foreground/80 mb-8">
+                <Leaf className="w-4 h-4" />
+                <span className="text-sm font-medium">Estate Grown · First Cold Pressed</span>
+              </div>
+              
+              <h1 className="text-4xl md:text-5xl font-light text-foreground mb-6 leading-tight">
+                More Than Olive Oil.<br />
+                <span className="text-primary">A Bottle of Regeneration.</span>
+              </h1>
+              
+              <p className="text-xl text-muted-foreground font-light max-w-xl">
+                Hand-picked. First cold pressed. Grown in living soil. 100% of profits support the animals and land. Thank you for sharing our love!
+              </p>
+            </div>
           </div>
-          
-          <h1 className="text-4xl md:text-6xl font-light text-foreground mb-6 leading-tight">
-            More Than Olive Oil.<br />
-            <span className="text-primary">A Bottle of Regeneration.</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-muted-foreground font-light max-w-2xl mx-auto">
-            Hand-picked. First cold pressed. Grown in living soil. 100% of profits support the animals and land. Thank you for sharing our love!
-          </p>
         </div>
       </section>
 
