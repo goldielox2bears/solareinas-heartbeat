@@ -5,7 +5,7 @@ import BrandSealBlock from "@/components/shop/BrandSealBlock";
 import ImpactGuaranteeBlock from "@/components/shop/ImpactGuaranteeBlock";
 import { Button } from "@/components/ui/button";
 import { Heart, Leaf, ShoppingBag, Sparkles, TreePine, Users } from "lucide-react";
-import srrLogo from "@/assets/srr-logo-transparent.png";
+import madeHereLogo from "@/assets/made-here-logo.png";
 import whiteHorse from "@/assets/library/white-horse-grazing.jpeg";
 import oliveHarvest from "@/assets/library/olive-harvest.jpeg";
 import sanctuaryDog from "@/assets/library/sanctuary-dog.jpeg";
@@ -24,9 +24,9 @@ const MadeHereForUsPage = () => {
       <section className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <img 
-            src={srrLogo} 
-            alt="Solareinas Ranch" 
-            className="w-24 h-24 object-contain mx-auto mb-8"
+            src={madeHereLogo} 
+            alt="Made Here, For Us — by Solareinas" 
+            className="w-40 h-32 object-contain mx-auto mb-8"
           />
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground mb-6 leading-tight">
