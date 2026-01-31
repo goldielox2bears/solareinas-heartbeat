@@ -219,7 +219,7 @@ const SanctuaryTestimonials = () => {
           
           <div className="bg-card/50 rounded-2xl p-8 text-center">
             <div className="text-6xl mb-4">📱</div>
-            <h4 className="text-lg font-medium mb-2 text-foreground">@SolareinasSanctuary</h4>
+            <h4 className="text-lg font-medium mb-2 text-foreground">@SolareinasRanch</h4>
             <p className="text-muted-foreground mb-6">
               Daily updates, behind-the-scenes moments, and success stories from our sanctuary family
             </p>
