@@ -1,5 +1,5 @@
 import heroImage from "@/assets/library/horse-mural.jpeg";
-import heroLogo from "@/assets/srr-logo-brand.png";
+import heroLogo from "@/assets/srr-logo-brand.jpg";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -14,15 +14,13 @@ const SanctuaryHero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 pointer-events-none" />
       </div>
       
-      {/* Hero Text - Top Third */}
-      <div className="relative z-10 flex-1 flex items-start justify-center pt-8 md:pt-12">
-        <div className="text-center text-white px-6 max-w-4xl">
-          <img 
-            src={heroLogo} 
-            alt="Solareinas Ranch - Sierra Nevada" 
-            className="h-72 md:h-[27rem] w-auto mx-auto mb-6 animate-gentle-fade"
-          />
-        </div>
+      {/* Logo - Top Right Corner */}
+      <div className="absolute top-4 right-4 md:top-8 md:right-8 z-10">
+        <img 
+          src={heroLogo} 
+          alt="Solareinas Ranch - Sierra Nevada" 
+          className="h-24 md:h-40 w-auto animate-gentle-fade"
+        />
       </div>
       
       {/* Hero Actions - Bottom Third */}
