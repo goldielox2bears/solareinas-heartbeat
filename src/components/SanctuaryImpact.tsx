@@ -195,6 +195,10 @@ const SanctuaryImpact = () => {
                   <div className="text-sm font-medium text-foreground">Netherlands</div>
                 </div>
                 <div className="text-center p-3 bg-card rounded-xl">
+                  <div className="text-2xl mb-1">🇮🇪</div>
+                  <div className="text-sm font-medium text-foreground">Ireland</div>
+                </div>
+                <div className="text-center p-3 bg-card rounded-xl">
                   <div className="text-2xl mb-1">🇪🇸</div>
                   <div className="text-sm font-medium text-foreground">Spain</div>
                 </div>
