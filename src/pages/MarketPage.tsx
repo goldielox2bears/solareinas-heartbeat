@@ -23,11 +23,12 @@ const products = [
     id: "case-of-six",
     name: "Case of Six",
     subtitle: "The Perfect Gift",
-    price: 125,
+    price: 135,
+    originalPrice: 150,
     description: "Six 750ml bottles — perfect for sharing with friends and family. Each bottle includes a pouring spout and story pamphlet. A thoughtful gift that gives back.",
     icon: Gift,
     highlight: true,
-    savings: "ONE BOTTLE FREE",
+    savings: "SAVE 10%",
     category: "olive-oil",
   },
   {
@@ -241,6 +242,9 @@ const MarketPage = () => {
                     </div>
                     
                     <div className="text-3xl font-semibold text-foreground">
+                      {'originalPrice' in product && product.originalPrice && (
+                        <span className="text-lg text-muted-foreground line-through mr-2">€{product.originalPrice}</span>
+                      )}
                       €{product.price}
                     </div>
                     
