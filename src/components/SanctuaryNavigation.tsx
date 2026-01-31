@@ -72,24 +72,14 @@ const SanctuaryNavigation = () => {
               Join Us
             </a>
             <a 
-              href="/shop" 
+              href="/market" 
               className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
-                navigate('/shop');
+                navigate('/market');
               }}
             >
-              Shop
-            </a>
-            <a 
-              href="/made-here-for-us" 
-              className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/made-here-for-us');
-              }}
-            >
-              Made Here
+              The Market
             </a>
             <a 
               href="/sponsor-animal" 
