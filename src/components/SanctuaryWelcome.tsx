@@ -15,7 +15,7 @@ const SanctuaryWelcome = () => {
           loop
           muted
           playsInline
-          className="w-64 md:w-80 lg:w-96 h-auto opacity-15"
+          className="w-64 md:w-80 lg:w-96 h-auto opacity-35"
         />
       </div>
       
