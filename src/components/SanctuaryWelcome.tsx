@@ -25,7 +25,7 @@ const SanctuaryWelcome = () => {
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-gradient-steward rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-gradient-copper rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl">🌿</span>
               </div>
               <h4 className="text-lg font-medium text-foreground">Retreat Experiences</h4>
@@ -35,7 +35,7 @@ const SanctuaryWelcome = () => {
             </div>
             
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-gradient-sanctuary rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-gradient-patina rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl">🌱</span>
               </div>
               <h4 className="text-lg font-medium text-foreground">Regenerative Stewardship</h4>
@@ -45,7 +45,7 @@ const SanctuaryWelcome = () => {
             </div>
             
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-gradient-steward rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-gradient-copper rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl">🤝</span>
               </div>
               <h4 className="text-lg font-medium text-foreground">Community Impact</h4>
@@ -55,7 +55,7 @@ const SanctuaryWelcome = () => {
             </div>
 
             <div className="space-y-4">
-              <div className="w-16 h-16 bg-gradient-sanctuary rounded-full flex items-center justify-center mx-auto">
+              <div className="w-16 h-16 bg-gradient-patina rounded-full flex items-center justify-center mx-auto">
                 <span className="text-2xl">🐾</span>
               </div>
               <h4 className="text-lg font-medium text-foreground">Animal Welfare</h4>
