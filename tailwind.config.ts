@@ -58,6 +58,14 @@ export default {
 					amber: 'hsl(var(--sanctuary-amber))',
 					stone: 'hsl(var(--sanctuary-stone))'
 				},
+				copper: {
+					aged: 'hsl(var(--copper-aged))',
+					patina: 'hsl(var(--copper-patina))',
+					rust: 'hsl(var(--copper-rust))'
+				},
+				patina: {
+					teal: 'hsl(var(--patina-teal))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -114,7 +122,9 @@ export default {
 			backgroundImage: {
 				'gradient-steward': 'var(--gradient-steward)',
 				'gradient-sanctuary': 'var(--gradient-sanctuary)',
-				'gradient-peaceful': 'var(--gradient-peaceful)'
+				'gradient-peaceful': 'var(--gradient-peaceful)',
+				'gradient-copper': 'var(--gradient-copper)',
+				'gradient-patina': 'var(--gradient-patina)'
 			},
 			boxShadow: {
 				'gentle': 'var(--shadow-gentle)',
