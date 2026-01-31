@@ -20,7 +20,7 @@ const SanctuaryHero = () => {
           <img 
             src={heroLogo} 
             alt="Solareinas Ranch - Sierra Nevada" 
-            className="h-48 md:h-72 w-auto mx-auto mb-6 animate-gentle-fade"
+            className="h-72 md:h-[27rem] w-auto mx-auto mb-6 animate-gentle-fade"
           />
         </div>
       </div>
