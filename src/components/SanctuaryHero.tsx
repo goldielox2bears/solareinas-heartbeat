@@ -14,12 +14,12 @@ const SanctuaryHero = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 pointer-events-none" />
       </div>
       
-      {/* Logo - Top Right Corner (dropped 3cm / ~12 units) */}
+      {/* Logo - Top Right Corner */}
       <div className="absolute top-16 right-4 md:top-20 md:right-8 z-10">
         <img 
           src={heroLogo} 
           alt="Solareinas Ranch - Sierra Nevada" 
-          className="h-24 md:h-40 w-auto animate-gentle-fade"
+          className="h-36 md:h-60 w-auto animate-gentle-fade"
         />
       </div>
       
