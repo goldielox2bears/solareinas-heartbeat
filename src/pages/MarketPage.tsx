@@ -171,11 +171,6 @@ const MarketPage = () => {
                 alt="Solareinas Ranch Retreat Estate Grown Extra Virgin Olive Oil" 
                 className="w-full max-w-lg mx-auto rounded-2xl shadow-warm"
               />
-              <img 
-                src={oneOfOneBadge}
-                alt="One Of One - Limited Edition"
-                className="absolute -top-4 -right-4 md:-right-8 w-24 h-24 md:w-32 md:h-32 drop-shadow-lg"
-              />
             </div>
             
             {/* Hero Text */}
