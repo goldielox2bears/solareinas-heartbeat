@@ -1,10 +1,23 @@
 import { Button } from "@/components/ui/button";
+import logoVideo from "@/assets/srr-logo-animated.mp4";
 
 const SanctuaryWelcome = () => {
   return (
     <section id="sanctuary" className="relative py-24 px-6 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-peaceful opacity-50" />
+      
+      {/* Centered Logo Watermark */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+        <video
+          src={logoVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-64 md:w-80 lg:w-96 h-auto opacity-15"
+        />
+      </div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Mission Statement */}
