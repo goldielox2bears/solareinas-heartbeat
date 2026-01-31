@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets, Hand, Flower2, Shirt } from "lucide-react";
 import { toast } from "sonner";
 import oliveOilLabel from "@/assets/olive-oil-label.png";
-import oneOfOneBadge from "@/assets/one-of-one-badge.png";
+import oneOfOneBadge from "@/assets/one-of-one-tag.png";
 
 const products = [
   {
@@ -334,7 +334,7 @@ const MarketPage = () => {
               <img 
                 src={oneOfOneBadge}
                 alt="One Of One - Singular Garments"
-                className="w-64 md:w-80 h-auto drop-shadow-lg"
+                className="w-64 md:w-80 h-auto drop-shadow-lg rotate-90"
               />
             </div>
             
