@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets, Hand, Flower2 } from "lucide-react";
+import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets, Hand, Flower2, Shirt } from "lucide-react";
 import { toast } from "sonner";
 import oliveOilLabel from "@/assets/olive-oil-label.png";
 import oneOfOneBadge from "@/assets/one-of-one-badge.png";
@@ -321,6 +321,69 @@ const MarketPage = () => {
                 Every purchase includes a pamphlet sharing the story of how your support helps 
                 the Rescue and Regenerative Agriculture.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* One Of One Clothing Line Section */}
+      <section className="py-20 px-6 bg-gradient-to-b from-background via-card/20 to-background">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* One Of One Badge/Logo */}
+            <div className="relative flex justify-center">
+              <img 
+                src={oneOfOneBadge}
+                alt="One Of One - Singular Garments"
+                className="w-64 md:w-80 h-auto drop-shadow-lg"
+              />
+            </div>
+            
+            {/* One Of One Story */}
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-copper text-white">
+                <Shirt className="w-4 h-4" />
+                <span className="text-sm font-medium">One Of One Clothing</span>
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-light text-foreground leading-tight">
+                Second Chances,<br />
+                <span className="text-copper-aged">Worn Beautifully</span>
+              </h2>
+              
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                One-of-one quality garments transformed by hand to fund rescue and regeneration.
+              </p>
+              
+              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border">
+                <p className="text-muted-foreground leading-relaxed italic">
+                  "Solareinas / One of One creates singular garments from existing pieces—transformed 
+                  by hand and never replicated. Each item directly funds animal rescue and regenerative 
+                  care at Solareinas Ranch in Spain. This is impact expressed through fashion."
+                </p>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                <span className="px-4 py-2 rounded-full bg-gradient-patina text-white text-sm">
+                  Hand-Transformed
+                </span>
+                <span className="px-4 py-2 rounded-full bg-gradient-copper text-white text-sm">
+                  Never Replicated
+                </span>
+                <span className="px-4 py-2 rounded-full bg-secondary/50 text-foreground text-sm">
+                  100% Impact
+                </span>
+              </div>
+              
+              <Button 
+                variant="steward" 
+                size="lg"
+                className="mt-4"
+                onClick={() => toast.info("One Of One collection coming soon!", { description: "Sign up for updates to be the first to know." })}
+              >
+                <Shirt className="w-5 h-5 mr-2" />
+                Explore the Collection
+              </Button>
             </div>
           </div>
         </div>
