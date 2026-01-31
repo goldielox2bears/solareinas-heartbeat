@@ -1,5 +1,5 @@
 import heroImage from "@/assets/library/horse-mural.jpeg";
-import heroLogoVideo from "@/assets/srr-logo-animated.mp4";
+import heroLogo from "@/assets/srr-logo-brand.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -16,12 +16,9 @@ const SanctuaryHero = () => {
       
       {/* Logo - Top Right Corner */}
       <div className="absolute top-16 right-4 md:top-20 md:right-8 z-10">
-        <video 
-          src={heroLogoVideo}
-          autoPlay
-          loop
-          muted
-          playsInline
+        <img 
+          src={heroLogo} 
+          alt="Solareinas Ranch - Sierra Nevada" 
           className="h-36 md:h-60 w-auto"
         />
       </div>
