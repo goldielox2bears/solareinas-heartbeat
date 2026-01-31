@@ -1,4 +1,4 @@
-const heroImage = "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png";
+import heroImage from "@/assets/library/horse-mural.jpeg";
 import heroLogo from "@/assets/srr-logo-brand.png";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
