@@ -134,6 +134,81 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          available: boolean
+          created_at: string
+          descriptor_line: string | null
+          faq: Json | null
+          hero: boolean
+          hero_hook: string | null
+          how_to_use: string[] | null
+          id: string
+          images: string[] | null
+          ingredient_philosophy: string[] | null
+          key_benefits: string[] | null
+          name: string
+          price_cents: number
+          scent: string | null
+          seo_description: string | null
+          seo_title: string | null
+          short_description: string | null
+          size: string | null
+          slug: string
+          sort_order: number | null
+          updated_at: string
+          why_its_different: string[] | null
+        }
+        Insert: {
+          available?: boolean
+          created_at?: string
+          descriptor_line?: string | null
+          faq?: Json | null
+          hero?: boolean
+          hero_hook?: string | null
+          how_to_use?: string[] | null
+          id?: string
+          images?: string[] | null
+          ingredient_philosophy?: string[] | null
+          key_benefits?: string[] | null
+          name: string
+          price_cents: number
+          scent?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          short_description?: string | null
+          size?: string | null
+          slug: string
+          sort_order?: number | null
+          updated_at?: string
+          why_its_different?: string[] | null
+        }
+        Update: {
+          available?: boolean
+          created_at?: string
+          descriptor_line?: string | null
+          faq?: Json | null
+          hero?: boolean
+          hero_hook?: string | null
+          how_to_use?: string[] | null
+          id?: string
+          images?: string[] | null
+          ingredient_philosophy?: string[] | null
+          key_benefits?: string[] | null
+          name?: string
+          price_cents?: number
+          scent?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          short_description?: string | null
+          size?: string | null
+          slug?: string
+          sort_order?: number | null
+          updated_at?: string
+          why_its_different?: string[] | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
