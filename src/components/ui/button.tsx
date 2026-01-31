@@ -18,8 +18,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-gentle",
         ghost: "hover:bg-accent hover:text-accent-foreground transition-gentle",
         link: "text-primary underline-offset-4 hover:underline",
-        steward: "bg-gradient-steward text-primary-foreground hover:shadow-warm transition-warm font-medium tracking-wide",
-        sanctuary: "bg-gradient-sanctuary text-foreground hover:shadow-sanctuary transition-gentle border border-sanctuary-sage/30",
+        steward: "bg-gradient-copper text-white hover:shadow-warm transition-warm font-medium tracking-wide",
+        sanctuary: "bg-gradient-patina text-white hover:shadow-sanctuary transition-gentle",
         gentle: "bg-sanctuary-stone text-foreground hover:bg-sanctuary-earth transition-gentle shadow-gentle",
       },
       size: {
