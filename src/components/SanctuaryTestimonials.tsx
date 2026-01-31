@@ -223,15 +223,15 @@ const SanctuaryTestimonials = () => {
             <p className="text-muted-foreground mb-6">
               Daily updates, behind-the-scenes moments, and success stories from our sanctuary family
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <button className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-xl font-medium">
                 📷 Instagram
               </button>
-              <button className="bg-blue-500 text-white px-6 py-3 rounded-xl font-medium">
-                🐦 Twitter
+              <button className="bg-orange-500 text-white px-6 py-3 rounded-xl font-medium">
+                📝 Substack
               </button>
-              <button className="bg-blue-600 text-white px-6 py-3 rounded-xl font-medium">
-                📘 Facebook
+              <button className="bg-red-600 text-white px-6 py-3 rounded-xl font-medium">
+                📌 Pinterest
               </button>
             </div>
           </div>
