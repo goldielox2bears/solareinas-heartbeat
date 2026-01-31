@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import impactReportImage from "@/assets/impact-report.jpg";
 
@@ -212,19 +213,13 @@ const SanctuaryImpact = () => {
           <p className="text-muted-foreground mb-6">
             Every number represents a life transformed through your support
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
-              onClick={() => navigate("/gift")}
-              className="bg-gradient-steward text-primary-foreground px-8 py-3 rounded-xl font-medium shadow-warm hover:shadow-sanctuary transition-all duration-300"
-            >
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button variant="outline" size="sm" onClick={() => navigate("/gift")}>
               💝 Support Our Mission
-            </button>
-            <button 
-              onClick={() => setIsReportOpen(true)}
-              className="bg-gradient-sanctuary text-foreground px-8 py-3 rounded-xl font-medium shadow-gentle hover:shadow-warm transition-all duration-300"
-            >
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => setIsReportOpen(true)}>
               📊 View Our Impact Report
-            </button>
+            </Button>
           </div>
         </div>
       </div>
