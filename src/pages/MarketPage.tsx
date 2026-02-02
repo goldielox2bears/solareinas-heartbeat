@@ -299,7 +299,7 @@ const MarketPage = () => {
               <img 
                 src={madeHereLogo} 
                 alt="Made Here, For Us — by Solareinas" 
-                className="w-48 md:w-64 h-auto"
+                className="w-48 md:w-64 h-auto mix-blend-multiply dark:mix-blend-screen"
               />
             </div>
             
