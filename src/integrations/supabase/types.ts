@@ -101,6 +101,59 @@ export type Database = {
         }
         Relationships: []
       }
+      gifts: {
+        Row: {
+          amount_cents: number
+          animal_id: string | null
+          created_at: string
+          donor_email: string
+          donor_name: string
+          gift_target: string | null
+          gift_type: string
+          id: string
+          message: string | null
+          notified: boolean
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount_cents: number
+          animal_id?: string | null
+          created_at?: string
+          donor_email: string
+          donor_name: string
+          gift_target?: string | null
+          gift_type: string
+          id?: string
+          message?: string | null
+          notified?: boolean
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount_cents?: number
+          animal_id?: string | null
+          created_at?: string
+          donor_email?: string
+          donor_name?: string
+          gift_target?: string | null
+          gift_type?: string
+          id?: string
+          message?: string | null
+          notified?: boolean
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gifts_animal_id_fkey"
+            columns: ["animal_id"]
+            isOneToOne: false
+            referencedRelation: "animals"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string
