@@ -5,30 +5,39 @@ import { Badge } from "@/components/ui/badge";
 const volunteerProfiles = [
   {
     id: 1,
-    name: "Maria Santos",
-    role: "Grove Restoration Volunteer",
-    hours: 42,
-    badges: ["🌳 Tree Planter", "🌊 Water Guardian", "✨ Monthly Helper"],
-    quote: "Working with my hands in this peaceful place heals something in my soul.",
-    joinedDate: "March 2024"
+    name: "Hanka",
+    role: "Animal Care Assistant",
+    hours: 500,
+    badges: ["🐴 Horse Whisperer", "🐶 Dog Lover", "🐱 Cat Mage"],
+    quote: "These animals are my extended family!",
+    joinedDate: "October 2024"
   },
   {
     id: 2,
-    name: "Jake Thompson",
-    role: "Animal Care Assistant",
-    hours: 68,
-    badges: ["🐴 Horse Whisperer", "🏗️ Fence Builder", "🌟 Leadership"],
-    quote: "Every fence post I set is a foundation for freedom.",
-    joinedDate: "January 2024"
+    name: "Andres",
+    role: "Weekend Warrior – Fence Building",
+    hours: 230,
+    badges: ["🏗️ Fence Builder", "🌟 Regular Helper"],
+    quote: "Keeping the animals safe is a priority.",
+    joinedDate: "2021"
   },
   {
     id: 3,
-    name: "The Chen Family",
-    role: "Weekend Warriors",
-    hours: 24,
-    badges: ["👨‍👩‍👧‍👦 Family Team", "🌱 New Growth"],
-    quote: "Teaching our children that caring creates community.",
-    joinedDate: "April 2024"
+    name: "Thomas",
+    role: "Land Management Volunteer",
+    hours: 310,
+    badges: ["🌳 Trees", "⛏️ Trenches", "🚜 Excavations"],
+    quote: "Having so many 4 legged helpers has been a great experience.",
+    joinedDate: "September 2025"
+  },
+  {
+    id: 4,
+    name: "Nazeera",
+    role: "Animal Care Volunteer",
+    hours: 330,
+    badges: ["🐴 Horse Lover", "🐶 Spoiler of Dogs"],
+    quote: "Caring and riding here has been spectacular!",
+    joinedDate: "November 2025"
   }
 ];
 
