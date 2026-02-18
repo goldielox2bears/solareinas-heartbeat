@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import srrLogo from "@/assets/srr-logo-transparent.png";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ const SanctuaryNavigation = () => {
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <span className="text-2xl">🌿</span>
+            <img src={srrLogo} alt="SRR" className="h-8 w-auto object-contain" />
             <span className="text-xl font-light text-foreground">Solareinas Ranch</span>
           </div>
           
