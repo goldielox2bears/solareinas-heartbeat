@@ -5,21 +5,79 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+const EMAIL_REGEX = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
+
+interface OrderItem {
+  name: string;
+  qty: number;
+  price: number;
+}
+
+function validateOrderInput(body: unknown): { valid: true; data: Record<string, unknown> } | { valid: false; error: string } {
+  if (typeof body !== 'object' || body === null) return { valid: false, error: 'Invalid request body' };
+  const b = body as Record<string, unknown>;
+
+  if (typeof b.name !== 'string' || b.name.trim().length < 2 || b.name.length > 100)
+    return { valid: false, error: 'name must be 2–100 characters' };
+
+  if (typeof b.email !== 'string' || !EMAIL_REGEX.test(b.email) || b.email.length > 255)
+    return { valid: false, error: 'Invalid email address' };
+
+  if (b.phone !== undefined && b.phone !== null && (typeof b.phone !== 'string' || b.phone.length > 30))
+    return { valid: false, error: 'phone must be under 30 characters' };
+
+  if (b.notes !== undefined && b.notes !== null && (typeof b.notes !== 'string' || b.notes.length > 2000))
+    return { valid: false, error: 'notes must be under 2000 characters' };
+
+  if (!Array.isArray(b.items) || b.items.length === 0 || b.items.length > 50)
+    return { valid: false, error: 'items must be a non-empty array of up to 50 products' };
+
+  for (const item of b.items) {
+    if (typeof item !== 'object' || item === null) return { valid: false, error: 'Each item must be an object' };
+    const i = item as Record<string, unknown>;
+    if (typeof i.name !== 'string' || i.name.length > 200) return { valid: false, error: 'Item name must be under 200 characters' };
+    if (typeof i.qty !== 'number' || !Number.isInteger(i.qty) || i.qty < 1 || i.qty > 100) return { valid: false, error: 'Item qty must be an integer between 1 and 100' };
+    if (typeof i.price !== 'number' || i.price < 0 || i.price > 100000) return { valid: false, error: 'Item price must be between 0 and 100,000' };
+  }
+
+  if (typeof b.total_eur !== 'string' || !/^\d+(\.\d{1,2})?$/.test(b.total_eur))
+    return { valid: false, error: 'total_eur must be a valid decimal string' };
+
+  return { valid: true, data: b };
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const body = await req.json();
-    const { name, email, phone, items, total_eur, notes } = body;
-
-    if (!name || !email || !items || items.length === 0) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
+
+    const validation = validateOrderInput(body);
+    if (!validation.valid) {
+      return new Response(JSON.stringify({ error: validation.error }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { name, email, phone, notes, items, total_eur } = validation.data as {
+      name: string;
+      email: string;
+      phone?: string;
+      notes?: string;
+      items: OrderItem[];
+      total_eur: string;
+    };
 
     const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
     if (!RESEND_API_KEY) {

@@ -5,22 +5,72 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+const EMAIL_REGEX = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
+const ALLOWED_GIFT_TYPES = ['project', 'animal', 'custom'] as const;
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function validateGiftInput(body: unknown): { valid: true; data: Record<string, unknown> } | { valid: false; error: string } {
+  if (typeof body !== 'object' || body === null) return { valid: false, error: 'Invalid request body' };
+  const b = body as Record<string, unknown>;
+
+  if (typeof b.donor_name !== 'string' || b.donor_name.trim().length < 2 || b.donor_name.length > 100)
+    return { valid: false, error: 'donor_name must be 2–100 characters' };
+
+  if (typeof b.donor_email !== 'string' || !EMAIL_REGEX.test(b.donor_email) || b.donor_email.length > 255)
+    return { valid: false, error: 'Invalid donor_email' };
+
+  if (typeof b.amount_cents !== 'number' || !Number.isInteger(b.amount_cents) || b.amount_cents < 100 || b.amount_cents > 10_000_00)
+    return { valid: false, error: 'amount_cents must be an integer between 100 and 1,000,000' };
+
+  if (!ALLOWED_GIFT_TYPES.includes(b.gift_type as typeof ALLOWED_GIFT_TYPES[number]))
+    return { valid: false, error: `gift_type must be one of: ${ALLOWED_GIFT_TYPES.join(', ')}` };
+
+  if (b.message !== undefined && b.message !== null && (typeof b.message !== 'string' || b.message.length > 1000))
+    return { valid: false, error: 'message must be under 1000 characters' };
+
+  if (b.gift_target !== undefined && b.gift_target !== null && (typeof b.gift_target !== 'string' || b.gift_target.length > 200))
+    return { valid: false, error: 'gift_target must be under 200 characters' };
+
+  if (b.animal_id !== undefined && b.animal_id !== null && (typeof b.animal_id !== 'string' || !UUID_REGEX.test(b.animal_id)))
+    return { valid: false, error: 'animal_id must be a valid UUID' };
+
+  return { valid: true, data: b };
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const body = await req.json();
-    const { donor_name, donor_email, message, amount_cents, gift_type, gift_target, animal_id } = body;
-
-    // Validate required fields
-    if (!donor_name || !donor_email || !amount_cents || !gift_type) {
-      return new Response(JSON.stringify({ error: 'Missing required fields' }), {
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
     }
+
+    const validation = validateGiftInput(body);
+    if (!validation.valid) {
+      return new Response(JSON.stringify({ error: validation.error }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
+    const { donor_name, donor_email, message, amount_cents, gift_type, gift_target, animal_id } =
+      validation.data as {
+        donor_name: string;
+        donor_email: string;
+        message?: string;
+        amount_cents: number;
+        gift_type: string;
+        gift_target?: string;
+        animal_id?: string;
+      };
 
     // Save gift to database using service role key
     const supabase = createClient(
