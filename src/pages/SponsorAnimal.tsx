@@ -95,20 +95,27 @@ export default function SponsorAnimal() {
 
     setSubmitting(true);
     try {
-      const amount_cents = form.sponsorship_type === 'monthly' 
-        ? selectedAnimal.monthly_sponsorship_cents 
-        : selectedAnimal.annual_sponsorship_cents;
+      // Fall back to species-based pricing if the animal's cents are null
+      const getSpeciesPricing = (species: string) => {
+        const s = species.toLowerCase();
+        if (s.includes('horse') || s.includes('mule')) return { monthly: 10000, annual: 60000 };
+        return { monthly: 3500, annual: 40000 };
+      };
+      const pricing = getSpeciesPricing(selectedAnimal.species);
+      const amount_cents = form.sponsorship_type === 'monthly'
+        ? (selectedAnimal.monthly_sponsorship_cents ?? pricing.monthly)
+        : (selectedAnimal.annual_sponsorship_cents ?? pricing.annual);
 
       const { error } = await supabase
         .from('sponsorships')
         .insert({
           animal_id: selectedAnimal.id,
-          sponsor_name: form.sponsor_name,
-          sponsor_email: form.sponsor_email,
+          sponsor_name: form.sponsor_name.trim(),
+          sponsor_email: form.sponsor_email.trim(),
           sponsorship_type: form.sponsorship_type,
           amount_cents,
-          special_requests: form.special_requests,
-          founding_guardian: true // Mark as founding guardian for pre-opening sponsors
+          special_requests: form.special_requests || null,
+          founding_guardian: true
         });
 
       if (error) throw error;
