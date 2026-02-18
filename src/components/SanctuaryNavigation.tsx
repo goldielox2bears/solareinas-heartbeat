@@ -17,7 +17,7 @@ const SanctuaryNavigation = () => {
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <img src={srrLogo} alt="SRR" className="h-8 w-auto object-contain" />
+            <img src={srrLogo} alt="SRR" className="h-12 w-auto object-contain" />
             <span className="text-xl font-light text-foreground">Solareinas Ranch</span>
           </div>
           
