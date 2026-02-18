@@ -87,7 +87,7 @@ const SanctuaryResidents = () => {
                           <img
                             src={animal.photo_url || "/lovable-uploads/36fe2001-2cab-427a-9506-1dba65888ffc.png"}
                             alt={`${animal.name} the ${animal.species}`}
-                            className="w-full h-48 object-cover rounded-t-xl"
+                            className="w-full h-48 object-cover object-top rounded-t-xl"
                           />
                           <div className="absolute top-4 right-4">
                             <Badge className={getStatusColor(animal.sponsor_status)}>
