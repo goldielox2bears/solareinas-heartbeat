@@ -107,7 +107,9 @@ const GiftPage = () => {
     return 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!giftForm.name || !giftForm.email) {
@@ -129,18 +131,46 @@ const GiftPage = () => {
       return;
     }
 
-    // For now, show success message - payment integration would go here
-    toast({
-      title: "Thank you for your generosity!",
-      description: `Your gift of €${amount} will make a real difference. We'll be in touch soon.`,
-    });
+    setSubmitting(true);
+    try {
+      const gift_type = customAmount ? "custom" : selectedProject ? "project" : "animal";
+      const gift_target = selectedProject?.name || selectedAnimal?.name || null;
 
-    // Reset form
-    setGiftForm({ name: "", email: "", message: "" });
-    setSelectedProject(null);
-    setSelectedAnimal(null);
-    setCustomAmount(null);
-    setSelectedType(null);
+      const { error } = await supabase.functions.invoke("send-gift-notification", {
+        body: {
+          donor_name: giftForm.name,
+          donor_email: giftForm.email,
+          message: giftForm.message || null,
+          amount_cents: Math.round(amount * 100),
+          gift_type,
+          gift_target,
+          animal_id: selectedAnimal?.id || null,
+        },
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Thank you for your generosity! 🌿",
+        description: `Your gift of €${amount} has been received. We'll be in touch soon.`,
+      });
+
+      // Reset form
+      setGiftForm({ name: "", email: "", message: "" });
+      setSelectedProject(null);
+      setSelectedAnimal(null);
+      setCustomAmount(null);
+      setSelectedType(null);
+    } catch (err) {
+      console.error("Gift submission error:", err);
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or contact us directly at bohrn.farm@gmail.com.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -367,10 +397,10 @@ const GiftPage = () => {
                       type="submit" 
                       variant="steward"
                       className="w-full mt-6"
-                      disabled={getSelectedAmount() <= 0}
+                      disabled={getSelectedAmount() <= 0 || submitting}
                     >
                       <Heart className="w-4 h-4 mr-2" />
-                      Give €{getSelectedAmount().toLocaleString()}
+                      {submitting ? "Sending..." : `Give €${getSelectedAmount().toLocaleString()}`}
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center mt-4">
