@@ -33,6 +33,18 @@ interface SponsorshipForm {
   special_requests: string;
 }
 
+const getSpeciesPricing = (species: string) => {
+  const s = species.toLowerCase();
+  if (s.includes('horse') || s.includes('mule')) return { monthly: 10000, annual: 60000 };
+  return { monthly: 3500, annual: 40000 };
+};
+
+const getEffectiveMonthly = (animal: Animal) =>
+  animal.monthly_sponsorship_cents ?? getSpeciesPricing(animal.species).monthly;
+
+const getEffectiveAnnual = (animal: Animal) =>
+  animal.annual_sponsorship_cents ?? getSpeciesPricing(animal.species).annual;
+
 export default function SponsorAnimal() {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
@@ -95,16 +107,9 @@ export default function SponsorAnimal() {
 
     setSubmitting(true);
     try {
-      // Fall back to species-based pricing if the animal's cents are null
-      const getSpeciesPricing = (species: string) => {
-        const s = species.toLowerCase();
-        if (s.includes('horse') || s.includes('mule')) return { monthly: 10000, annual: 60000 };
-        return { monthly: 3500, annual: 40000 };
-      };
-      const pricing = getSpeciesPricing(selectedAnimal.species);
       const amount_cents = form.sponsorship_type === 'monthly'
-        ? (selectedAnimal.monthly_sponsorship_cents ?? pricing.monthly)
-        : (selectedAnimal.annual_sponsorship_cents ?? pricing.annual);
+        ? getEffectiveMonthly(selectedAnimal)
+        : getEffectiveAnnual(selectedAnimal);
 
       const { error } = await supabase
         .from('sponsorships')
@@ -307,8 +312,8 @@ export default function SponsorAnimal() {
                   )}
                   <div className="flex justify-between items-center mb-4">
                     <div className="text-sm">
-                      <div className="font-semibold">{formatPrice(animal.monthly_sponsorship_cents)}/month</div>
-                      <div className="text-muted-foreground">{formatPrice(animal.annual_sponsorship_cents)}/year</div>
+                      <div className="font-semibold">{formatPrice(getEffectiveMonthly(animal))}/month</div>
+                      <div className="text-muted-foreground">{formatPrice(getEffectiveAnnual(animal))}/year</div>
                     </div>
                   </div>
                   <Dialog open={isDialogOpen && selectedAnimal?.id === animal.id} onOpenChange={setIsDialogOpen}>
@@ -356,14 +361,14 @@ export default function SponsorAnimal() {
                               onClick={() => setForm(prev => ({ ...prev, sponsorship_type: 'monthly' }))}
                               className="flex-1"
                             >
-                              Monthly Gift ({formatPrice(animal.monthly_sponsorship_cents)})
+                              Monthly Gift ({formatPrice(getEffectiveMonthly(animal))})
                             </Button>
                             <Button
                               variant={form.sponsorship_type === 'annual' ? 'default' : 'outline'}
                               onClick={() => setForm(prev => ({ ...prev, sponsorship_type: 'annual' }))}
                               className="flex-1"
                             >
-                              Annual Gift ({formatPrice(animal.annual_sponsorship_cents)})
+                              Annual Gift ({formatPrice(getEffectiveAnnual(animal))})
                             </Button>
                           </div>
                         </div>
