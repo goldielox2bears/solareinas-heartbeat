@@ -5,8 +5,13 @@ import TrustStrip from "@/components/shop/TrustStrip";
 import ImpactGuaranteeBlock from "@/components/shop/ImpactGuaranteeBlock";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { Leaf, Heart, TreePine, Users, Sparkles, Wine, Gift, BookOpen, Truck, Plus, Minus, ShoppingBag, Sun, Droplets, Hand, Flower2, Shirt, Star, Waves, LucideIcon } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import oliveOilLabel from "@/assets/olive-oil-label.png";
 import oneOfOneBadge from "@/assets/one-of-one-tag.png";
 import madeHereLogo from "@/assets/made-here-logo.png";
@@ -168,6 +173,12 @@ const MarketPage = () => {
   const navigate = useNavigate();
   const [selectedTier, setSelectedTier] = useState<number | null>(null);
   const [cart, setCart] = useState<{ [key: string]: number }>({});
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [checkoutName, setCheckoutName] = useState("");
+  const [checkoutEmail, setCheckoutEmail] = useState("");
+  const [checkoutPhone, setCheckoutPhone] = useState("");
+  const [checkoutNotes, setCheckoutNotes] = useState("");
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   const handleGiftSelect = (amount: number) => {
     setSelectedTier(amount);
@@ -201,17 +212,59 @@ const MarketPage = () => {
       toast.error("Your cart is empty");
       return;
     }
-    toast.success("Thank you for your interest! We'll be in touch about your order.", {
-      description: "Shipping details will be confirmed via email.",
+    setCheckoutOpen(true);
+  };
+
+  const handleSubmitOrder = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!checkoutName.trim() || !checkoutEmail.trim()) {
+      toast.error("Please enter your name and email.");
+      return;
+    }
+
+    const items = Object.entries(cart).map(([productId, qty]) => {
+      const product = allProducts.find(p => p.id === productId)!;
+      return { name: product.name, qty, price: product.price };
     });
+
+    setCheckoutLoading(true);
+    try {
+      const { error } = await supabase.functions.invoke("send-market-order", {
+        body: {
+          name: checkoutName,
+          email: checkoutEmail,
+          phone: checkoutPhone || null,
+          notes: checkoutNotes || null,
+          items,
+          total_eur: getCartTotal().toFixed(2),
+        },
+      });
+
+      if (error) throw error;
+
+      toast.success("Order received! Check your email for confirmation.", {
+        description: "We'll be in touch shortly to arrange payment and shipping.",
+      });
+      setCheckoutOpen(false);
+      setCart({});
+      setCheckoutName("");
+      setCheckoutEmail("");
+      setCheckoutPhone("");
+      setCheckoutNotes("");
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong. Please try again or contact us directly.");
+    } finally {
+      setCheckoutLoading(false);
+    }
   };
 
   const renderProductCard = (product: Product) => (
-    <Card 
+    <Card
       key={product.id}
       className={`relative overflow-hidden transition-all duration-300 hover:shadow-warm border-2 ${
-        product.highlight 
-          ? 'border-primary bg-gradient-to-br from-primary/5 to-sanctuary-amber/10' 
+        product.highlight
+          ? 'border-primary bg-gradient-to-br from-primary/5 to-sanctuary-amber/10'
           : 'border-border'
       }`}
     >
@@ -236,19 +289,19 @@ const MarketPage = () => {
           }`}>
             <product.icon className="w-8 h-8" />
           </div>
-          
+
           <div>
             <h3 className="text-xl font-medium text-foreground">{product.name}</h3>
             <p className="text-sm text-muted-foreground">{product.subtitle}</p>
           </div>
-          
+
           <div className="text-3xl font-semibold text-foreground">
             {'originalPrice' in product && product.originalPrice && (
               <span className="text-lg text-muted-foreground line-through mr-2">€{product.originalPrice}</span>
             )}
             €{product.price}
           </div>
-          
+
           <p className="text-sm text-muted-foreground leading-relaxed">
             {product.description}
           </p>
@@ -284,39 +337,39 @@ const MarketPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SanctuaryNavigation />
-      
+
       {/* Trust Strip */}
       <div className="pt-20">
         <TrustStrip />
       </div>
-      
+
       {/* Hero Section - Made Here Brand */}
       <section className="py-16 md:py-24 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Made Here Logo */}
             <div className="relative flex justify-center">
-              <img 
-                src={madeHereLogo} 
-                alt="Made Here, For Us — by Solareinas" 
+              <img
+                src={madeHereLogo}
+                alt="Made Here, For Us — by Solareinas"
                 className="w-48 md:w-64 h-auto mix-blend-multiply dark:mix-blend-screen"
               />
             </div>
-            
+
             {/* Hero Text */}
             <div className="text-center md:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-foreground/80 mb-8">
                 <Leaf className="w-4 h-4" />
                 <span className="text-sm font-medium">Made Here, For Us — by Solareinas</span>
               </div>
-              
+
               <h1 className="text-4xl md:text-5xl font-light text-foreground mb-6 leading-tight">
                 The Market<br />
                 <span className="text-primary">Ranch-Made. With Purpose.</span>
               </h1>
-              
+
               <p className="text-xl text-muted-foreground font-light max-w-xl">
-                Everything we create is born on this land, made with our hands, and shared with purpose. 
+                Everything we create is born on this land, made with our hands, and shared with purpose.
                 100% of profits support the animals and land.
               </p>
             </div>
@@ -336,15 +389,15 @@ const MarketPage = () => {
               Olive Oil
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hand-picked. First cold pressed. Grown in living soil. Bottled in recycled wine bottles 
+              Hand-picked. First cold pressed. Grown in living soil. Bottled in recycled wine bottles
               with an elegant pouring spout.
             </p>
           </div>
 
           <div className="flex justify-center mb-8">
-            <img 
-              src={oliveOilLabel} 
-              alt="Solareinas Ranch Retreat Estate Grown Extra Virgin Olive Oil" 
+            <img
+              src={oliveOilLabel}
+              alt="Solareinas Ranch Retreat Estate Grown Extra Virgin Olive Oil"
               className="w-full max-w-md rounded-2xl shadow-warm"
             />
           </div>
@@ -367,7 +420,7 @@ const MarketPage = () => {
               Ranch Bar & Skincare
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hand-crafted with estate olives, solar power, and love. Slow-cured. Never rushed. 
+              Hand-crafted with estate olives, solar power, and love. Slow-cured. Never rushed.
               Made for skin that works hard and deserves to glow.
             </p>
           </div>
@@ -419,7 +472,7 @@ const MarketPage = () => {
                     <BookOpen className="w-4 h-4" />
                     <span>Includes story pamphlet with each order</span>
                   </div>
-                  <Button 
+                  <Button
                     className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6"
                     onClick={handleCheckout}
                   >
@@ -446,201 +499,211 @@ const MarketPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* One Of One Badge/Logo */}
             <div className="relative flex justify-center">
-              <img 
+              <img
                 src={oneOfOneBadge}
                 alt="One Of One - Singular Garments"
                 className="w-64 md:w-80 h-auto drop-shadow-lg rotate-90"
               />
             </div>
-            
+
             {/* One Of One Story */}
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-copper text-white">
                 <Shirt className="w-4 h-4" />
                 <span className="text-sm font-medium">One Of One Clothing</span>
               </div>
-              
+
               <h2 className="text-3xl md:text-4xl font-light text-foreground leading-tight">
-                Second Chances,<br />
-                <span className="text-copper-aged">Worn Beautifully</span>
+                Singular Garments.<br />
+                <span className="text-primary">Never Repeated.</span>
               </h2>
-              
-              <p className="text-lg text-muted-foreground leading-relaxed">
-                One-of-one quality garments transformed by hand to fund rescue and regeneration.
+
+              <p className="text-muted-foreground leading-relaxed">
+                One Of One is our clothing line — each piece is truly singular. Made from upcycled and 
+                natural materials, hand-finished on the ranch. When it's gone, it's gone.
               </p>
-              
-              <div className="bg-card/80 backdrop-blur-sm rounded-xl p-6 border border-border">
-                <p className="text-muted-foreground leading-relaxed italic">
-                  "Solareinas / One of One creates singular garments from existing pieces—transformed 
-                  by hand and never replicated. Each item directly funds animal rescue and regenerative 
-                  care at Solareinas Ranch in Spain. This is impact expressed through fashion."
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap gap-3">
-                <span className="px-4 py-2 rounded-full bg-gradient-patina text-white text-sm">
-                  Hand-Transformed
-                </span>
-                <span className="px-4 py-2 rounded-full bg-gradient-copper text-white text-sm">
-                  Never Replicated
-                </span>
-                <span className="px-4 py-2 rounded-full bg-secondary/50 text-foreground text-sm">
-                  100% Impact
-                </span>
-              </div>
-              
-              <Button 
-                variant="steward" 
-                size="lg"
-                className="mt-4"
-                onClick={() => toast.info("One Of One collection coming soon!", { description: "Sign up for updates to be the first to know." })}
+
+              <p className="text-muted-foreground leading-relaxed">
+                Every garment tells a story of the land, the animals, and the hands that shaped it.
+                100% of proceeds support the sanctuary.
+              </p>
+
+              <Button
+                variant="outline"
+                className="border-primary text-primary hover:bg-primary/5"
+                onClick={() => toast.info("One Of One drops coming soon. Join the list to be first.", { duration: 4000 })}
               >
-                <Shirt className="w-5 h-5 mr-2" />
-                Explore the Collection
+                <Shirt className="w-4 h-4 mr-2" />
+                Notify Me of the Next Drop
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Story Section */}
-      <section className="py-16 px-6 bg-card/50">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h2 className="text-3xl font-light text-foreground">
-                At Solareinas, every product tells a story.
-              </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  This is not mass-produced. Everything is crafted on our private estate in southern Spain, 
-                  powered by solar energy, and made with ingredients we grow ourselves.
-                </p>
-                <p>
-                  The groves are tended with care, the olives picked at dawn, the soap cured slowly, 
-                  and every product made with the same love we give our rescued animals.
-                </p>
-              </div>
-            </div>
-            
-            <div className="bg-gradient-to-br from-secondary/30 to-sanctuary-earth/30 rounded-2xl p-8 space-y-6">
-              <h3 className="text-xl font-medium text-foreground">Each product is:</h3>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Sparkles className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium text-foreground">Ranch-made, not mass-made</span>
-                    <p className="text-sm text-muted-foreground">Crafted in small batches with care.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <Heart className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium text-foreground">100% impact</span>
-                    <p className="text-sm text-muted-foreground">Every euro funds animal care and land regeneration.</p>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <TreePine className="w-4 h-4 text-primary" />
-                  </div>
-                  <div>
-                    <span className="font-medium text-foreground">Solar-powered & sustainable</span>
-                    <p className="text-sm text-muted-foreground">Made with the sun, returned to the earth.</p>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Gift Tiers Section */}
-      <section className="py-20 px-6">
+      <section className="py-16 px-6 bg-card/30">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-foreground/80 mb-6">
+              <Gift className="w-4 h-4" />
+              <span className="text-sm font-medium">Gift Tiers</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-              Give & Receive Your Bottle of Regeneration
+              Give the Gift of the Grove
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              When you support Solareinas with your gift, this olive oil is our thank-you. 
-              It's more than flavor for your table — it's a reminder that you are part of something 
-              living, lasting, and rooted in purpose.
+              Choose a gift tier that supports the sanctuary and receive something beautiful in return.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {giftTiers.map((tier) => (
-              <Card 
+              <Card
                 key={tier.amount}
-                className={`group cursor-pointer transition-all duration-300 hover:shadow-warm border-2 ${
-                  tier.highlight 
-                    ? 'border-primary bg-gradient-to-br from-primary/5 to-sanctuary-amber/10' 
-                    : 'border-border hover:border-primary/50'
+                className={`cursor-pointer transition-all duration-300 hover:shadow-warm border-2 ${
+                  selectedTier === tier.amount
+                    ? 'border-primary bg-primary/5'
+                    : tier.highlight
+                    ? 'border-primary/40 bg-gradient-to-br from-primary/5 to-sanctuary-amber/10'
+                    : 'border-border hover:border-primary/30'
                 }`}
                 onClick={() => handleGiftSelect(tier.amount)}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      tier.highlight ? 'bg-primary text-primary-foreground' : 'bg-secondary/50'
-                    }`}>
-                      <tier.icon className="w-6 h-6" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-medium text-foreground">{tier.title}</h3>
-                        <span className={`text-xl font-semibold ${tier.highlight ? 'text-primary' : 'text-foreground'}`}>
-                          €{tier.amount}
-                        </span>
-                      </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {tier.description}
-                      </p>
-                      {tier.highlight && (
-                        <div className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary">
-                          <Sparkles className="w-3 h-3" />
-                          Most Popular
-                        </div>
-                      )}
-                    </div>
+                <CardContent className="p-6 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 mx-auto flex items-center justify-center">
+                    <tier.icon className="w-6 h-6 text-primary" />
                   </div>
+                  <div className="text-2xl font-semibold text-foreground">€{tier.amount}</div>
+                  <h3 className="font-medium text-foreground text-sm">{tier.title}</h3>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{tier.description}</p>
                 </CardContent>
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          <div className="text-center mt-10">
-            <Button 
-              size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-xl shadow-warm"
-              onClick={() => navigate('/gift?source=olive-oil')}
-            >
-              <Leaf className="w-5 h-5 mr-2" />
-              Give & Receive Your Bottle of Regeneration
+      {/* Story Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
+          <h2 className="text-3xl md:text-4xl font-light text-foreground">
+            Every Purchase is an Act of Care
+          </h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            When you buy from Solareinas, you're not just buying a product. You're choosing regenerative 
+            land practices, rescue animal care, and a return to making things with integrity.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            100% of profits flow directly to the sanctuary — the animals, the land, and the people 
+            who tend both with love.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <Button asChild variant="outline">
+              <Link to="/sponsor-animal">Meet the Animals</Link>
+            </Button>
+            <Button asChild>
+              <Link to="/gift">Make a Gift</Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 px-6 bg-gradient-steward text-primary-foreground">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-lg opacity-90 mb-4">
-            Made for us. Made for them.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6 text-sm opacity-80">
-            <Link to="/market" className="hover:opacity-100 transition-opacity">The Market</Link>
-            <Link to="/#rescue" className="hover:opacity-100 transition-opacity">Impact</Link>
-            <Link to="/sponsor-animal" className="hover:opacity-100 transition-opacity">Give Support</Link>
-            <a href="mailto:hello@solareinas.com" className="hover:opacity-100 transition-opacity">Contact</a>
-          </div>
+      {/* Footer Links */}
+      <footer className="py-8 px-6 border-t border-border">
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-6 text-sm text-muted-foreground/70">
+          <Link to="/" className="hover:opacity-100 transition-opacity">Home</Link>
+          <Link to="/sponsor-animal" className="hover:opacity-100 transition-opacity">Sponsor an Animal</Link>
+          <Link to="/gift" className="hover:opacity-100 transition-opacity">Gift the Sanctuary</Link>
+          <Link to="/market" className="hover:opacity-100 transition-opacity">The Market</Link>
+          <a href="mailto:hello@solareinas.com" className="hover:opacity-100 transition-opacity">Contact</a>
         </div>
       </footer>
+
+      {/* Checkout Modal */}
+      <Dialog open={checkoutOpen} onOpenChange={setCheckoutOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-light text-foreground">Complete Your Order</DialogTitle>
+            <DialogDescription className="text-muted-foreground">
+              We'll confirm your order and arrange payment & shipping by email.
+            </DialogDescription>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmitOrder} className="space-y-4 mt-2">
+            {/* Order summary */}
+            <div className="bg-secondary/30 rounded-lg p-4 space-y-2 text-sm">
+              {Object.entries(cart).map(([productId, qty]) => {
+                const product = allProducts.find(p => p.id === productId);
+                if (!product) return null;
+                return (
+                  <div key={productId} className="flex justify-between">
+                    <span>{product.name} ×{qty}</span>
+                    <span className="font-medium">€{product.price * qty}</span>
+                  </div>
+                );
+              })}
+              <div className="flex justify-between font-semibold border-t border-border pt-2 mt-2">
+                <span>Total (excl. shipping)</span>
+                <span>€{getCartTotal()}</span>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="checkout-name">Full Name *</Label>
+              <Input
+                id="checkout-name"
+                value={checkoutName}
+                onChange={e => setCheckoutName(e.target.value)}
+                placeholder="Your full name"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="checkout-email">Email Address *</Label>
+              <Input
+                id="checkout-email"
+                type="email"
+                value={checkoutEmail}
+                onChange={e => setCheckoutEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="checkout-phone">Phone Number (optional)</Label>
+              <Input
+                id="checkout-phone"
+                type="tel"
+                value={checkoutPhone}
+                onChange={e => setCheckoutPhone(e.target.value)}
+                placeholder="+353 ..."
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="checkout-notes">Notes / Shipping Address (optional)</Label>
+              <Textarea
+                id="checkout-notes"
+                value={checkoutNotes}
+                onChange={e => setCheckoutNotes(e.target.value)}
+                placeholder="Shipping address, gift note, special requests..."
+                rows={3}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={checkoutLoading}
+            >
+              {checkoutLoading ? "Sending..." : "Submit Order"}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
