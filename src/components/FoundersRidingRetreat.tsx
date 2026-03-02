@@ -18,9 +18,9 @@ import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 
 // span classes: col/row spans for collage layout — 4-col grid, 4 rows total
 const photos = [
-  { src: groupRiding, alt: "Group riding through Sierra Nevada mountains", className: "col-span-2 row-span-2" },
+  { src: riderVista, alt: "Rider overlooking Sierra Nevada mountains", className: "col-span-2 row-span-2" },
   { src: guidesWithHorse, alt: "Guides preparing horses on the trail", className: "" },
-  { src: riderVista, alt: "Rider overlooking Sierra Nevada mountains", className: "" },
+  { src: groupRiding, alt: "Group riding through Sierra Nevada mountains", className: "" },
   { src: muleSummit, alt: "Mule on a rocky mountain summit", className: "" },
   { src: tentInterior, alt: "Inside a cozy mountain tent", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with horses and dogs", className: "col-span-2" },
