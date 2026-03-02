@@ -117,7 +117,7 @@ const FoundersRidingRetreat = () => {
                   Three days riding horses and mules through epic mountain terrain.
                   Hand-painted tents, home-cooked meals, wilderness hiking,
                   sunrise rituals, and deep cultural immersion —
-                  guided by those who know these paths by heart.
+                  guided by the family that has guided and stewarded these paths for generations.
                 </p>
               </div>
             </div>
@@ -152,9 +152,9 @@ const FoundersRidingRetreat = () => {
 
                 <div className="border-t border-border pt-4 flex items-baseline justify-between">
                   <div>
-                    <p className="text-2xl font-light text-foreground">€1,000</p>
+                    <p className="text-2xl font-light text-foreground">€1,500</p>
                     <p className="text-xs text-muted-foreground">contribution per person · all-inclusive</p>
-                    <p className="text-xs text-primary font-medium mt-1">€300 deposit to reserve your spot</p>
+                    <p className="text-xs text-primary font-medium mt-1">€450 deposit to reserve your spot</p>
                   </div>
                   <Badge variant="outline" className="text-xs">6 spots</Badge>
                 </div>

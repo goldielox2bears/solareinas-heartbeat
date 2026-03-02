@@ -102,7 +102,7 @@ const RetreatSignupForm = ({ open, onOpenChange }: RetreatSignupFormProps) => {
         <DialogHeader>
           <DialogTitle className="text-2xl font-light">Reserve Your Spot</DialogTitle>
           <DialogDescription>
-            Founders Riding Retreat · July 2–5 · €1,000 per person (€300 deposit)
+            Founders Riding Retreat · July 2–5 · €1,500 per person (€450 deposit)
           </DialogDescription>
         </DialogHeader>
 
