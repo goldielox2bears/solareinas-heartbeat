@@ -27,7 +27,7 @@ const galleryImages = [
   { src: freeRangeLiving, alt: "Buffy recovered from cancer surgery and ranging freely again", title: "Successful Cancer Treatment" },
   { src: whiteHorseVista, alt: "White horse gazing over the mountain valley at sunset", title: "Mountain Vista" },
   { src: dailyCare, alt: "Volunteer families reconnecting with animal care", title: "Animal Care" },
-  { src: chestnutHorseTrail, alt: "Chestnut horse on a mountain trail ride", title: "Trail Riding" },
+  { src: chestnutHorseTrail, alt: "Celebrating the Year of the Fire Horse!", title: "Trail Riding" },
   { src: landHealing, alt: "Removing diseased trees during olive harvest", title: "Land Treatment" },
   { src: almondBlossoms, alt: "Almond trees in bloom at sunset with mountain backdrop", title: "Almond Blossom Season" },
   { src: enrichmentPlay, alt: "Veterinarians treating a dermal condition in horses", title: "Medical Care: Dermal Treatment" },
