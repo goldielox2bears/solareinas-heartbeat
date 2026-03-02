@@ -19,17 +19,16 @@ import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 // span classes: col/row spans for collage layout — 4-col grid, 4 rows total
 const photos = [
   { src: riderVista, alt: "Rider overlooking Sierra Nevada mountains", className: "col-span-2 row-span-2" },
-  { src: guidesWithHorse, alt: "Guides preparing horses on the trail", className: "" },
+  { src: guidesWithHorse, alt: "Guides preparing horses on the trail", className: "col-span-2" },
   { src: groupRiding, alt: "Group riding through Sierra Nevada mountains", className: "" },
   { src: muleSummit, alt: "Mule on a rocky mountain summit", className: "" },
   { src: tentInterior, alt: "Inside a cozy mountain tent", className: "" },
-  { src: ranchLifeDogs, alt: "Ranch life with horses and dogs", className: "col-span-2" },
   { src: paintedTent, alt: "Custom hand-painted tent in the wilderness", className: "" },
+  { src: ranchLifeDogs, alt: "Ranch life with horses and dogs", className: "col-span-2" },
   { src: horsesGrazing, alt: "Horses grazing under pine trees", className: "" },
   { src: packMules, alt: "Pack mules on a forest trail", className: "" },
   { src: peacefulGrazing, alt: "Peaceful moment with horses in the hills", className: "" },
   { src: founderWithDog, alt: "Founder walking with a dog in the hills", className: "" },
-  { src: muleSummit, alt: "Mountain trail view", className: "" },
 ];
 
 const inclusions = [
@@ -63,12 +62,12 @@ const FoundersRidingRetreat = () => {
           </p>
         </div>
 
-        {/* Photo Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-0 mb-12 md:mb-16 overflow-hidden rounded-lg">
+        {/* Photo Collage */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px mb-12 md:mb-16 rounded-lg overflow-hidden" style={{ backgroundColor: '#8B4513' }}>
           {photos.map((photo, i) => (
             <div
               key={i}
-              className={`overflow-hidden rounded-lg ${photo.className}`}
+              className={`overflow-hidden ${photo.className}`}
             >
               <img
                 src={photo.src}
