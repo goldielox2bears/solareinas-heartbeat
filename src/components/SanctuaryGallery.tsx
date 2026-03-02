@@ -21,6 +21,7 @@ import lenticularSunset from "@/assets/gallery/lenticular-sunset.jpeg";
 import dogsOnCouch from "@/assets/gallery/dogs-on-couch.jpeg";
 import founderWithDogs from "@/assets/gallery/founder-with-dogs.jpeg";
 import dogsSleeping from "@/assets/gallery/dogs-sleeping.jpeg";
+import dogsAtPond from "@/assets/gallery/dogs-at-pond.jpeg";
 
 const galleryImages = [
   { src: freeRangeLiving, alt: "Buffy recovered from cancer surgery and ranging freely again", title: "Successful Cancer Treatment" },
@@ -39,6 +40,7 @@ const galleryImages = [
   { src: lenticularSunset, alt: "Dramatic lenticular clouds over the sanctuary at sunset", title: "Sanctuary Sunset" },
   { src: sustainablePractices, alt: "Regenerative pasture management", title: "Expert String Stalker" },
   { src: dogsSleeping, alt: "Bumbo and friend sleeping peacefully together", title: "Sweet Dreams" },
+  { src: dogsAtPond, alt: "Rescue dogs exploring the sanctuary pond together", title: "Pond Day" },
 ];
 
 const SanctuaryGallery = () => {
