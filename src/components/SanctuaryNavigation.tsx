@@ -1,91 +1,70 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import srrLogo from "@/assets/srr-logo-transparent.png";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
+import { Menu } from "lucide-react";
 
 const SanctuaryNavigation = () => {
   const { user, signOut } = useAuth();
   const { isAdmin } = useAdmin();
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navLinks = [
+    { label: "The Rescue", href: "/#sanctuary", scrollId: "sanctuary" },
+    { label: "Residents", href: "/#rescue", scrollId: "rescue" },
+    { label: "Free Herd Circle", href: "/#volunteers", scrollId: "volunteers" },
+    { label: "Join Us", href: "/volunteer-signup" },
+    { label: "The Market", href: "/market" },
+  ];
+
+  const handleNavClick = (link: typeof navLinks[0]) => {
+    setMobileOpen(false);
+    if (link.scrollId) {
+      navigate(`/#${link.scrollId}`);
+      if (window.location.pathname === '/') {
+        document.getElementById(link.scrollId)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate(link.href);
+    }
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-6xl mx-auto px-6 py-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div 
             className="flex items-center space-x-2 cursor-pointer"
             onClick={() => navigate('/')}
           >
-            <img src={srrLogo} alt="SRR" className="h-12 w-auto object-contain" />
-            <span className="text-xl font-light text-foreground">Solareinas Ranch</span>
+            <img src={srrLogo} alt="SRR" className="h-10 sm:h-12 w-auto object-contain" />
+            <span className="text-lg sm:text-xl font-light text-foreground">Solareinas Ranch</span>
           </div>
           
-          {/* Navigation Links */}
+          {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <a 
-              href="/#sanctuary" 
-              className="text-muted-foreground hover:text-foreground transition-gentle"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/#sanctuary');
-                if (window.location.pathname === '/') {
-                  document.getElementById('sanctuary')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              The Rescue
-            </a>
-            <a 
-              href="/#rescue" 
-              className="text-muted-foreground hover:text-foreground transition-gentle"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/#rescue');
-                if (window.location.pathname === '/') {
-                  document.getElementById('rescue')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              Residents
-            </a>
-            <a 
-              href="/#volunteers" 
-              className="text-muted-foreground hover:text-foreground transition-gentle"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/#volunteers');
-                if (window.location.pathname === '/') {
-                  document.getElementById('volunteers')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              Free Herd Circle
-            </a>
-            <a 
-              href="/volunteer-signup" 
-              className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/volunteer-signup');
-              }}
-            >
-              Join Us
-            </a>
-            <a 
-              href="/market" 
-              className="text-muted-foreground hover:text-foreground transition-gentle cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate('/market');
-              }}
-            >
-              The Market
-            </a>
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-muted-foreground hover:text-foreground transition-gentle"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick(link);
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
           </div>
           
-          {/* Auth Buttons */}
-          <div className="flex items-center space-x-3">
+          {/* Desktop Auth Buttons */}
+          <div className="hidden md:flex items-center space-x-3">
             {isAdmin && (
               <Button 
                 variant="outline" 
@@ -118,6 +97,62 @@ const SanctuaryNavigation = () => {
               </Button>
             )}
           </div>
+
+          {/* Mobile Hamburger */}
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button variant="ghost" size="icon" aria-label="Open menu">
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-72">
+              <SheetHeader>
+                <SheetTitle className="flex items-center space-x-2">
+                  <img src={srrLogo} alt="SRR" className="h-8 w-auto object-contain" />
+                  <span className="font-light">Solareinas Ranch</span>
+                </SheetTitle>
+              </SheetHeader>
+              <div className="flex flex-col mt-6 space-y-1">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.label}
+                    className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
+                    onClick={() => handleNavClick(link)}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+                <div className="border-t border-border my-3" />
+                {isAdmin && (
+                  <button
+                    className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
+                    onClick={() => { setMobileOpen(false); navigate('/admin'); }}
+                  >
+                    Admin Panel
+                  </button>
+                )}
+                {user ? (
+                  <>
+                    <p className="px-3 py-2 text-sm text-muted-foreground">Welcome back</p>
+                    <button
+                      className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
+                      onClick={() => { setMobileOpen(false); signOut(); }}
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <Button
+                    variant="default"
+                    className="mx-3"
+                    onClick={() => { setMobileOpen(false); navigate('/auth'); }}
+                  >
+                    Sign In
+                  </Button>
+                )}
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </nav>
