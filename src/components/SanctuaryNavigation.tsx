@@ -18,6 +18,7 @@ const SanctuaryNavigation = () => {
     { label: "Residents", href: "/#rescue", scrollId: "rescue" },
     { label: "Free Herd Circle", href: "/#volunteers", scrollId: "volunteers" },
     { label: "Join Us", href: "/volunteer-signup" },
+    { label: "Retreat", href: "/#giving", scrollId: "giving" },
     { label: "The Market", href: "/market" },
   ];
 
