@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar } from "lucide-react";
+import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Footprints } from "lucide-react";
 
 import tentInterior from "@/assets/summer-ride/tent-interior.jpeg";
 import paintedTent from "@/assets/summer-ride/painted-tent-exterior.jpeg";
@@ -25,10 +25,13 @@ const photos = [
 ];
 
 const inclusions = [
+  { icon: Mountain, label: "3-day horse & mule trek" },
   { icon: Tent, label: "Custom painted tents" },
-  { icon: Mountain, label: "3-day mountain ride" },
   { icon: UtensilsCrossed, label: "All meals included" },
-  { icon: Users, label: "Expert guides" },
+  { icon: Users, label: "Expert local guides" },
+  { icon: Compass, label: "Trail navigation & route finding" },
+  { icon: Sunrise, label: "Mountain sunrise rituals" },
+  { icon: Footprints, label: "Wilderness hiking" },
   { icon: MapPin, label: "Cultural & historical immersion" },
   { icon: Star, label: "Founding Steward status" },
 ];
@@ -40,14 +43,15 @@ const FoundersRidingRetreat = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <Badge variant="secondary" className="mb-4 text-xs tracking-widest uppercase">
-            5 Spots · July 2–5
+            6 Spots · July 2–5
           </Badge>
           <h2 className="text-4xl md:text-5xl font-light text-foreground mb-4">
             Founders Riding Retreat
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            An intimate 4-day immersion into the Sierra Nevada mountains of southern Spain.
-            Ride with us, sleep under the stars, and become a Founding Steward of Solareinas.
+            A pure equine experience in the Sierra Nevada mountains of southern Spain.
+            Four days with horses and mules through epic terrain — sleep under the stars
+            and become a Founding Steward of Solareinas.
           </p>
         </div>
 
@@ -96,14 +100,15 @@ const FoundersRidingRetreat = () => {
               <div className="relative pl-6 border-l-2 border-primary/30">
                 <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary" />
                 <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">
-                  July 3–5 · The Ride
+                  July 3–5 · The Trek
                 </p>
                 <h4 className="text-lg font-medium text-foreground mb-1">
                   Into the Sierra Nevada
                 </h4>
                 <p className="text-muted-foreground">
-                  Three days on muleback through epic mountain terrain. Hand-painted tents,
-                  home-cooked meals, and deep cultural and historical immersion
+                  Three days riding horses and mules through epic mountain terrain.
+                  Hand-painted tents, home-cooked meals, wilderness hiking,
+                  sunrise rituals, and deep cultural immersion —
                   guided by those who know these paths by heart.
                 </p>
               </div>
@@ -116,7 +121,7 @@ const FoundersRidingRetreat = () => {
               <CardContent className="p-6 space-y-5">
                 <div>
                   <h3 className="text-xl font-medium text-foreground mb-3">What's Included</h3>
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                     {inclusions.map(({ icon: Icon, label }) => (
                       <div key={label} className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Icon className="h-4 w-4 text-primary shrink-0" />
@@ -141,8 +146,9 @@ const FoundersRidingRetreat = () => {
                   <div>
                     <p className="text-2xl font-light text-foreground">€1,000</p>
                     <p className="text-xs text-muted-foreground">contribution per person · all-inclusive</p>
+                    <p className="text-xs text-primary font-medium mt-1">€300 deposit to reserve your spot</p>
                   </div>
-                  <Badge variant="outline" className="text-xs">5 spots</Badge>
+                  <Badge variant="outline" className="text-xs">6 spots</Badge>
                 </div>
 
                 <p className="text-xs text-muted-foreground italic">
