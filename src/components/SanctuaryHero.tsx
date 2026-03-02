@@ -40,6 +40,9 @@ const SanctuaryHero = () => {
             <Button asChild variant="sanctuary" size="lg" className="min-w-48">
               <Link to="/volunteer-signup">🌾 Join the Free Herd</Link>
             </Button>
+            <Button asChild variant="outline" size="lg" className="min-w-48 bg-white/10 text-white border-white/40 hover:bg-white/20">
+              <a href="/#giving" onClick={(e) => { e.preventDefault(); document.getElementById('giving')?.scrollIntoView({ behavior: 'smooth' }); }}>🐴 Retreat</a>
+            </Button>
           </div>
           
           <p className="text-sm opacity-80">
