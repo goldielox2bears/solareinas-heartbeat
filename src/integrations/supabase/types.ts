@@ -301,6 +301,45 @@ export type Database = {
         }
         Relationships: []
       }
+      retreat_signups: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          interest_note: string | null
+          name: string
+          number_of_riders: number
+          phone: string
+          riders: Json
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          interest_note?: string | null
+          name: string
+          number_of_riders?: number
+          phone: string
+          riders?: Json
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          interest_note?: string | null
+          name?: string
+          number_of_riders?: number
+          phone?: string
+          riders?: Json
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       sponsorships: {
         Row: {
           admin_verified: boolean
