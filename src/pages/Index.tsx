@@ -11,7 +11,7 @@ import SanctuaryTestimonials from "@/components/SanctuaryTestimonials";
 
 import RescueLedger from "@/components/RescueLedger";
 import FreeHerdCircle from "@/components/FreeHerdCircle";
-import GivingWall from "@/components/GivingWall";
+import FoundersRidingRetreat from "@/components/FoundersRidingRetreat";
 import SustainabilitySection from "@/components/SustainabilitySection";
 
 const Index = () => {
@@ -54,7 +54,7 @@ const Index = () => {
         </section>
         
         <section id="giving">
-          <GivingWall />
+          <FoundersRidingRetreat />
         </section>
         
         {/* Call to Action Footer */}
