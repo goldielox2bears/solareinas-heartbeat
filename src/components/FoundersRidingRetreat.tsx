@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Footprints } from "lucide-react";
+import RetreatSignupForm from "@/components/RetreatSignupForm";
 
 import tentInterior from "@/assets/summer-ride/tent-interior.jpeg";
 import paintedTent from "@/assets/summer-ride/painted-tent-exterior.jpeg";
@@ -44,6 +45,8 @@ const inclusions = [
 ];
 
 const FoundersRidingRetreat = () => {
+  const [formOpen, setFormOpen] = useState(false);
+
   return (
     <section className="py-16 md:py-24 px-6 bg-background">
       <div className="max-w-6xl mx-auto">
@@ -162,14 +165,14 @@ const FoundersRidingRetreat = () => {
               </CardContent>
             </Card>
 
-            <Button asChild variant="steward" size="lg" className="w-full text-base">
-              <Link to="/gift?project=Founders%20Riding%20Retreat">
-                Reserve Your Spot
-              </Link>
+            <Button variant="steward" size="lg" className="w-full text-base" onClick={() => setFormOpen(true)}>
+              Reserve Your Spot
             </Button>
           </div>
         </div>
       </div>
+
+      <RetreatSignupForm open={formOpen} onOpenChange={setFormOpen} />
     </section>
   );
 };
