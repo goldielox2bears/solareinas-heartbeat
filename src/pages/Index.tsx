@@ -47,7 +47,6 @@ const Index = () => {
         <SanctuaryGallery />
         <SustainabilitySection />
         <SanctuaryImpact />
-        <SanctuaryTestimonials />
         
         <section id="volunteers">
           <FreeHerdCircle />
@@ -56,6 +55,8 @@ const Index = () => {
         <section id="giving">
           <FoundersRidingRetreat />
         </section>
+
+        <SanctuaryTestimonials />
         
         {/* Call to Action Footer */}
         <footer className="py-16 px-6 bg-gradient-steward text-primary-foreground">
