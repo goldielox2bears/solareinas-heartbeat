@@ -14,7 +14,7 @@ const SanctuaryNavigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: "The Rescue", href: "/#sanctuary", scrollId: "sanctuary" },
+    { label: "Our Why", href: "/#sanctuary", scrollId: "sanctuary" },
     { label: "Residents", href: "/#rescue", scrollId: "rescue" },
     { label: "Free Herd Circle", href: "/#volunteers", scrollId: "volunteers" },
     { label: "Join Us", href: "/volunteer-signup" },
