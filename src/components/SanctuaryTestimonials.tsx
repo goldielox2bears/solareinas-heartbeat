@@ -114,13 +114,13 @@ const SanctuaryTestimonials = () => {
             Get quarterly 'Sanctuary News' with exclusive photo updates, resident stories, and behind-the-scenes insights
           </p>
           
-          <div className="max-w-md mx-auto flex gap-4">
+          <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
             <input 
               type="email" 
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-xl text-foreground bg-white/90 placeholder:text-muted-foreground"
             />
-            <button className="bg-white text-primary px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-colors">
+            <button className="bg-white text-primary px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-colors whitespace-nowrap">
               Subscribe
             </button>
           </div>
