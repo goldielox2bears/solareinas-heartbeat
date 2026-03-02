@@ -12,16 +12,23 @@ import peacefulGrazing from "@/assets/summer-ride/peaceful-grazing.jpeg";
 import packMules from "@/assets/summer-ride/pack-mules-trail.jpeg";
 import riderVista from "@/assets/summer-ride/rider-mountain-vista.jpeg";
 import muleSummit from "@/assets/summer-ride/mule-rocky-summit.jpeg";
+import guidesWithHorse from "@/assets/summer-ride/guides-with-horse.jpeg";
+import groupRiding from "@/assets/summer-ride/group-riding-mountains.jpeg";
+import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 
+// span classes: col/row spans for collage layout
 const photos = [
-  { src: riderVista, alt: "Rider overlooking Sierra Nevada mountains" },
-  { src: muleSummit, alt: "Mule on a rocky mountain summit" },
-  { src: paintedTent, alt: "Custom hand-painted tent in the wilderness" },
-  { src: tentInterior, alt: "Inside a cozy mountain tent" },
-  { src: horsesGrazing, alt: "Horses grazing under pine trees" },
-  { src: packMules, alt: "Pack mules on a forest trail" },
-  { src: peacefulGrazing, alt: "Peaceful moment with horses in the hills" },
-  { src: founderWithDog, alt: "Founder walking with a dog in the hills" },
+  { src: groupRiding, alt: "Group riding through Sierra Nevada mountains", className: "col-span-2 row-span-2" },
+  { src: riderVista, alt: "Rider overlooking Sierra Nevada mountains", className: "" },
+  { src: guidesWithHorse, alt: "Guides preparing horses on the trail", className: "" },
+  { src: paintedTent, alt: "Custom hand-painted tent in the wilderness", className: "row-span-2" },
+  { src: muleSummit, alt: "Mule on a rocky mountain summit", className: "" },
+  { src: tentInterior, alt: "Inside a cozy mountain tent", className: "" },
+  { src: ranchLifeDogs, alt: "Ranch life with horses and dogs", className: "col-span-2" },
+  { src: horsesGrazing, alt: "Horses grazing under pine trees", className: "" },
+  { src: packMules, alt: "Pack mules on a forest trail", className: "" },
+  { src: peacefulGrazing, alt: "Peaceful moment with horses in the hills", className: "" },
+  { src: founderWithDog, alt: "Founder walking with a dog in the hills", className: "" },
 ];
 
 const inclusions = [
@@ -60,15 +67,13 @@ const FoundersRidingRetreat = () => {
           {photos.map((photo, i) => (
             <div
               key={i}
-              className={`overflow-hidden rounded-lg ${
-                i === 0 ? "col-span-2 row-span-2" : ""
-              }`}
+              className={`overflow-hidden rounded-lg ${photo.className}`}
             >
               <img
                 src={photo.src}
                 alt={photo.alt}
                 loading="lazy"
-                className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
           ))}
