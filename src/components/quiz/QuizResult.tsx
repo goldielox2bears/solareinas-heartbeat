@@ -93,8 +93,10 @@ const QuizResult = ({ profile, secondaryProfile, isBlended, onRestart }: QuizRes
 
   // Build the headline based on blended vs distinct
   const headlineText = isBlended
-    ? `You are ${profile.name} with a touch of ${secondaryProfile.name}`
-    : `You are ${profile.name}`;
+    ? `You are ${profile?.name} with a touch of ${secondaryProfile?.name}`
+    : `You are ${profile?.name}`;
+
+  if (!profile || !secondaryProfile) return null;
 
   return (
     <div className="min-h-screen px-6 py-12 bg-gradient-to-b from-background to-secondary/20">
