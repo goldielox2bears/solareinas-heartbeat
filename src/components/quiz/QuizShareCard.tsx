@@ -12,7 +12,7 @@ interface QuizShareCardProps {
   animalPhoto?: string | null;
 }
 
-const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
+const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = async () => {
