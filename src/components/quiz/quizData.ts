@@ -103,6 +103,17 @@ export const questions: QuizQuestion[] = [
       { text: "Falling asleep to the sounds of animals", icon: "🌙", weights: { nature: 3, calm: 1 } },
     ],
   },
+  {
+    id: 8,
+    text: "Which moment would stay with you the longest?",
+    subtitle: "The one you'd tell someone about",
+    options: [
+      { text: "A quiet moment beside an animal who trusts you", icon: "🐴", weights: { nature: 2, calm: 2 } },
+      { text: "A long table dinner with local food and conversation", icon: "🍽️", weights: { social: 2, culture: 2 } },
+      { text: "Watching the sunrise in total stillness", icon: "🌅", weights: { introspective: 3, calm: 1 } },
+      { text: "Helping with something meaningful", icon: "🤲", weights: { social: 3, nature: 1 } },
+    ],
+  },
 ];
 
 export const personalityProfiles: PersonalityProfile[] = [
