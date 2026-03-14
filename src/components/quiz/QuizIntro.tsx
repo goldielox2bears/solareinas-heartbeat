@@ -39,7 +39,10 @@ const QuizIntro = ({ onStart }: QuizIntroProps) => {
           variant="steward"
           size="lg"
           className="text-lg px-10 py-6"
-          onClick={onStart}
+          onClick={() => {
+            trackQuizEvent("quiz_started");
+            onStart();
+          }}
         >
           Start the Quiz
         </Button>

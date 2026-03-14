@@ -154,7 +154,13 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
                   <Button
                     variant="steward"
                     size="sm"
-                    onClick={() => window.open(`/sponsor/${animal.id}`, "_blank")}
+                    onClick={() => {
+                      trackQuizEvent("quiz_sponsorship_cta_clicked", {
+                        animal_name: animal.name,
+                        profile_id: profile.id,
+                      });
+                      window.open(`/sponsor/${animal.id}`, "_blank");
+                    }}
                   >
                     Support {animal.name} <Heart className="h-4 w-4 ml-1" />
                   </Button>

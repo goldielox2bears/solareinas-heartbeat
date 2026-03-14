@@ -33,6 +33,7 @@ const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
 
   const handleShare = async () => {
     if (!cardRef.current) return;
+    trackQuizEvent("quiz_share_clicked", { method: "native_share", profile_id: profile.id });
     try {
       const dataUrl = await toPng(cardRef.current, { pixelRatio: 2, backgroundColor: "#1a1a1a" });
       const blob = await (await fetch(dataUrl)).blob();
