@@ -3,7 +3,7 @@ import QuizIntro from "@/components/quiz/QuizIntro";
 import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizProgress from "@/components/quiz/QuizProgress";
 import QuizResult from "@/components/quiz/QuizResult";
-import { questions, calculateResult, type PersonalityProfile, type QuizResult as QuizResultType } from "@/components/quiz/quizData";
+import { questions, calculateResult, type QuizResult as QuizResultType } from "@/components/quiz/quizData";
 import { trackQuizEvent } from "@/lib/quizAnalytics";
 
 type QuizStage = "intro" | "questions" | "result";
@@ -35,6 +35,7 @@ const QuizPage = () => {
         total_questions: Object.keys(newAnswers).length,
         final_result: quizResult.primary.id,
         secondary_result: quizResult.secondary.id,
+        is_blended: quizResult.isBlended,
       });
       setStage("result");
     }
@@ -65,7 +66,12 @@ const QuizPage = () => {
       )}
 
       {stage === "result" && result && (
-        <QuizResult profile={result.primary} secondaryProfile={result.secondary} onRestart={handleRestart} />
+        <QuizResult
+          profile={result.primary}
+          secondaryProfile={result.secondary}
+          isBlended={result.isBlended}
+          onRestart={handleRestart}
+        />
       )}
     </div>
   );

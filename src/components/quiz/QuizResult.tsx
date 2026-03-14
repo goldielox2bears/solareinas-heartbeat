@@ -13,6 +13,7 @@ import QuizShareCard from "./QuizShareCard";
 interface QuizResultProps {
   profile: PersonalityProfile;
   secondaryProfile: PersonalityProfile;
+  isBlended: boolean;
   onRestart: () => void;
 }
 
@@ -31,7 +32,7 @@ const SOCIAL_LINKS = [
   { label: "LinkedIn", icon: "💼", url: "https://www.linkedin.com/company/solareinas-ranch-rescue/" },
 ];
 
-const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) => {
+const QuizResult = ({ profile, secondaryProfile, isBlended, onRestart }: QuizResultProps) => {
   const [animal, setAnimal] = useState<AnimalData | null>(null);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -43,8 +44,10 @@ const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) =
     trackQuizEvent("quiz_result_viewed", {
       quiz_name: "sanctuary_retreat_quiz",
       final_result: profile.id,
+      secondary_result: secondaryProfile.id,
+      is_blended: isBlended,
     });
-  }, [profile.id]);
+  }, [profile.id, secondaryProfile.id, isBlended]);
 
   useEffect(() => {
     const fetchAnimal = async () => {
@@ -88,39 +91,93 @@ const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) =
     return `€${(cents / 100).toFixed(0)}`;
   };
 
+  // Build the headline based on blended vs distinct
+  const headlineText = isBlended
+    ? `You are ${profile.name} with a touch of ${secondaryProfile.name}`
+    : `You are ${profile.name}`;
+
   return (
     <div className="min-h-screen px-6 py-12 bg-gradient-to-b from-background to-secondary/20">
       <div className="max-w-2xl mx-auto space-y-10">
         {/* Header */}
         <div className="text-center space-y-3">
           <p className="text-sm uppercase tracking-[0.15em] text-muted-foreground">
-            Your Trail Type is…
+            Your Sanctuary Spirit is…
           </p>
-          <div className="text-5xl">{profile.emoji}</div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-foreground">
-            {profile.name}
+          <div className="text-5xl">
+            {profile.emoji}
+            {isBlended && <span className="ml-2 text-3xl opacity-70">{secondaryProfile.emoji}</span>}
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
+            {headlineText}
           </h1>
           <p className="text-lg text-muted-foreground italic">{profile.tagline}</p>
-          <p className="text-sm text-muted-foreground mt-2">
-            …with shades of <span className="font-medium text-foreground">{secondaryProfile.emoji} {secondaryProfile.name}</span>
-          </p>
+          {!isBlended && (
+            <p className="text-sm text-muted-foreground mt-2">
+              …with shades of <span className="font-medium text-foreground">{secondaryProfile.emoji} {secondaryProfile.name}</span>
+            </p>
+          )}
         </div>
 
         {/* Description */}
         <Card className="border-none shadow-lg">
           <CardContent className="p-6 space-y-4">
             <p className="text-foreground leading-relaxed">{profile.description}</p>
+            {isBlended && (
+              <p className="text-muted-foreground text-sm leading-relaxed border-l-2 border-primary/30 pl-4">
+                <span className="font-medium text-foreground">{secondaryProfile.emoji} Your {secondaryProfile.name} side:</span>{" "}
+                {secondaryProfile.description}
+              </p>
+            )}
             <div className="flex flex-wrap gap-2">
               {profile.traits.map((trait) => (
                 <Badge key={trait} variant="secondary" className="text-sm">
                   {trait}
                 </Badge>
               ))}
+              {isBlended &&
+                secondaryProfile.traits
+                  .filter((t) => !profile.traits.includes(t))
+                  .slice(0, 2)
+                  .map((trait) => (
+                    <Badge key={trait} variant="outline" className="text-sm opacity-70">
+                      {trait}
+                    </Badge>
+                  ))}
             </div>
           </CardContent>
         </Card>
 
-        {/* Animal match + sponsor CTA */}
+        {/* Retreat Experience CTA */}
+        <Card className="border-none shadow-lg bg-primary/5">
+          <CardContent className="p-6 space-y-3">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground">
+              Your Retreat Experience
+            </p>
+            <h3 className="text-xl font-semibold text-foreground">
+              {profile.retreatExperience.name}
+            </h3>
+            <p className="text-foreground leading-relaxed text-sm">
+              {profile.retreatExperience.description}
+            </p>
+            <Button
+              variant="steward"
+              size="sm"
+              onClick={() => {
+                trackQuizEvent("quiz_sponsorship_cta_clicked", {
+                  quiz_name: "sanctuary_retreat_quiz",
+                  retreat_experience: profile.retreatExperience.name,
+                  final_result: profile.id,
+                });
+                window.open(profile.retreatExperience.link, "_blank");
+              }}
+            >
+              Explore This Experience <ArrowRight className="h-4 w-4 ml-1" />
+            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Animal match + steward CTA */}
         {animal && (
           <Card className="border-none shadow-lg overflow-hidden">
             <div className="sm:flex">
@@ -174,25 +231,6 @@ const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) =
             </div>
           </Card>
         )}
-
-        {/* Retreat recommendation */}
-        <Card className="border-none shadow-lg bg-primary/5">
-          <CardContent className="p-6 space-y-3">
-            <p className="text-xs uppercase tracking-wider text-muted-foreground">
-              Your Retreat Experience
-            </p>
-            <p className="text-foreground leading-relaxed">
-              {profile.retreatRecommendation}
-            </p>
-            <Button
-              variant="steward"
-              size="sm"
-              onClick={() => window.open("/", "_blank")}
-            >
-              Explore the Retreat <ArrowRight className="h-4 w-4 ml-1" />
-            </Button>
-          </CardContent>
-        </Card>
 
         {/* Newsletter signup */}
         <Card className="border-none shadow-lg bg-secondary/30">
@@ -265,9 +303,9 @@ const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) =
         {/* Shareable card */}
         <div className="space-y-4">
           <h3 className="text-center text-lg font-medium text-foreground">
-            Share Your Trail Type
+            Share Your Sanctuary Spirit
           </h3>
-          <QuizShareCard profile={profile} secondaryProfile={secondaryProfile} animalPhoto={animal?.photo_url} />
+          <QuizShareCard profile={profile} secondaryProfile={secondaryProfile} isBlended={isBlended} animalPhoto={animal?.photo_url} />
         </div>
 
         {/* Restart */}
