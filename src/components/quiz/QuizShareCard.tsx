@@ -3,6 +3,7 @@ import { toPng } from "html-to-image";
 import { Button } from "@/components/ui/button";
 import { Download, Share2 } from "lucide-react";
 import { type PersonalityProfile } from "./quizData";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 import srrLogo from "@/assets/srr-logo-transparent.png";
 
 interface QuizShareCardProps {
