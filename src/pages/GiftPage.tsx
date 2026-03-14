@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
+import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -25,6 +26,31 @@ interface Project {
   icon: string;
 }
 
+interface Emergency {
+  name: string;
+  animal: string;
+  cost: number;
+  icon: string;
+  description: string;
+}
+
+const emergencies: Emergency[] = [
+  { 
+    name: "Buffy Cancer Treatment", 
+    animal: "Buffy",
+    cost: 850, 
+    icon: "🐕", 
+    description: "Buffy needs ongoing cancer treatment to keep fighting. Every euro counts."
+  },
+  { 
+    name: "Sylvester Tendon Infection", 
+    animal: "Sylvester",
+    cost: 5000, 
+    icon: "🐴", 
+    description: "Sylvester requires urgent veterinary care for a serious tendon infection."
+  },
+];
+
 const upcomingProjects: Project[] = [
   { name: "Free Herd Volunteer Cabin", cost: 9600, icon: "🏠" },
   { name: "Fencing", cost: 4000, icon: "🚧" },
@@ -41,7 +67,8 @@ const GiftPage = () => {
   
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedType, setSelectedType] = useState<"project" | "animal" | null>(null);
+  const [selectedType, setSelectedType] = useState<"project" | "animal" | "emergency" | null>(null);
+  const [selectedEmergency, setSelectedEmergency] = useState<Emergency | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [customAmount, setCustomAmount] = useState<number | null>(null);
@@ -100,6 +127,7 @@ const GiftPage = () => {
 
   const getSelectedAmount = () => {
     if (customAmount) return customAmount;
+    if (selectedEmergency) return selectedEmergency.cost;
     if (selectedProject) return selectedProject.cost;
     if (selectedAnimal && selectedAnimal.monthly_sponsorship_cents) {
       return selectedAnimal.monthly_sponsorship_cents / 100;
@@ -133,8 +161,8 @@ const GiftPage = () => {
 
     setSubmitting(true);
     try {
-      const gift_type = customAmount ? "custom" : selectedProject ? "project" : "animal";
-      const gift_target = selectedProject?.name || selectedAnimal?.name || null;
+      const gift_type = customAmount ? "custom" : selectedEmergency ? "emergency" : selectedProject ? "project" : "animal";
+      const gift_target = selectedEmergency?.name || selectedProject?.name || selectedAnimal?.name || null;
 
       const { error } = await supabase.functions.invoke("send-gift-notification", {
         body: {
@@ -159,6 +187,7 @@ const GiftPage = () => {
       setGiftForm({ name: "", email: "", message: "" });
       setSelectedProject(null);
       setSelectedAnimal(null);
+      setSelectedEmergency(null);
       setCustomAmount(null);
       setSelectedType(null);
     } catch (err) {
@@ -200,6 +229,52 @@ const GiftPage = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Selection Column */}
             <div className="space-y-6">
+              {/* Emergency Support */}
+              <Card className="border-destructive/30 bg-destructive/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg text-destructive">
+                    <AlertTriangle className="w-5 h-5" />
+                    Support Emergencies
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    Urgent veterinary care our residents need right now
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {emergencies.map((emergency) => (
+                    <button
+                      key={emergency.name}
+                      onClick={() => {
+                        setSelectedType("emergency");
+                        setSelectedEmergency(emergency);
+                        setSelectedProject(null);
+                        setSelectedAnimal(null);
+                        setCustomAmount(null);
+                      }}
+                      className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${
+                        selectedEmergency?.name === emergency.name
+                          ? "bg-destructive/10 border-2 border-destructive"
+                          : "bg-card hover:bg-destructive/5 border-2 border-transparent"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <span className="text-2xl flex-shrink-0">{emergency.icon}</span>
+                        <div className="text-left min-w-0">
+                          <span className="font-medium text-foreground block">{emergency.name}</span>
+                          <span className="text-xs text-muted-foreground line-clamp-1">{emergency.description}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                        <span className="text-destructive font-semibold">€{emergency.cost.toLocaleString()}</span>
+                        {selectedEmergency?.name === emergency.name && (
+                          <Check className="w-5 h-5 text-destructive" />
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </CardContent>
+              </Card>
+
               {/* Project Selection */}
               <Card>
                 <CardHeader>
@@ -215,6 +290,7 @@ const GiftPage = () => {
                         setSelectedType("project");
                         setSelectedProject(project);
                         setSelectedAnimal(null);
+                        setSelectedEmergency(null);
                         setCustomAmount(null);
                       }}
                       className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${
@@ -257,6 +333,7 @@ const GiftPage = () => {
                             setSelectedType("animal");
                             setSelectedAnimal(animal);
                             setSelectedProject(null);
+                            setSelectedEmergency(null);
                             setCustomAmount(null);
                           }}
                           className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${
@@ -320,6 +397,7 @@ const GiftPage = () => {
                         if (value > 0) {
                           setSelectedProject(null);
                           setSelectedAnimal(null);
+                          setSelectedEmergency(null);
                           setSelectedType(null);
                         }
                       }}
@@ -347,6 +425,11 @@ const GiftPage = () => {
                       <p className="text-2xl font-light text-primary">
                         €{getSelectedAmount().toLocaleString()}
                       </p>
+                      {selectedEmergency && (
+                        <p className="text-sm text-destructive font-medium mt-1">
+                          🚨 {selectedEmergency.name}
+                        </p>
+                      )}
                       {selectedProject && (
                         <p className="text-sm text-foreground mt-1">
                           {selectedProject.icon} {selectedProject.name}
