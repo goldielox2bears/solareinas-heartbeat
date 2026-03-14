@@ -114,6 +114,17 @@ export const questions: QuizQuestion[] = [
       { text: "Helping with something meaningful", icon: "🤲", weights: { social: 3, nature: 1 } },
     ],
   },
+  {
+    id: 9,
+    text: "How do you usually feel after a typical holiday?",
+    subtitle: "Honestly",
+    options: [
+      { text: "Still tired — just in a prettier location", icon: "😴", weights: { calm: 3, introspective: 1 } },
+      { text: "Entertained but not deeply moved", icon: "🤷", weights: { adventure: 2, culture: 1 } },
+      { text: "Relaxed but unchanged", icon: "😌", weights: { introspective: 3 } },
+      { text: "Wishing it had meant something more", icon: "💭", weights: { social: 2, nature: 1 } },
+    ],
+  },
 ];
 
 export const personalityProfiles: PersonalityProfile[] = [
