@@ -125,6 +125,17 @@ export const questions: QuizQuestion[] = [
       { text: "Wishing it had meant something more", icon: "💭", weights: { social: 2, nature: 1 } },
     ],
   },
+  {
+    id: 10,
+    text: "What kind of luxury matters most to you now?",
+    subtitle: "The real kind",
+    options: [
+      { text: "Silence and space", icon: "🤫", weights: { calm: 3, introspective: 1 } },
+      { text: "Experiences that feel real", icon: "✊", weights: { adventure: 3, culture: 1 } },
+      { text: "Beauty that feels natural, not staged", icon: "🌸", weights: { nature: 2, introspective: 1 } },
+      { text: "Knowing my stay supports something meaningful", icon: "💚", weights: { social: 3, nature: 1 } },
+    ],
+  },
 ];
 
 export const personalityProfiles: PersonalityProfile[] = [
