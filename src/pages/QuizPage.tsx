@@ -12,7 +12,7 @@ const QuizPage = () => {
   const [stage, setStage] = useState<QuizStage>("intro");
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
-  const [result, setResult] = useState<PersonalityProfile | null>(null);
+  const [result, setResult] = useState<QuizResultType | null>(null);
 
   const handleStart = () => {
     setStage("questions");
