@@ -397,6 +397,7 @@ const GiftPage = () => {
                         if (value > 0) {
                           setSelectedProject(null);
                           setSelectedAnimal(null);
+                          setSelectedEmergency(null);
                           setSelectedType(null);
                         }
                       }}
