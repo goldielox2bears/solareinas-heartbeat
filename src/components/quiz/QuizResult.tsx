@@ -156,8 +156,9 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
                     size="sm"
                     onClick={() => {
                       trackQuizEvent("quiz_sponsorship_cta_clicked", {
+                        quiz_name: "sanctuary_retreat_quiz",
                         animal_name: animal.name,
-                        profile_id: profile.id,
+                        final_result: profile.id,
                       });
                       window.open(`/sponsor/${animal.id}`, "_blank");
                     }}
