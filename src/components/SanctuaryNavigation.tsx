@@ -20,6 +20,7 @@ const SanctuaryNavigation = () => {
     { label: "Join Us", href: "/volunteer-signup" },
     { label: "Retreat", href: "/#giving", scrollId: "giving" },
     { label: "The Market", href: "/market" },
+    { label: "Quiz", href: "/quiz" },
   ];
 
   const handleNavClick = (link: typeof navLinks[0]) => {
