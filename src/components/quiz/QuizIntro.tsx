@@ -48,7 +48,7 @@ const QuizIntro = ({ onStart }: QuizIntroProps) => {
         </Button>
 
         <p className="text-xs text-muted-foreground/60">
-          Takes about 60 seconds · No sign-up required
+          Takes about 90 seconds · No sign-up required
         </p>
       </div>
     </div>
