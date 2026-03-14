@@ -67,7 +67,8 @@ const GiftPage = () => {
   
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedType, setSelectedType] = useState<"project" | "animal" | null>(null);
+  const [selectedType, setSelectedType] = useState<"project" | "animal" | "emergency" | null>(null);
+  const [selectedEmergency, setSelectedEmergency] = useState<Emergency | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [customAmount, setCustomAmount] = useState<number | null>(null);
