@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { type QuizQuestion as QuizQuestionType } from "./quizData";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
