@@ -65,7 +65,7 @@ const QuizPage = () => {
       )}
 
       {stage === "result" && result && (
-        <QuizResult profile={result} onRestart={handleRestart} />
+        <QuizResult profile={result.primary} secondaryProfile={result.secondary} onRestart={handleRestart} />
       )}
     </div>
   );
