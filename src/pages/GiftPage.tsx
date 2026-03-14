@@ -290,6 +290,7 @@ const GiftPage = () => {
                         setSelectedType("project");
                         setSelectedProject(project);
                         setSelectedAnimal(null);
+                        setSelectedEmergency(null);
                         setCustomAmount(null);
                       }}
                       className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${
