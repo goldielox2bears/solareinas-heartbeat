@@ -40,10 +40,10 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
 
   useEffect(() => {
     trackQuizEvent("quiz_result_viewed", {
-      profile_id: profile.id,
-      profile_name: profile.name,
+      quiz_name: "sanctuary_retreat_quiz",
+      final_result: profile.id,
     });
-  }, [profile.id, profile.name]);
+  }, [profile.id]);
 
   useEffect(() => {
     const fetchAnimal = async () => {
