@@ -7,6 +7,7 @@ import { ArrowRight, RotateCcw, Heart, Mail, CheckCircle } from "lucide-react";
 import { type PersonalityProfile } from "./quizData";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 import QuizShareCard from "./QuizShareCard";
 
 interface QuizResultProps {
