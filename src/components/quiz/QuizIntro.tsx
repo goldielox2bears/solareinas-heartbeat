@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import srrLogo from "@/assets/srr-logo-transparent.png";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 
 interface QuizIntroProps {
   onStart: () => void;
