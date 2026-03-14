@@ -127,6 +127,7 @@ const GiftPage = () => {
 
   const getSelectedAmount = () => {
     if (customAmount) return customAmount;
+    if (selectedEmergency) return selectedEmergency.cost;
     if (selectedProject) return selectedProject.cost;
     if (selectedAnimal && selectedAnimal.monthly_sponsorship_cents) {
       return selectedAnimal.monthly_sponsorship_cents / 100;
