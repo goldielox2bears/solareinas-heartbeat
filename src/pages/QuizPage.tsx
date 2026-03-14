@@ -4,6 +4,7 @@ import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizProgress from "@/components/quiz/QuizProgress";
 import QuizResult from "@/components/quiz/QuizResult";
 import { questions, calculateResult, type PersonalityProfile } from "@/components/quiz/quizData";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 
 type QuizStage = "intro" | "questions" | "result";
 
