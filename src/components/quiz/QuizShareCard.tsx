@@ -8,10 +8,11 @@ import srrLogo from "@/assets/srr-logo-transparent.png";
 
 interface QuizShareCardProps {
   profile: PersonalityProfile;
+  secondaryProfile: PersonalityProfile;
   animalPhoto?: string | null;
 }
 
-const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
+const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = async () => {
@@ -96,6 +97,9 @@ const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
                 </span>
               ))}
             </div>
+            <p className="text-xs opacity-60">
+              also a bit of {secondaryProfile.emoji} {secondaryProfile.name}
+            </p>
           </div>
 
           <p className="text-[10px] opacity-50 text-center">

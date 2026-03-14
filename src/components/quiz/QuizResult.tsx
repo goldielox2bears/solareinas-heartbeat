@@ -12,6 +12,7 @@ import QuizShareCard from "./QuizShareCard";
 
 interface QuizResultProps {
   profile: PersonalityProfile;
+  secondaryProfile: PersonalityProfile;
   onRestart: () => void;
 }
 
@@ -30,7 +31,7 @@ const SOCIAL_LINKS = [
   { label: "LinkedIn", icon: "💼", url: "https://www.linkedin.com/company/solareinas-ranch-rescue/" },
 ];
 
-const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
+const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) => {
   const [animal, setAnimal] = useState<AnimalData | null>(null);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -100,6 +101,9 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
             {profile.name}
           </h1>
           <p className="text-lg text-muted-foreground italic">{profile.tagline}</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            …with shades of <span className="font-medium text-foreground">{secondaryProfile.emoji} {secondaryProfile.name}</span>
+          </p>
         </div>
 
         {/* Description */}
@@ -263,7 +267,7 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
           <h3 className="text-center text-lg font-medium text-foreground">
             Share Your Trail Type
           </h3>
-          <QuizShareCard profile={profile} animalPhoto={animal?.photo_url} />
+          <QuizShareCard profile={profile} secondaryProfile={secondaryProfile} animalPhoto={animal?.photo_url} />
         </div>
 
         {/* Restart */}

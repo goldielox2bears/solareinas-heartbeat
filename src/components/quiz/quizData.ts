@@ -206,7 +206,12 @@ export const personalityProfiles: PersonalityProfile[] = [
   },
 ];
 
-export function calculateResult(answers: Record<number, number>): PersonalityProfile {
+export interface QuizResult {
+  primary: PersonalityProfile;
+  secondary: PersonalityProfile;
+}
+
+export function calculateResult(answers: Record<number, number>): QuizResult {
   const scores: Record<string, number> = {
     adventure: 0,
     calm: 0,
@@ -251,5 +256,8 @@ export function calculateResult(answers: Record<number, number>): PersonalityPro
   });
 
   profileScores.sort((a, b) => b.score - a.score);
-  return profileScores[0].profile;
+  return {
+    primary: profileScores[0].profile,
+    secondary: profileScores[1].profile,
+  };
 }
