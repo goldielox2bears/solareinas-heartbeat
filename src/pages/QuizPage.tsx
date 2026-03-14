@@ -28,12 +28,13 @@ const QuizPage = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
-      const profile = calculateResult(newAnswers);
-      setResult(profile);
+      const quizResult = calculateResult(newAnswers);
+      setResult(quizResult);
       trackQuizEvent("quiz_completed", {
         quiz_name: "sanctuary_retreat_quiz",
         total_questions: Object.keys(newAnswers).length,
-        final_result: profile.id,
+        final_result: quizResult.primary.id,
+        secondary_result: quizResult.secondary.id,
       });
       setStage("result");
     }
