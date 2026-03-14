@@ -16,6 +16,7 @@ import MarketPage from "./pages/MarketPage";
 import ShopPage from "./pages/ShopPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import MadeHereForUsPage from "./pages/MadeHereForUsPage";
+import QuizPage from "./pages/QuizPage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/shop/:slug" element={<ProductDetailPage />} />
             <Route path="/made-here-for-us" element={<MadeHereForUsPage />} />
+            <Route path="/quiz" element={<QuizPage />} />
             <Route path="/admin" element={
               <AuthGuard requireAuth>
                 <AdminPanel />
