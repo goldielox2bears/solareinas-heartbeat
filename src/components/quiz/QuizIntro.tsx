@@ -23,7 +23,7 @@ const QuizIntro = ({ onStart }: QuizIntroProps) => {
             </span>
           </h1>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-sm mx-auto">
-            Answer 6 quick questions and we'll match you to your travel personality, a sanctuary animal, and your ideal retreat experience.
+            Answer 10 quick questions and we'll match you to your travel personality, a sanctuary animal, and your ideal retreat experience.
           </p>
         </div>
 
