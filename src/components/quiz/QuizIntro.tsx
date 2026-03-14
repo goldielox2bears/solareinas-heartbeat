@@ -40,7 +40,7 @@ const QuizIntro = ({ onStart }: QuizIntroProps) => {
           size="lg"
           className="text-lg px-10 py-6"
           onClick={() => {
-            trackQuizEvent("quiz_started");
+            trackQuizEvent("quiz_started", { quiz_name: "sanctuary_retreat_quiz" });
             onStart();
           }}
         >
