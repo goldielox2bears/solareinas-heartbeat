@@ -77,18 +77,13 @@ const SanctuaryNavigation = () => {
               </Button>
             )}
             {user ? (
-              <>
-                <span className="text-sm text-muted-foreground hidden sm:block">
-                  Welcome back
-                </span>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => signOut()}
-                >
-                  Sign Out
-                </Button>
-              </>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </Button>
             ) : (
               <Button 
                 variant="default" 
