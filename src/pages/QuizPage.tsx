@@ -4,6 +4,7 @@ import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizProgress from "@/components/quiz/QuizProgress";
 import QuizResult from "@/components/quiz/QuizResult";
 import { questions, calculateResult, type PersonalityProfile } from "@/components/quiz/quizData";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 
 type QuizStage = "intro" | "questions" | "result";
 
@@ -29,6 +30,7 @@ const QuizPage = () => {
     } else {
       const profile = calculateResult(newAnswers);
       setResult(profile);
+      trackQuizEvent("quiz_completed", { profile_id: profile.id, profile_name: profile.name });
       setStage("result");
     }
   };

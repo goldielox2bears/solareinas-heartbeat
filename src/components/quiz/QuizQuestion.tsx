@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { type QuizQuestion as QuizQuestionType } from "./quizData";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
@@ -11,6 +12,10 @@ const QuizQuestion = ({ question, onAnswer }: QuizQuestionProps) => {
 
   const handleSelect = (index: number) => {
     setSelected(index);
+    trackQuizEvent("quiz_question_answered", {
+      question_id: question.id,
+      option_index: index,
+    });
     setTimeout(() => {
       onAnswer(index);
       setSelected(null);

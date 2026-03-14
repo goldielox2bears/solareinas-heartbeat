@@ -7,6 +7,7 @@ import { ArrowRight, RotateCcw, Heart, Mail, CheckCircle } from "lucide-react";
 import { type PersonalityProfile } from "./quizData";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { trackQuizEvent } from "@/lib/quizAnalytics";
 import QuizShareCard from "./QuizShareCard";
 
 interface QuizResultProps {
@@ -26,6 +27,7 @@ interface AnimalData {
 const SOCIAL_LINKS = [
   { label: "Instagram", icon: "📸", url: "https://www.instagram.com/solareinas_ranch_rescue/" },
   { label: "Facebook", icon: "📘", url: "https://www.facebook.com/profile.php?id=61576548498498" },
+  { label: "LinkedIn", icon: "💼", url: "https://www.linkedin.com/company/solareinas-ranch-rescue/" },
 ];
 
 const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
@@ -35,6 +37,13 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
   const [subscribed, setSubscribed] = useState(false);
   const [subscribing, setSubscribing] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    trackQuizEvent("quiz_result_viewed", {
+      profile_id: profile.id,
+      profile_name: profile.name,
+    });
+  }, [profile.id, profile.name]);
 
   useEffect(() => {
     const fetchAnimal = async () => {
@@ -68,6 +77,7 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
       toast({ title: "Something went wrong. Please try again.", variant: "destructive" });
     } else {
       setSubscribed(true);
+      trackQuizEvent("quiz_newsletter_signup", { profile_id: profile.id });
       toast({ title: "You're in! Watch your inbox for updates from the ranch." });
     }
   };
@@ -144,7 +154,13 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
                   <Button
                     variant="steward"
                     size="sm"
-                    onClick={() => window.open(`/sponsor/${animal.id}`, "_blank")}
+                    onClick={() => {
+                      trackQuizEvent("quiz_sponsorship_cta_clicked", {
+                        animal_name: animal.name,
+                        profile_id: profile.id,
+                      });
+                      window.open(`/sponsor/${animal.id}`, "_blank");
+                    }}
                   >
                     Support {animal.name} <Heart className="h-4 w-4 ml-1" />
                   </Button>
