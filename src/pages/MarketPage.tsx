@@ -134,6 +134,42 @@ const animalCareProducts: Product[] = [
     icon: Heart,
     highlight: false,
   },
+  {
+    id: "bruised-ego",
+    name: "Bruised Ego",
+    subtitle: "Arnica lotion • Calming • Ranch life",
+    price: 14,
+    description: "Ranch life can be rough. Our arnica-based bruise calming lotion soothes bumps and knocks with gentle, natural care. A ranch bag essential.",
+    icon: Heart,
+    highlight: false,
+  },
+  {
+    id: "the-beauty-balm",
+    name: "THE Beauty Balm",
+    subtitle: "Skin protector • Nourishing • Travel tin",
+    price: 18,
+    description: "Your harsh weather saver or simply your nighttime best friend ritual. Infused with skin protecting and nourishing ingredients in a handy take-anywhere tin.",
+    icon: Sparkles,
+    highlight: true,
+  },
+  {
+    id: "tack-soap",
+    name: "Tack Soap",
+    subtitle: "Ranch-made • Deep clean • Leather care",
+    price: 12,
+    description: "Our ranch-made formula cleans the grit and grime, crafted specifically for saddles, bridles, and western tack. Gentle on leather, tough on dirt.",
+    icon: Droplets,
+    highlight: false,
+  },
+  {
+    id: "tack-balm",
+    name: "Tack Balm",
+    subtitle: "Ranch-made • Conditioner • Leather protect",
+    price: 14,
+    description: "Protect your saddles, bridles, and western tack with our ranch-made tack conditioner. Keeps leather supple, nourished, and ready for the next ride.",
+    icon: Star,
+    highlight: false,
+  },
 ];
 
 const giftTiers = [
