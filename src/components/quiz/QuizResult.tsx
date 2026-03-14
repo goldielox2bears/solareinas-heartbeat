@@ -77,7 +77,7 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
       toast({ title: "Something went wrong. Please try again.", variant: "destructive" });
     } else {
       setSubscribed(true);
-      trackQuizEvent("quiz_newsletter_signup", { profile_id: profile.id });
+      trackQuizEvent("quiz_newsletter_signup", { quiz_name: "sanctuary_retreat_quiz", final_result: profile.id });
       toast({ title: "You're in! Watch your inbox for updates from the ranch." });
     }
   };
@@ -156,8 +156,9 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
                     size="sm"
                     onClick={() => {
                       trackQuizEvent("quiz_sponsorship_cta_clicked", {
+                        quiz_name: "sanctuary_retreat_quiz",
                         animal_name: animal.name,
-                        profile_id: profile.id,
+                        final_result: profile.id,
                       });
                       window.open(`/sponsor/${animal.id}`, "_blank");
                     }}

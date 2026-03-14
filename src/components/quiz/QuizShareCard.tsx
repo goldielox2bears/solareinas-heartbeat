@@ -16,7 +16,7 @@ const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
-    trackQuizEvent("quiz_share_clicked", { method: "download", profile_id: profile.id });
+    trackQuizEvent("quiz_share_clicked", { quiz_name: "sanctuary_retreat_quiz", method: "download", final_result: profile.id });
     try {
       const dataUrl = await toPng(cardRef.current, {
         pixelRatio: 2,
@@ -33,7 +33,7 @@ const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
 
   const handleShare = async () => {
     if (!cardRef.current) return;
-    trackQuizEvent("quiz_share_clicked", { method: "native_share", profile_id: profile.id });
+    trackQuizEvent("quiz_share_clicked", { quiz_name: "sanctuary_retreat_quiz", method: "native_share", final_result: profile.id });
     try {
       const dataUrl = await toPng(cardRef.current, { pixelRatio: 2, backgroundColor: "#1a1a1a" });
       const blob = await (await fetch(dataUrl)).blob();
