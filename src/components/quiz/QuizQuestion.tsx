@@ -13,8 +13,10 @@ const QuizQuestion = ({ question, onAnswer }: QuizQuestionProps) => {
   const handleSelect = (index: number) => {
     setSelected(index);
     trackQuizEvent("quiz_question_answered", {
+      quiz_name: "sanctuary_retreat_quiz",
       question_id: question.id,
-      option_index: index,
+      answer_id: index,
+      question_index: index + 1,
     });
     setTimeout(() => {
       onAnswer(index);
