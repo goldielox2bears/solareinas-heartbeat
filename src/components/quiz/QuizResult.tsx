@@ -104,7 +104,7 @@ const QuizResult = ({ profile, secondaryProfile, isBlended, onRestart }: QuizRes
         {/* Header */}
         <div className="text-center space-y-3">
           <p className="text-sm uppercase tracking-[0.15em] text-muted-foreground">
-            Your Sanctuary Spirit is…
+            Your Sanctuary Archetype
           </p>
           <div className="text-5xl">
             {profile.emoji}
@@ -113,6 +113,7 @@ const QuizResult = ({ profile, secondaryProfile, isBlended, onRestart }: QuizRes
           <h1 className="text-3xl sm:text-4xl font-bold text-foreground leading-tight">
             {headlineText}
           </h1>
+          <p className="text-base text-muted-foreground font-medium">{profile.identity}</p>
           <p className="text-lg text-muted-foreground italic">{profile.tagline}</p>
           {!isBlended && (
             <p className="text-sm text-muted-foreground mt-2">

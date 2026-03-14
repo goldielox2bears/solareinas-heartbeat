@@ -14,6 +14,7 @@ export interface QuizQuestion {
 export interface PersonalityProfile {
   id: string;
   name: string;
+  identity: string;
   tagline: string;
   description: string;
   emoji: string;
@@ -36,7 +37,7 @@ export const questions: QuizQuestion[] = [
       { text: "Coffee on a quiet porch, watching mist rise", icon: "☕", weights: { calm: 3, nature: 1 } },
       { text: "Lacing up boots for a sunrise hike", icon: "🥾", weights: { adventure: 3, nature: 1 } },
       { text: "A slow wander through a local market", icon: "🛒", weights: { culture: 3, social: 1 } },
-      { text: "Journaling under a tree, no agenda", icon: "📓", weights: { calm: 2, introspective: 2 } },
+      { text: "Feeding the animals before anyone else is awake", icon: "🌾", weights: { stewardship: 3, nature: 1 } },
     ],
   },
   {
@@ -47,7 +48,7 @@ export const questions: QuizQuestion[] = [
       { text: "A small group of like-minded souls", icon: "👥", weights: { social: 3, adventure: 1 } },
       { text: "One trusted companion", icon: "🤝", weights: { calm: 1, social: 1, introspective: 1 } },
       { text: "Just myself and my thoughts", icon: "🧘", weights: { introspective: 3, calm: 1 } },
-      { text: "Animals count, right?", icon: "🐾", weights: { nature: 3, calm: 1 } },
+      { text: "Animals count, right?", icon: "🐾", weights: { nature: 3, stewardship: 1 } },
     ],
   },
   {
@@ -57,7 +58,7 @@ export const questions: QuizQuestion[] = [
     options: [
       { text: "Rugged mountain trails with wildflowers", icon: "🏔️", weights: { adventure: 3, nature: 2 } },
       { text: "A sunlit olive grove with birdsong", icon: "🫒", weights: { calm: 3, culture: 1 } },
-      { text: "A hidden beach with turquoise water", icon: "🏖️", weights: { calm: 2, adventure: 1 } },
+      { text: "A working farm where the land feeds the animals", icon: "🌿", weights: { stewardship: 3, nature: 1 } },
       { text: "Rolling hills with grazing horses", icon: "🐴", weights: { nature: 3, calm: 1 } },
     ],
   },
@@ -68,7 +69,7 @@ export const questions: QuizQuestion[] = [
     options: [
       { text: "Ask everyone about their story", icon: "💬", weights: { social: 3, culture: 1 } },
       { text: "Listen quietly and observe", icon: "👀", weights: { introspective: 3, calm: 1 } },
-      { text: "Help cook the meal", icon: "🍳", weights: { social: 1, nature: 1, culture: 2 } },
+      { text: "Help cook the meal", icon: "🍳", weights: { stewardship: 2, social: 1, culture: 1 } },
       { text: "Step outside to look at the stars", icon: "✨", weights: { introspective: 2, nature: 2 } },
     ],
   },
@@ -80,7 +81,7 @@ export const questions: QuizQuestion[] = [
       { text: "History and traditions to discover", icon: "🏛️", weights: { culture: 3, introspective: 1 } },
       { text: "Physical challenges and new terrain", icon: "⛰️", weights: { adventure: 3 } },
       { text: "A chance to slow down and reset", icon: "🌿", weights: { calm: 3, nature: 1 } },
-      { text: "Meeting people who live differently", icon: "🌍", weights: { social: 2, culture: 2 } },
+      { text: "Knowing my visit makes a real difference", icon: "💪", weights: { stewardship: 3, social: 1 } },
     ],
   },
   {
@@ -91,7 +92,7 @@ export const questions: QuizQuestion[] = [
       { text: "A campfire under the Milky Way", icon: "🔥", weights: { nature: 2, adventure: 1, calm: 1 } },
       { text: "Local wine and long conversations", icon: "🍷", weights: { social: 2, culture: 2 } },
       { text: "Reading by lantern light in a painted tent", icon: "🕯️", weights: { calm: 2, introspective: 2 } },
-      { text: "Falling asleep to the sounds of animals", icon: "🌙", weights: { nature: 3, calm: 1 } },
+      { text: "Falling asleep knowing you helped something today", icon: "🌙", weights: { stewardship: 3, calm: 1 } },
     ],
   },
   {
@@ -102,7 +103,7 @@ export const questions: QuizQuestion[] = [
       { text: "Deep rest without guilt", icon: "😮‍💨", weights: { calm: 3, introspective: 1 } },
       { text: "A real sense of discovery", icon: "🔭", weights: { adventure: 3, culture: 1 } },
       { text: "A deeper connection to something real", icon: "🫀", weights: { introspective: 3, nature: 1 } },
-      { text: "A place where I feel welcomed and grounded", icon: "🏡", weights: { social: 2, calm: 2 } },
+      { text: "A sense of purpose and contribution", icon: "🏡", weights: { stewardship: 3, social: 1 } },
     ],
   },
   {
@@ -110,10 +111,10 @@ export const questions: QuizQuestion[] = [
     text: "Which moment would stay with you the longest?",
     subtitle: "The one you'd tell someone about",
     options: [
-      { text: "A quiet moment beside an animal who trusts you", icon: "🐴", weights: { nature: 2, calm: 2 } },
+      { text: "A quiet moment beside an animal who trusts you", icon: "🐴", weights: { nature: 2, stewardship: 1, calm: 1 } },
       { text: "A long table dinner with local food and conversation", icon: "🍽️", weights: { social: 2, culture: 2 } },
       { text: "Watching the sunrise in total stillness", icon: "🌅", weights: { introspective: 3, calm: 1 } },
-      { text: "Helping with something meaningful", icon: "🤲", weights: { social: 3, nature: 1 } },
+      { text: "Helping with something meaningful — and being thanked by the animals", icon: "🤲", weights: { stewardship: 3, nature: 1 } },
     ],
   },
   {
@@ -124,7 +125,7 @@ export const questions: QuizQuestion[] = [
       { text: "Still tired — just in a prettier location", icon: "😴", weights: { calm: 3, introspective: 1 } },
       { text: "Entertained but not deeply moved", icon: "🤷", weights: { adventure: 2, culture: 1 } },
       { text: "Relaxed but unchanged", icon: "😌", weights: { introspective: 3 } },
-      { text: "Wishing it had meant something more", icon: "💭", weights: { social: 2, nature: 1 } },
+      { text: "Wishing it had meant something more", icon: "💭", weights: { stewardship: 2, social: 1 } },
     ],
   },
   {
@@ -135,7 +136,7 @@ export const questions: QuizQuestion[] = [
       { text: "Silence and space", icon: "🤫", weights: { calm: 3, introspective: 1 } },
       { text: "Experiences that feel real", icon: "✊", weights: { adventure: 3, culture: 1 } },
       { text: "Beauty that feels natural, not staged", icon: "🌸", weights: { nature: 2, introspective: 1 } },
-      { text: "Knowing my stay supports something meaningful", icon: "💚", weights: { social: 3, nature: 1 } },
+      { text: "Knowing my stay supports something meaningful", icon: "💚", weights: { stewardship: 3, nature: 1 } },
     ],
   },
 ];
@@ -144,6 +145,7 @@ export const personalityProfiles: PersonalityProfile[] = [
   {
     id: "bee",
     name: "The Bee",
+    identity: "The Rest-Seeker",
     tagline: "You seek stillness to recharge — then you pollinate the world.",
     description:
       "You crave deep rest, quiet mornings, and the kind of peace that actually heals. You're drawn to sanctuaries — not resorts. When you're restored, you bring sweetness and energy back to everyone around you.",
@@ -160,6 +162,7 @@ export const personalityProfiles: PersonalityProfile[] = [
   {
     id: "rabbit",
     name: "The Rabbit",
+    identity: "The Explorer",
     tagline: "Curiosity is your compass — you follow it fearlessly.",
     description:
       "You're energised by new terrain, new challenges, and the thrill of what's around the next bend. You don't just want to see a mountain — you want to climb it, learn its name, and understand its geology.",
@@ -176,6 +179,7 @@ export const personalityProfiles: PersonalityProfile[] = [
   {
     id: "llama",
     name: "The Llama",
+    identity: "The Soul Seeker",
     tagline: "You stand tall, stay grounded, and find peace in wide-open spaces.",
     description:
       "You're drawn to land, animals, and the rhythms of nature. You don't need entertainment — you need connection. A horse grazing in a meadow, birdsong at dawn, the smell of earth after rain — that's your luxury.",
@@ -192,6 +196,7 @@ export const personalityProfiles: PersonalityProfile[] = [
   {
     id: "chameleon",
     name: "The Chameleon",
+    identity: "The Adaptive Traveler",
     tagline: "You blend in everywhere because you truly see everyone.",
     description:
       "You're a connector — drawn to people, cultures, and causes that matter. You adapt, you listen, and you leave places better than you found them. Travel for you is about purpose as much as pleasure.",
@@ -208,18 +213,19 @@ export const personalityProfiles: PersonalityProfile[] = [
   {
     id: "horse",
     name: "The Horse",
-    tagline: "You run free, lead with heart, and carry others forward.",
+    identity: "The Steward",
+    tagline: "You feel most alive when your presence truly matters.",
     description:
-      "You're a natural leader with deep intuition and fierce independence. You need wide-open space to think, room to move, and the freedom to choose your own path. People are drawn to your strength — but it's your gentleness that stays with them.",
-    emoji: "🐴",
+      "You're a protector at heart — purpose-driven, generous, and deeply loyal. You don't just visit places, you invest in them. You're energised by helping, contributing, and knowing that your time left something better behind. People and animals sense your steadiness and trust you instinctively.",
+    emoji: "🐎",
     color: "from-rose-600 to-amber-700",
     animalMatch: "Harry",
     retreatExperience: {
-      name: "Freedom Ride Retreat",
-      description: "A multi-day horseback journey through the Sierra Nevada — riding ancient trails, sleeping under canvas, and discovering the bond between horse and rider. For spirits that need to run.",
+      name: "Stewardship Sanctuary Experience",
+      description: "Hands-on time with the rescue animals, land restoration work, community meals, and the deep satisfaction of contributing to something real. Your stay directly sustains the sanctuary.",
       link: "/",
     },
-    traits: ["Free-spirited", "Intuitive", "Strong"],
+    traits: ["Dependable", "Generous", "Purpose-driven", "Loyal"],
   },
 ];
 
@@ -243,6 +249,7 @@ export function calculateResult(answers: Record<number, number>): QuizResult {
     culture: 0,
     social: 0,
     introspective: 0,
+    stewardship: 0,
   };
 
   // Tally weights from all answers
@@ -274,10 +281,13 @@ function getTopTwoProfiles(scores: Record<string, number>): QuizResult {
         score = scores.adventure * 2.5 + scores.culture * 0.5;
         break;
       case "llama":
-        score = scores.nature * 2 + scores.calm * 0.5 + scores.introspective * 0.5;
+        score = scores.nature * 2 + scores.introspective * 1 + scores.calm * 0.5;
         break;
       case "chameleon":
         score = scores.social * 2 + scores.culture * 1 + scores.nature * 0.5;
+        break;
+      case "horse":
+        score = scores.stewardship * 2.5 + scores.nature * 0.5 + scores.social * 0.5;
         break;
     }
     return { profile, score };
