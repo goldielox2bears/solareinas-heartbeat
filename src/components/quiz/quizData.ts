@@ -1,6 +1,9 @@
+import marketIcon from "@/assets/quiz/market-icon.png";
+
 export interface QuizOption {
   text: string;
   icon: string;
+  imageIcon?: string;
   weights: Record<string, number>;
 }
 
