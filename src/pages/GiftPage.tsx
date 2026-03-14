@@ -187,6 +187,7 @@ const GiftPage = () => {
       setGiftForm({ name: "", email: "", message: "" });
       setSelectedProject(null);
       setSelectedAnimal(null);
+      setSelectedEmergency(null);
       setCustomAmount(null);
       setSelectedType(null);
     } catch (err) {
