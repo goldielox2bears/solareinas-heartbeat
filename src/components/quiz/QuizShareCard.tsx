@@ -16,6 +16,7 @@ const QuizShareCard = ({ profile, animalPhoto }: QuizShareCardProps) => {
 
   const handleDownload = async () => {
     if (!cardRef.current) return;
+    trackQuizEvent("quiz_share_clicked", { method: "download", profile_id: profile.id });
     try {
       const dataUrl = await toPng(cardRef.current, {
         pixelRatio: 2,
