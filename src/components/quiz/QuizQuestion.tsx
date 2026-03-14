@@ -50,7 +50,11 @@ const QuizQuestion = ({ question, onAnswer }: QuizQuestionProps) => {
                 }
               `}
             >
-              <span className="text-2xl flex-shrink-0">{option.icon}</span>
+              {option.imageIcon ? (
+                <img src={option.imageIcon} alt="" className="w-7 h-7 flex-shrink-0 object-contain" />
+              ) : (
+                <span className="text-2xl flex-shrink-0">{option.icon}</span>
+              )}
               <span className="text-foreground font-medium">{option.text}</span>
             </button>
           ))}

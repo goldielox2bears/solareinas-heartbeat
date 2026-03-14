@@ -1,6 +1,9 @@
+import marketIcon from "@/assets/quiz/market-icon.png";
+
 export interface QuizOption {
   text: string;
   icon: string;
+  imageIcon?: string;
   weights: Record<string, number>;
 }
 
@@ -36,7 +39,7 @@ export const questions: QuizQuestion[] = [
     options: [
       { text: "Coffee on a quiet porch, watching mist rise", icon: "☕", weights: { calm: 3, nature: 1 } },
       { text: "Lacing up boots for a sunrise hike", icon: "🥾", weights: { adventure: 3, nature: 1 } },
-      { text: "A slow wander through a local market", icon: "🏪", weights: { culture: 3, social: 1 } },
+      { text: "A slow wander through a local market", icon: "", imageIcon: marketIcon, weights: { culture: 3, social: 1 } },
       { text: "Feeding the animals before anyone else is awake", icon: "🌾", weights: { stewardship: 3, nature: 1 } },
     ],
   },
