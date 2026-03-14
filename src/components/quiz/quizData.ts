@@ -205,6 +205,22 @@ export const personalityProfiles: PersonalityProfile[] = [
     },
     traits: ["Empathetic", "Purposeful", "Adaptable"],
   },
+  {
+    id: "horse",
+    name: "The Horse",
+    tagline: "You run free, lead with heart, and carry others forward.",
+    description:
+      "You're a natural leader with deep intuition and fierce independence. You need wide-open space to think, room to move, and the freedom to choose your own path. People are drawn to your strength — but it's your gentleness that stays with them.",
+    emoji: "🐴",
+    color: "from-rose-600 to-amber-700",
+    animalMatch: "Harry",
+    retreatExperience: {
+      name: "Freedom Ride Retreat",
+      description: "A multi-day horseback journey through the Sierra Nevada — riding ancient trails, sleeping under canvas, and discovering the bond between horse and rider. For spirits that need to run.",
+      link: "/",
+    },
+    traits: ["Free-spirited", "Intuitive", "Strong"],
+  },
 ];
 
 // --- Scoring & Result Logic ---
