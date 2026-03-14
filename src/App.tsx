@@ -16,6 +16,7 @@ import MarketPage from "./pages/MarketPage";
 import ShopPage from "./pages/ShopPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import MadeHereForUsPage from "./pages/MadeHereForUsPage";
+import QuizPage from "./pages/QuizPage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
