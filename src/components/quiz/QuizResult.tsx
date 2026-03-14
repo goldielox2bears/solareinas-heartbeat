@@ -27,6 +27,7 @@ interface AnimalData {
 const SOCIAL_LINKS = [
   { label: "Instagram", icon: "📸", url: "https://www.instagram.com/solareinas_ranch_rescue/" },
   { label: "Facebook", icon: "📘", url: "https://www.facebook.com/profile.php?id=61576548498498" },
+  { label: "LinkedIn", icon: "💼", url: "https://www.linkedin.com/company/solareinas-ranch-rescue/" },
 ];
 
 const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
