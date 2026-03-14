@@ -121,10 +121,6 @@ const skincareProducts: Product[] = [
     icon: Waves,
     highlight: true,
   },
-];
-
-// Category: Mane & Animal Care
-const animalCareProducts: Product[] = [
   {
     id: "its-all-about-the-mane",
     name: "it's all about the mane",
@@ -151,6 +147,20 @@ const animalCareProducts: Product[] = [
     description: "Your harsh weather saver or simply your nighttime best friend ritual. Infused with skin protecting and nourishing ingredients in a handy take-anywhere tin.",
     icon: Sparkles,
     highlight: true,
+  },
+];
+
+// Category: Mane & Animal Care
+const animalCareProducts: Product[] = [
+  {
+    id: "the-grove-bar-tack",
+    name: "THE GROVE BAR",
+    subtitle: "Olive oil soap • Slow-cured • Ranch bar",
+    price: 9,
+    description: "Our signature olive oil soap is hand-crafted using estate-grown olives, pressed on solar power, and cured slowly for 6 months. No palm oil. No shortcuts.",
+    icon: Droplets,
+    highlight: true,
+    isHero: true,
   },
   {
     id: "tack-soap",
