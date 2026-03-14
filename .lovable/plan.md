@@ -1,60 +1,68 @@
 
 
-# Founders Riding Retreat -- Replace GivingWall Section
+# Travel Personality Quiz
 
-## Overview
+A standalone, shareable quiz that identifies visitors by their travel style — matching them to a sanctuary animal, a retreat experience, and a travel personality archetype. Designed to work as an embeddable widget and generate shareable result cards.
 
-Replace the placeholder "Gratitude Flows" section with a compelling **Founders Riding Retreat** invitation -- a real, bookable experience that funds the ranch and grants Founding Steward status.
+## How It Works
 
-## The Experience
+1. Visitors answer a series of visual, quick-tap questions about their travel preferences (adventure vs. calm, solo vs. group, mountains vs. coast, etc.)
+2. Answers are scored across personality dimensions
+3. Results page shows:
+   - A **travel personality type** (e.g. "The Rooted Nomad", "The Trail Whisperer", "The Gentle Explorer")
+   - A **matched sanctuary animal** with photo and story snippet
+   - A **recommended retreat activity** from the Founders Riding Retreat
+   - A **shareable card** (styled image) they can download or share
 
-**Founders Riding Retreat** -- an exclusive 4-day immersion in the Sierra Nevada mountains of southern Spain.
+## Architecture
 
-**Itinerary:**
-- **July 2** -- Arrive at Solareinas Ranch. Pizza dinner welcome. Meet the resident animals.
-- **July 3-5** -- 3-day mountain ride: mule riding, custom painted tents, cultural and historical immersion, guides, and all meals included.
+```text
+/quiz                          ← New route
+  QuizPage.tsx                 ← Container page
+  components/quiz/
+    QuizIntro.tsx              ← Welcome screen + start button
+    QuizQuestion.tsx           ← Single question with visual options
+    QuizProgress.tsx           ← Progress bar
+    QuizResult.tsx             ← Result display + share card
+    QuizShareCard.tsx          ← Canvas-rendered card for download
+    quizData.ts                ← Questions, scoring logic, result profiles
+```
 
-**Details:**
-- 5 spots only
-- EUR 1,000 per person (all-inclusive)
-- Founding Steward status: first access to newly built volunteer cabins
-- 100% of proceeds fund the ranch
+## Quiz Flow
 
-## Implementation
+- **Intro screen**: Branded card — "Discover Your Trail Type" with a Start button
+- **Questions**: Each question shows 3-4 image/icon options. Tap to select, auto-advance to next. Progress bar at top.
+- **Result screen**: Personality type name, short description, matched animal photo, retreat recommendation, and a "Download Your Card" / "Share" button
+- **Lead capture** (optional toggle): Can be added later as a gate before results
 
-### 1. Copy 8 uploaded images to project assets
-Save the user's uploaded photos to `src/assets/summer-ride/` with descriptive names:
-- `tent-interior.jpeg` (IMG_1681)
-- `painted-tent-exterior.jpeg` (IMG_1684)
-- `horses-grazing-pines.jpeg` (IMG_1717)
-- `founder-with-dog.jpeg` (IMG_1725)
-- `peaceful-grazing.jpeg` (IMG_1746)
-- `pack-mules-trail.jpeg` (IMG_1754)
-- `rider-mountain-vista.jpeg` (IMG_1649)
-- `mule-rocky-summit.jpeg` (IMG_1639)
+## Embeddable Widget Support
 
-### 2. Create `src/components/FoundersRidingRetreat.tsx`
-New component replacing GivingWall, containing:
+- The quiz will be built as a self-contained React component tree under `/quiz`
+- For embedding on external sites, it can be shared via the published URL in an iframe: `<iframe src="https://solareinas-heartbeat.lovable.app/quiz" />`
+- The quiz page will have no site navigation — clean, full-screen experience suitable for iframe embedding
 
-- **Section headline**: "Founders Riding Retreat" with a subtitle inviting visitors to step into the Sierra Nevada
-- **Photo grid**: 2x4 or masonry layout on desktop, scrollable on mobile, using the 8 uploaded images
-- **Itinerary timeline**: Visual day-by-day breakdown
-  - Day 0 (July 2): Pizza dinner welcome at the ranch, meet the residents
-  - Days 1-3 (July 3-5): Mountain ride with all inclusions
-- **What's included list**: Mule riding, custom tents, guides, food, cultural immersion
-- **Founding Steward badge**: Highlight that participants get first access to future cabins
-- **Pricing and availability**: "5 spots -- EUR 1,000 contribution per person"
-- **CTA button**: "Reserve Your Spot" linking to `/gift?project=Founders%20Riding%20Retreat`
-- Language follows the Solareinas playbook (gift/contribution/steward, not buy/purchase/ticket)
+## Shareable Results Card
 
-### 3. Update `src/pages/Index.tsx`
-- Replace `import GivingWall` with `import FoundersRidingRetreat`
-- Swap `<GivingWall />` for `<FoundersRidingRetreat />` inside the `id="giving"` section wrapper
-- GivingWall.tsx remains in the codebase but unused
+- Uses HTML Canvas (via `html-to-image` or similar) to render a styled card with:
+  - Personality type name and icon
+  - Matched animal photo
+  - Solareinas Ranch branding and URL
+- One-tap download as PNG or share via Web Share API (mobile)
 
-### Design Notes
-- Uses existing UI components: Card, Badge, Button (steward variant)
-- Responsive: stacked layout on mobile, side-by-side photo grid + details on desktop
-- Warm, inviting tone consistent with the rest of the site
-- No "price/fee/ticket/book/buy" language per the brand playbook
+## Technical Details
+
+- **Scoring**: Each answer maps to weighted traits. Result profiles are pre-defined objects with thresholds.
+- **Animal matching**: Uses the `animals` table from Supabase to pull real resident data and photos.
+- **No auth required**: Quiz is fully public.
+- **Responsive-first**: Designed for mobile tap interactions, works on desktop too.
+- **New route**: `/quiz` added to App.tsx, no nav bar on this page for clean embed experience.
+- **Navigation link**: Add "Quiz" to the site nav so existing visitors can find it.
+
+## What Gets Built
+
+1. Quiz data model — questions, options, scoring weights, and 4-6 result personality profiles
+2. Quiz UI components — intro, question stepper, progress bar, result display
+3. Shareable card generator — canvas-based downloadable/shareable PNG
+4. New `/quiz` route wired into App.tsx
+5. Nav link added to SanctuaryNavigation
 
