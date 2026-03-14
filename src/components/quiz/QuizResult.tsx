@@ -101,6 +101,9 @@ const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) =
             {profile.name}
           </h1>
           <p className="text-lg text-muted-foreground italic">{profile.tagline}</p>
+          <p className="text-sm text-muted-foreground mt-2">
+            …with shades of <span className="font-medium text-foreground">{secondaryProfile.emoji} {secondaryProfile.name}</span>
+          </p>
         </div>
 
         {/* Description */}
