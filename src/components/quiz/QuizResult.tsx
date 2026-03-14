@@ -39,6 +39,13 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
   const { toast } = useToast();
 
   useEffect(() => {
+    trackQuizEvent("quiz_result_viewed", {
+      profile_id: profile.id,
+      profile_name: profile.name,
+    });
+  }, [profile.id, profile.name]);
+
+  useEffect(() => {
     const fetchAnimal = async () => {
       const { data } = await supabase
         .from("animals")
