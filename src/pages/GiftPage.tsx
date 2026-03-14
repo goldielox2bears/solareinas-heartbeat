@@ -229,6 +229,52 @@ const GiftPage = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Selection Column */}
             <div className="space-y-6">
+              {/* Emergency Support */}
+              <Card className="border-destructive/30 bg-destructive/5">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg text-destructive">
+                    <AlertTriangle className="w-5 h-5" />
+                    Support Emergencies
+                  </CardTitle>
+                  <p className="text-sm text-muted-foreground">
+                    Urgent veterinary care our residents need right now
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {emergencies.map((emergency) => (
+                    <button
+                      key={emergency.name}
+                      onClick={() => {
+                        setSelectedType("emergency");
+                        setSelectedEmergency(emergency);
+                        setSelectedProject(null);
+                        setSelectedAnimal(null);
+                        setCustomAmount(null);
+                      }}
+                      className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-200 ${
+                        selectedEmergency?.name === emergency.name
+                          ? "bg-destructive/10 border-2 border-destructive"
+                          : "bg-card hover:bg-destructive/5 border-2 border-transparent"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        <span className="text-2xl flex-shrink-0">{emergency.icon}</span>
+                        <div className="text-left min-w-0">
+                          <span className="font-medium text-foreground block">{emergency.name}</span>
+                          <span className="text-xs text-muted-foreground line-clamp-1">{emergency.description}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 flex-shrink-0 ml-2">
+                        <span className="text-destructive font-semibold">€{emergency.cost.toLocaleString()}</span>
+                        {selectedEmergency?.name === emergency.name && (
+                          <Check className="w-5 h-5 text-destructive" />
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </CardContent>
+              </Card>
+
               {/* Project Selection */}
               <Card>
                 <CardHeader>
