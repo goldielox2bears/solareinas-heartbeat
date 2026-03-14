@@ -77,6 +77,7 @@ const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
       toast({ title: "Something went wrong. Please try again.", variant: "destructive" });
     } else {
       setSubscribed(true);
+      trackQuizEvent("quiz_newsletter_signup", { profile_id: profile.id });
       toast({ title: "You're in! Watch your inbox for updates from the ranch." });
     }
   };
