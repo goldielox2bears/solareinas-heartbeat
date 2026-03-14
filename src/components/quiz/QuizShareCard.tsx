@@ -8,6 +8,7 @@ import srrLogo from "@/assets/srr-logo-transparent.png";
 
 interface QuizShareCardProps {
   profile: PersonalityProfile;
+  secondaryProfile: PersonalityProfile;
   animalPhoto?: string | null;
 }
 
