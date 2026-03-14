@@ -77,18 +77,13 @@ const SanctuaryNavigation = () => {
               </Button>
             )}
             {user ? (
-              <>
-                <span className="text-sm text-muted-foreground hidden sm:block">
-                  Welcome back
-                </span>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  onClick={() => signOut()}
-                >
-                  Sign Out
-                </Button>
-              </>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </Button>
             ) : (
               <Button 
                 variant="default" 
@@ -134,15 +129,12 @@ const SanctuaryNavigation = () => {
                   </button>
                 )}
                 {user ? (
-                  <>
-                    <p className="px-3 py-2 text-sm text-muted-foreground">Welcome back</p>
-                    <button
-                      className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
-                      onClick={() => { setMobileOpen(false); signOut(); }}
-                    >
-                      Sign Out
-                    </button>
-                  </>
+                  <button
+                    className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
+                    onClick={() => { setMobileOpen(false); signOut(); }}
+                  >
+                    Sign Out
+                  </button>
                 ) : (
                   <Button
                     variant="default"
