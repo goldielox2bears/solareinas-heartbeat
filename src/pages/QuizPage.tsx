@@ -30,7 +30,11 @@ const QuizPage = () => {
     } else {
       const profile = calculateResult(newAnswers);
       setResult(profile);
-      trackQuizEvent("quiz_completed", { profile_id: profile.id, profile_name: profile.name });
+      trackQuizEvent("quiz_completed", {
+        quiz_name: "sanctuary_retreat_quiz",
+        total_questions: Object.keys(newAnswers).length,
+        final_result: profile.id,
+      });
       setStage("result");
     }
   };
