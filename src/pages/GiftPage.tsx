@@ -425,6 +425,11 @@ const GiftPage = () => {
                       <p className="text-2xl font-light text-primary">
                         €{getSelectedAmount().toLocaleString()}
                       </p>
+                      {selectedEmergency && (
+                        <p className="text-sm text-destructive font-medium mt-1">
+                          🚨 {selectedEmergency.name}
+                        </p>
+                      )}
                       {selectedProject && (
                         <p className="text-sm text-foreground mt-1">
                           {selectedProject.icon} {selectedProject.name}
