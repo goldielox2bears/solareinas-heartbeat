@@ -267,7 +267,7 @@ const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) =
           <h3 className="text-center text-lg font-medium text-foreground">
             Share Your Trail Type
           </h3>
-          <QuizShareCard profile={profile} animalPhoto={animal?.photo_url} />
+          <QuizShareCard profile={profile} secondaryProfile={secondaryProfile} animalPhoto={animal?.photo_url} />
         </div>
 
         {/* Restart */}

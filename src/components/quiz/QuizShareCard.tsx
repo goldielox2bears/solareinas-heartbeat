@@ -97,6 +97,9 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
                 </span>
               ))}
             </div>
+            <p className="text-xs opacity-60">
+              also a bit of {secondaryProfile.emoji} {secondaryProfile.name}
+            </p>
           </div>
 
           <p className="text-[10px] opacity-50 text-center">
