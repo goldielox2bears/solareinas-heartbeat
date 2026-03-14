@@ -31,7 +31,7 @@ const SOCIAL_LINKS = [
   { label: "LinkedIn", icon: "💼", url: "https://www.linkedin.com/company/solareinas-ranch-rescue/" },
 ];
 
-const QuizResult = ({ profile, onRestart }: QuizResultProps) => {
+const QuizResult = ({ profile, secondaryProfile, onRestart }: QuizResultProps) => {
   const [animal, setAnimal] = useState<AnimalData | null>(null);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
