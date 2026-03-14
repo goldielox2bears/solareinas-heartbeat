@@ -1,8 +1,6 @@
-import { Mountain, Sun, Users, Compass, TreePine, Coffee, Tent, Heart, Music, Camera, Footprints, Wind } from "lucide-react";
-
 export interface QuizOption {
   text: string;
-  icon: string; // emoji for simplicity
+  icon: string;
   weights: Record<string, number>;
 }
 
@@ -19,9 +17,13 @@ export interface PersonalityProfile {
   tagline: string;
   description: string;
   emoji: string;
-  color: string; // tailwind class
-  animalMatch: string; // name to match from Supabase animals table
-  retreatRecommendation: string;
+  color: string;
+  animalMatch: string;
+  retreatExperience: {
+    name: string;
+    description: string;
+    link: string;
+  };
   traits: string[];
 }
 
@@ -82,17 +84,6 @@ export const questions: QuizQuestion[] = [
     ],
   },
   {
-    id: 7,
-    text: "What feels most missing from your life right now?",
-    subtitle: "Be honest with yourself",
-    options: [
-      { text: "Deep rest without guilt", icon: "😮‍💨", weights: { calm: 3, introspective: 1 } },
-      { text: "A real sense of discovery", icon: "🔭", weights: { adventure: 3, culture: 1 } },
-      { text: "A deeper connection to something real", icon: "🫀", weights: { introspective: 3, nature: 1 } },
-      { text: "A place where I feel welcomed and grounded", icon: "🏡", weights: { social: 2, calm: 2 } },
-    ],
-  },
-  {
     id: 6,
     text: "Your perfect evening ends with…",
     subtitle: "The one that makes you exhale",
@@ -101,6 +92,17 @@ export const questions: QuizQuestion[] = [
       { text: "Local wine and long conversations", icon: "🍷", weights: { social: 2, culture: 2 } },
       { text: "Reading by lantern light in a painted tent", icon: "🕯️", weights: { calm: 2, introspective: 2 } },
       { text: "Falling asleep to the sounds of animals", icon: "🌙", weights: { nature: 3, calm: 1 } },
+    ],
+  },
+  {
+    id: 7,
+    text: "What feels most missing from your life right now?",
+    subtitle: "Be honest with yourself",
+    options: [
+      { text: "Deep rest without guilt", icon: "😮‍💨", weights: { calm: 3, introspective: 1 } },
+      { text: "A real sense of discovery", icon: "🔭", weights: { adventure: 3, culture: 1 } },
+      { text: "A deeper connection to something real", icon: "🫀", weights: { introspective: 3, nature: 1 } },
+      { text: "A place where I feel welcomed and grounded", icon: "🏡", weights: { social: 2, calm: 2 } },
     ],
   },
   {
@@ -140,77 +142,83 @@ export const questions: QuizQuestion[] = [
 
 export const personalityProfiles: PersonalityProfile[] = [
   {
-    id: "trail-whisperer",
-    name: "The Trail Whisperer",
-    tagline: "You don't follow paths — you feel them.",
+    id: "bee",
+    name: "The Bee",
+    tagline: "You seek stillness to recharge — then you pollinate the world.",
     description:
-      "You're drawn to wild places and quiet rhythms. You'd rather listen to a stream than a playlist, and you find peace where others find challenge. The mountains talk to you — and you talk back.",
-    emoji: "🌿",
+      "You crave deep rest, quiet mornings, and the kind of peace that actually heals. You're drawn to sanctuaries — not resorts. When you're restored, you bring sweetness and energy back to everyone around you.",
+    emoji: "🐝",
+    color: "from-amber-500 to-yellow-600",
+    animalMatch: "Miss Loretta",
+    retreatExperience: {
+      name: "Restorative Sanctuary Stay",
+      description: "A gentle immersion into ranch life — morning routines with the animals, olive grove walks, slow meals, and total permission to do nothing. This is rest that actually restores.",
+      link: "/",
+    },
+    traits: ["Restorative", "Nurturing", "Quietly powerful"],
+  },
+  {
+    id: "rabbit",
+    name: "The Rabbit",
+    tagline: "Curiosity is your compass — you follow it fearlessly.",
+    description:
+      "You're energised by new terrain, new challenges, and the thrill of what's around the next bend. You don't just want to see a mountain — you want to climb it, learn its name, and understand its geology.",
+    emoji: "🐇",
+    color: "from-orange-500 to-red-600",
+    animalMatch: "Onyx",
+    retreatExperience: {
+      name: "Explorer Experience",
+      description: "The full mountain trek on mule-back through the Sierra Nevada — summit trails, sunrise rituals, and wilderness that rewards the bold. For those who travel to feel alive.",
+      link: "/",
+    },
+    traits: ["Adventurous", "Curious", "Bold"],
+  },
+  {
+    id: "llama",
+    name: "The Llama",
+    tagline: "You stand tall, stay grounded, and find peace in wide-open spaces.",
+    description:
+      "You're drawn to land, animals, and the rhythms of nature. You don't need entertainment — you need connection. A horse grazing in a meadow, birdsong at dawn, the smell of earth after rain — that's your luxury.",
+    emoji: "🦙",
     color: "from-emerald-600 to-teal-700",
     animalMatch: "Bear",
-    retreatRecommendation:
-      "The 3-day mountain ride is made for you — mule trails through the Sierra Nevada, sleeping under painted canvas, guided by generations of local knowledge.",
-    traits: ["Nature-led", "Quietly brave", "Grounded"],
+    retreatExperience: {
+      name: "Grounded Nature Retreat",
+      description: "Days spent with the sanctuary animals, walking the land, learning the stories of rescue and recovery. Evenings under open sky with the sounds of the herd. Nature as your guide.",
+      link: "/",
+    },
+    traits: ["Grounded", "Nature-led", "Steady"],
   },
   {
-    id: "rooted-nomad",
-    name: "The Rooted Nomad",
-    tagline: "You travel far, but always carry home with you.",
+    id: "chameleon",
+    name: "The Chameleon",
+    tagline: "You blend in everywhere because you truly see everyone.",
     description:
-      "You're fascinated by how people live — their food, their land, their stories. You don't just visit a place, you absorb it. Slow travel isn't a trend for you — it's the only way.",
-    emoji: "🧭",
-    color: "from-amber-600 to-orange-700",
-    animalMatch: "Buffy",
-    retreatRecommendation:
-      "Join the pizza dinner welcome night and cultural immersion days — taste the olive oil, hear the family stories, walk the land that feeds the ranch.",
-    traits: ["Culturally curious", "Adaptable", "Soulful"],
-  },
-  {
-    id: "gentle-explorer",
-    name: "The Gentle Explorer",
-    tagline: "Your courage is quiet, but it runs deep.",
-    description:
-      "You seek connection — with animals, with land, with yourself. You don't need adrenaline to feel alive. A sunrise, a nuzzle from a horse, a conversation that changes your perspective — that's your adventure.",
-    emoji: "🦋",
-    color: "from-sky-500 to-indigo-600",
-    animalMatch: "Miss Loretta",
-    retreatRecommendation:
-      "Arrive a day early and spend time with the sanctuary animals — meet the residents, learn their stories, and feel the heartbeat of the ranch.",
-    traits: ["Empathetic", "Thoughtful", "Open-hearted"],
-  },
-  {
-    id: "summit-seeker",
-    name: "The Summit Seeker",
-    tagline: "The view from the top is just the beginning.",
-    description:
-      "You live for the next ridge, the next challenge, the next breathtaking vista. Comfort zones are for other people. You come alive when the terrain gets rough and the air gets thin.",
-    emoji: "🦅",
-    color: "from-rose-600 to-red-700",
-    animalMatch: "Onyx",
-    retreatRecommendation:
-      "The mountain ascent on mule-back to the rocky summit — test your limits with the Sierra Nevada under your feet and eagles overhead.",
-    traits: ["Bold", "Resilient", "Free-spirited"],
-  },
-  {
-    id: "starlight-dreamer",
-    name: "The Starlight Dreamer",
-    tagline: "You find magic where others see the ordinary.",
-    description:
-      "You travel to feel — sunsets, silence, stories whispered by old walls. You're the one who stays up late watching the stars and wakes up knowing something has shifted inside you.",
-    emoji: "🌙",
+      "You're a connector — drawn to people, cultures, and causes that matter. You adapt, you listen, and you leave places better than you found them. Travel for you is about purpose as much as pleasure.",
+    emoji: "🦎",
     color: "from-violet-600 to-purple-700",
-    animalMatch: "Ebony",
-    retreatRecommendation:
-      "The painted tent experience under the stars — fall asleep to mountain silence and wake to the sound of horses grazing in the pines.",
-    traits: ["Introspective", "Imaginative", "Present"],
+    animalMatch: "Buffy",
+    retreatExperience: {
+      name: "Adaptive Sanctuary Experience",
+      description: "A flexible blend of cultural immersion, community meals, volunteer time with the animals, and meaningful conversations. Your stay directly supports the sanctuary's mission.",
+      link: "/",
+    },
+    traits: ["Empathetic", "Purposeful", "Adaptable"],
   },
 ];
+
+// --- Scoring & Result Logic ---
 
 export interface QuizResult {
   primary: PersonalityProfile;
   secondary: PersonalityProfile;
+  isBlended: boolean;
 }
 
+/**
+ * Calculates weighted profile scores from quiz answers
+ * and returns the top two profiles with a blended flag.
+ */
 export function calculateResult(answers: Record<number, number>): QuizResult {
   const scores: Record<string, number> = {
     adventure: 0,
@@ -232,32 +240,42 @@ export function calculateResult(answers: Record<number, number>): QuizResult {
     });
   });
 
-  // Map profiles to dominant trait combinations
+  return getTopTwoProfiles(scores);
+}
+
+/**
+ * Maps trait scores to profile scores, sorts descending,
+ * and returns primary + secondary with blended flag (diff ≤ 2).
+ */
+function getTopTwoProfiles(scores: Record<string, number>): QuizResult {
   const profileScores = personalityProfiles.map((profile) => {
     let score = 0;
     switch (profile.id) {
-      case "trail-whisperer":
-        score = scores.nature * 2 + scores.calm;
+      case "bee":
+        score = scores.calm * 2 + scores.introspective * 1.5;
         break;
-      case "rooted-nomad":
-        score = scores.culture * 2 + scores.social;
+      case "rabbit":
+        score = scores.adventure * 2.5 + scores.culture * 0.5;
         break;
-      case "gentle-explorer":
-        score = scores.calm * 1.5 + scores.introspective + scores.nature * 0.5;
+      case "llama":
+        score = scores.nature * 2 + scores.calm * 0.5 + scores.introspective * 0.5;
         break;
-      case "summit-seeker":
-        score = scores.adventure * 2.5;
-        break;
-      case "starlight-dreamer":
-        score = scores.introspective * 2 + scores.calm * 0.5;
+      case "chameleon":
+        score = scores.social * 2 + scores.culture * 1 + scores.nature * 0.5;
         break;
     }
     return { profile, score };
   });
 
   profileScores.sort((a, b) => b.score - a.score);
+
+  const primary = profileScores[0];
+  const secondary = profileScores[1];
+  const isBlended = Math.abs(primary.score - secondary.score) <= 2;
+
   return {
-    primary: profileScores[0].profile,
-    secondary: profileScores[1].profile,
+    primary: primary.profile,
+    secondary: secondary.profile,
+    isBlended,
   };
 }

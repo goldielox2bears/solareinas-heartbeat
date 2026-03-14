@@ -9,10 +9,11 @@ import srrLogo from "@/assets/srr-logo-transparent.png";
 interface QuizShareCardProps {
   profile: PersonalityProfile;
   secondaryProfile: PersonalityProfile;
+  isBlended: boolean;
   animalPhoto?: string | null;
 }
 
-const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCardProps) => {
+const QuizShareCard = ({ profile, secondaryProfile, isBlended, animalPhoto }: QuizShareCardProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const handleDownload = async () => {
@@ -24,7 +25,7 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
         backgroundColor: "#1a1a1a",
       });
       const link = document.createElement("a");
-      link.download = `my-trail-type-${profile.id}.png`;
+      link.download = `sanctuary-spirit-${profile.id}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -38,7 +39,7 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
     try {
       const dataUrl = await toPng(cardRef.current, { pixelRatio: 2, backgroundColor: "#1a1a1a" });
       const blob = await (await fetch(dataUrl)).blob();
-      const file = new File([blob], `trail-type-${profile.id}.png`, { type: "image/png" });
+      const file = new File([blob], `sanctuary-spirit-${profile.id}.png`, { type: "image/png" });
       if (navigator.share) {
         await navigator.share({
           title: `I'm ${profile.name}!`,
@@ -51,18 +52,19 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
     }
   };
 
+  const secondaryLine = isBlended
+    ? `with a touch of ${secondaryProfile.emoji} ${secondaryProfile.name}`
+    : `also a bit of ${secondaryProfile.emoji} ${secondaryProfile.name}`;
+
   return (
     <div className="space-y-4">
-      {/* The card to render */}
       <div
         ref={cardRef}
         className="relative w-full max-w-sm mx-auto rounded-2xl overflow-hidden"
         style={{ aspectRatio: "4/5" }}
       >
-        {/* Background gradient */}
         <div className={`absolute inset-0 bg-gradient-to-br ${profile.color}`} />
 
-        {/* Animal photo overlay */}
         {animalPhoto && (
           <div
             className="absolute inset-0 opacity-25"
@@ -74,7 +76,6 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
           />
         )}
 
-        {/* Content */}
         <div className="relative z-10 flex flex-col justify-between h-full p-6 text-white">
           <div className="flex items-center gap-2 opacity-70">
             <img src={srrLogo} alt="" className="h-6 w-auto brightness-0 invert" />
@@ -97,9 +98,7 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
                 </span>
               ))}
             </div>
-            <p className="text-xs opacity-60">
-              also a bit of {secondaryProfile.emoji} {secondaryProfile.name}
-            </p>
+            <p className="text-xs opacity-60">{secondaryLine}</p>
           </div>
 
           <p className="text-[10px] opacity-50 text-center">
@@ -108,7 +107,6 @@ const QuizShareCard = ({ profile, secondaryProfile, animalPhoto }: QuizShareCard
         </div>
       </div>
 
-      {/* Action buttons */}
       <div className="flex gap-3 justify-center">
         <Button variant="outline" size="sm" onClick={handleDownload}>
           <Download className="h-4 w-4 mr-1" /> Download
