@@ -12,6 +12,7 @@ import QuizShareCard from "./QuizShareCard";
 
 interface QuizResultProps {
   profile: PersonalityProfile;
+  secondaryProfile: PersonalityProfile;
   onRestart: () => void;
 }
 
