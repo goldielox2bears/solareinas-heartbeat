@@ -82,6 +82,17 @@ export const questions: QuizQuestion[] = [
     ],
   },
   {
+    id: 7,
+    text: "What feels most missing from your life right now?",
+    subtitle: "Be honest with yourself",
+    options: [
+      { text: "Deep rest without guilt", icon: "😮‍💨", weights: { calm: 3, introspective: 1 } },
+      { text: "A real sense of discovery", icon: "🔭", weights: { adventure: 3, culture: 1 } },
+      { text: "A deeper connection to something real", icon: "🫀", weights: { introspective: 3, nature: 1 } },
+      { text: "A place where I feel welcomed and grounded", icon: "🏡", weights: { social: 2, calm: 2 } },
+    ],
+  },
+  {
     id: 6,
     text: "Your perfect evening ends with…",
     subtitle: "The one that makes you exhale",
