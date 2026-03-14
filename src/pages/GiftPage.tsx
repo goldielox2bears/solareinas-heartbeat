@@ -26,6 +26,31 @@ interface Project {
   icon: string;
 }
 
+interface Emergency {
+  name: string;
+  animal: string;
+  cost: number;
+  icon: string;
+  description: string;
+}
+
+const emergencies: Emergency[] = [
+  { 
+    name: "Buffy Cancer Treatment", 
+    animal: "Buffy",
+    cost: 850, 
+    icon: "🐕", 
+    description: "Buffy needs ongoing cancer treatment to keep fighting. Every euro counts."
+  },
+  { 
+    name: "Sylvester Tendon Infection", 
+    animal: "Sylvester",
+    cost: 5000, 
+    icon: "🐴", 
+    description: "Sylvester requires urgent veterinary care for a serious tendon infection."
+  },
+];
+
 const upcomingProjects: Project[] = [
   { name: "Free Herd Volunteer Cabin", cost: 9600, icon: "🏠" },
   { name: "Fencing", cost: 4000, icon: "🚧" },
