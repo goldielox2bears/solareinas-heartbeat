@@ -161,8 +161,8 @@ const GiftPage = () => {
 
     setSubmitting(true);
     try {
-      const gift_type = customAmount ? "custom" : selectedProject ? "project" : "animal";
-      const gift_target = selectedProject?.name || selectedAnimal?.name || null;
+      const gift_type = customAmount ? "custom" : selectedEmergency ? "emergency" : selectedProject ? "project" : "animal";
+      const gift_target = selectedEmergency?.name || selectedProject?.name || selectedAnimal?.name || null;
 
       const { error } = await supabase.functions.invoke("send-gift-notification", {
         body: {
