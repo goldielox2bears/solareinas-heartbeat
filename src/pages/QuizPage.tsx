@@ -30,6 +30,7 @@ const QuizPage = () => {
     } else {
       const profile = calculateResult(newAnswers);
       setResult(profile);
+      trackQuizEvent("quiz_completed", { profile_id: profile.id, profile_name: profile.name });
       setStage("result");
     }
   };
