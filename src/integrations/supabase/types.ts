@@ -301,6 +301,33 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_completions: {
+        Row: {
+          answers: Json
+          created_at: string
+          id: string
+          is_blended: boolean
+          primary_result: string
+          secondary_result: string
+        }
+        Insert: {
+          answers?: Json
+          created_at?: string
+          id?: string
+          is_blended?: boolean
+          primary_result: string
+          secondary_result: string
+        }
+        Update: {
+          answers?: Json
+          created_at?: string
+          id?: string
+          is_blended?: boolean
+          primary_result?: string
+          secondary_result?: string
+        }
+        Relationships: []
+      }
       retreat_signups: {
         Row: {
           created_at: string

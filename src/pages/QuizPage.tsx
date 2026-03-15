@@ -37,6 +37,12 @@ const QuizPage = () => {
         secondary_result: quizResult.secondary.id,
         is_blended: quizResult.isBlended,
       });
+      saveQuizCompletion({
+        primary_result: quizResult.primary.id,
+        secondary_result: quizResult.secondary.id,
+        is_blended: quizResult.isBlended,
+        answers: newAnswers,
+      });
       setStage("result");
     }
   };
