@@ -4,7 +4,7 @@ import QuizQuestion from "@/components/quiz/QuizQuestion";
 import QuizProgress from "@/components/quiz/QuizProgress";
 import QuizResult from "@/components/quiz/QuizResult";
 import { questions, calculateResult, type QuizResult as QuizResultType } from "@/components/quiz/quizData";
-import { trackQuizEvent } from "@/lib/quizAnalytics";
+import { trackQuizEvent, saveQuizCompletion } from "@/lib/quizAnalytics";
 
 type QuizStage = "intro" | "questions" | "result";
 
@@ -36,6 +36,12 @@ const QuizPage = () => {
         final_result: quizResult.primary.id,
         secondary_result: quizResult.secondary.id,
         is_blended: quizResult.isBlended,
+      });
+      saveQuizCompletion({
+        primary_result: quizResult.primary.id,
+        secondary_result: quizResult.secondary.id,
+        is_blended: quizResult.isBlended,
+        answers: newAnswers,
       });
       setStage("result");
     }

@@ -34,3 +34,25 @@ export const trackQuizEvent = (event: QuizEventName, props: QuizEventProps = {})
     console.log("[Quiz Analytics]", event, props);
   }
 };
+
+export const saveQuizCompletion = async (data: {
+  primary_result: string;
+  secondary_result: string;
+  is_blended: boolean;
+  answers: Record<number, number>;
+}) => {
+  try {
+    const { supabase } = await import("@/integrations/supabase/client");
+    const { error } = await supabase.from("quiz_completions").insert({
+      primary_result: data.primary_result,
+      secondary_result: data.secondary_result,
+      is_blended: data.is_blended,
+      answers: data.answers,
+    });
+    if (error) {
+      console.error("[Quiz Analytics] Failed to save completion:", error);
+    }
+  } catch (err) {
+    console.error("[Quiz Analytics] Failed to save completion:", err);
+  }
+};

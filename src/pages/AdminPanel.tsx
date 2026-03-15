@@ -24,7 +24,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { Loader2, CheckCircle, XCircle, Clock, Users, Heart } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Clock, Users, Heart, Brain } from 'lucide-react';
 
 type VolunteerApplication = {
   id: string;
@@ -96,6 +96,22 @@ const AdminPanel = () => {
 
       if (error) throw error;
       return data as Sponsorship[];
+    },
+    enabled: isAdmin,
+  });
+
+  // Fetch quiz completions
+  const { data: quizCompletions, isLoading: quizLoading } = useQuery({
+    queryKey: ['admin-quiz-completions'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('quiz_completions')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(100);
+
+      if (error) throw error;
+      return data as { id: string; primary_result: string; secondary_result: string; is_blended: boolean; answers: Record<string, number>; created_at: string }[];
     },
     enabled: isAdmin,
   });
@@ -269,7 +285,7 @@ const AdminPanel = () => {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="volunteers" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
+           <TabsList className="grid w-full max-w-lg grid-cols-3">
             <TabsTrigger value="volunteers" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Volunteers
@@ -282,6 +298,13 @@ const AdminPanel = () => {
               Sponsorships
               {sponsorshipCounts.pending > 0 && (
                 <Badge variant="secondary" className="ml-1">{sponsorshipCounts.pending}</Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="quiz" className="flex items-center gap-2">
+              <Brain className="h-4 w-4" />
+              Quiz
+              {quizCompletions && (
+                <Badge variant="secondary" className="ml-1">{quizCompletions.length}</Badge>
               )}
             </TabsTrigger>
           </TabsList>
@@ -558,6 +581,86 @@ const AdminPanel = () => {
                                   <span className="text-xs text-muted-foreground">Rejected</span>
                                 )}
                               </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Quiz Completions Tab */}
+          <TabsContent value="quiz" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Total Completions</CardDescription>
+                  <CardTitle className="text-3xl">{quizCompletions?.length || 0}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Blended Results</CardDescription>
+                  <CardTitle className="text-3xl">{quizCompletions?.filter(q => q.is_blended).length || 0}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Most Common Result</CardDescription>
+                  <CardTitle className="text-xl capitalize">
+                    {(() => {
+                      if (!quizCompletions?.length) return '—';
+                      const counts: Record<string, number> = {};
+                      quizCompletions.forEach(q => { counts[q.primary_result] = (counts[q.primary_result] || 0) + 1; });
+                      return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0]?.replace(/-/g, ' ') || '—';
+                    })()}
+                  </CardTitle>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Quiz Completions</CardTitle>
+                <CardDescription>Anonymous quiz results from visitors</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {quizLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  </div>
+                ) : !quizCompletions?.length ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No quiz completions yet
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Primary Result</TableHead>
+                          <TableHead>Secondary Result</TableHead>
+                          <TableHead>Blended</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {quizCompletions.map((completion) => (
+                          <TableRow key={completion.id}>
+                            <TableCell className="text-sm text-muted-foreground">
+                              {new Date(completion.created_at).toLocaleDateString()} {new Date(completion.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </TableCell>
+                            <TableCell className="font-medium capitalize">{completion.primary_result.replace(/-/g, ' ')}</TableCell>
+                            <TableCell className="capitalize">{completion.secondary_result.replace(/-/g, ' ')}</TableCell>
+                            <TableCell>
+                              {completion.is_blended ? (
+                                <Badge variant="secondary">Blended</Badge>
+                              ) : (
+                                <span className="text-muted-foreground">—</span>
+                              )}
                             </TableCell>
                           </TableRow>
                         ))}
