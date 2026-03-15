@@ -1,0 +1,1 @@
+UPDATE public.animals SET age = 3 WHERE name = 'Sunka';
