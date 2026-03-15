@@ -285,7 +285,7 @@ const AdminPanel = () => {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="volunteers" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
+           <TabsList className="grid w-full max-w-lg grid-cols-3">
             <TabsTrigger value="volunteers" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Volunteers
@@ -298,6 +298,13 @@ const AdminPanel = () => {
               Sponsorships
               {sponsorshipCounts.pending > 0 && (
                 <Badge variant="secondary" className="ml-1">{sponsorshipCounts.pending}</Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="quiz" className="flex items-center gap-2">
+              <Brain className="h-4 w-4" />
+              Quiz
+              {quizCompletions && (
+                <Badge variant="secondary" className="ml-1">{quizCompletions.length}</Badge>
               )}
             </TabsTrigger>
           </TabsList>
