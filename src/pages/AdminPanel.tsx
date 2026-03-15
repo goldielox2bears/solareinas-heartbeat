@@ -591,6 +591,86 @@ const AdminPanel = () => {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Quiz Completions Tab */}
+          <TabsContent value="quiz" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Total Completions</CardDescription>
+                  <CardTitle className="text-3xl">{quizCompletions?.length || 0}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Blended Results</CardDescription>
+                  <CardTitle className="text-3xl">{quizCompletions?.filter(q => q.is_blended).length || 0}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Most Common Result</CardDescription>
+                  <CardTitle className="text-xl capitalize">
+                    {(() => {
+                      if (!quizCompletions?.length) return '—';
+                      const counts: Record<string, number> = {};
+                      quizCompletions.forEach(q => { counts[q.primary_result] = (counts[q.primary_result] || 0) + 1; });
+                      return Object.entries(counts).sort((a, b) => b[1] - a[1])[0]?.[0]?.replace(/-/g, ' ') || '—';
+                    })()}
+                  </CardTitle>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Recent Quiz Completions</CardTitle>
+                <CardDescription>Anonymous quiz results from visitors</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {quizLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  </div>
+                ) : !quizCompletions?.length ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No quiz completions yet
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Primary Result</TableHead>
+                          <TableHead>Secondary Result</TableHead>
+                          <TableHead>Blended</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {quizCompletions.map((completion) => (
+                          <TableRow key={completion.id}>
+                            <TableCell className="text-sm text-muted-foreground">
+                              {new Date(completion.created_at).toLocaleDateString()} {new Date(completion.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                            </TableCell>
+                            <TableCell className="font-medium capitalize">{completion.primary_result.replace(/-/g, ' ')}</TableCell>
+                            <TableCell className="capitalize">{completion.secondary_result.replace(/-/g, ' ')}</TableCell>
+                            <TableCell>
+                              {completion.is_blended ? (
+                                <Badge variant="secondary">Blended</Badge>
+                              ) : (
+                                <span className="text-muted-foreground">—</span>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
       </div>
     </div>
