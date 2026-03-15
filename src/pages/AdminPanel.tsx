@@ -24,7 +24,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { Loader2, CheckCircle, XCircle, Clock, Users, Heart } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Clock, Users, Heart, Brain } from 'lucide-react';
 
 type VolunteerApplication = {
   id: string;
