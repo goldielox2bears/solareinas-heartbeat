@@ -100,6 +100,22 @@ const AdminPanel = () => {
     enabled: isAdmin,
   });
 
+  // Fetch quiz completions
+  const { data: quizCompletions, isLoading: quizLoading } = useQuery({
+    queryKey: ['admin-quiz-completions'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('quiz_completions')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(100);
+
+      if (error) throw error;
+      return data as { id: string; primary_result: string; secondary_result: string; is_blended: boolean; answers: Record<string, number>; created_at: string }[];
+    },
+    enabled: isAdmin,
+  });
+
   // Update volunteer application status mutation
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: string }) => {
