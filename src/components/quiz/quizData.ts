@@ -7,11 +7,19 @@ export interface QuizOption {
   weights: Record<string, number>;
 }
 
+export interface SliderStop {
+  label: string;
+  emoji: string;
+  weights: Record<string, number>;
+}
+
 export interface QuizQuestion {
   id: number;
   text: string;
   subtitle?: string;
+  type?: "options" | "slider";
   options: QuizOption[];
+  sliderStops?: SliderStop[];
 }
 
 export interface PersonalityProfile {
@@ -122,13 +130,22 @@ export const questions: QuizQuestion[] = [
   },
   {
     id: 9,
-    text: "How do you usually feel after a typical holiday?",
-    subtitle: "Honestly",
+    text: "How do you usually feel after a holiday?",
+    subtitle: "Slide to where you land most often",
+    type: "slider",
+    sliderStops: [
+      { label: "Still tired — just in a prettier location", emoji: "😴", weights: { calm: 3, introspective: 1 } },
+      { label: "Entertained but not deeply moved", emoji: "🤷", weights: { adventure: 2, culture: 1 } },
+      { label: "Relaxed but unchanged", emoji: "😌", weights: { introspective: 3 } },
+      { label: "Genuinely recharged and grateful", emoji: "✨", weights: { nature: 2, calm: 1, social: 1 } },
+      { label: "Transformed — it shifted something in me", emoji: "🦋", weights: { stewardship: 2, introspective: 1, nature: 1 } },
+    ],
     options: [
       { text: "Still tired — just in a prettier location", icon: "😴", weights: { calm: 3, introspective: 1 } },
       { text: "Entertained but not deeply moved", icon: "🤷", weights: { adventure: 2, culture: 1 } },
       { text: "Relaxed but unchanged", icon: "😌", weights: { introspective: 3 } },
-      { text: "Wishing it had meant something more", icon: "💭", weights: { stewardship: 2, social: 1 } },
+      { text: "Genuinely recharged and grateful", icon: "✨", weights: { nature: 2, calm: 1, social: 1 } },
+      { text: "Transformed — it shifted something in me", icon: "🦋", weights: { stewardship: 2, introspective: 1, nature: 1 } },
     ],
   },
   {
