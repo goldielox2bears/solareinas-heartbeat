@@ -173,23 +173,6 @@ const SanctuaryGallery = () => {
           </DialogContent>
         </Dialog>
 
-        {/* Video Section */}
-        <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-8 shadow-gentle">
-          <div className="text-center mb-8">
-            <h3 className="text-2xl md:text-3xl font-light mb-4 text-foreground">A Day in the Life</h3>
-            <p className="text-muted-foreground">Experience a typical day at our sanctuary through the eyes of our dedicated volunteers</p>
-          </div>
-          <div className="aspect-video bg-muted rounded-xl flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">▶️</span>
-              </div>
-              <p className="text-muted-foreground">Video coming soon</p>
-              <p className="text-sm text-muted-foreground mt-2">"Behind the Scenes: Morning Feeding & Care Routine"</p>
-            </div>
-          </div>
-        </div>
-
         <div className="mt-12 text-center">
           <Button variant="steward" size="lg" className="shadow-warm">🌍 Take Our Virtual 360° Tour</Button>
           <p className="text-sm text-muted-foreground mt-4">Explore our sanctuary from the comfort of your home</p>
