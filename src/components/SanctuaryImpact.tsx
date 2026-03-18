@@ -28,7 +28,7 @@ const SanctuaryImpact = () => {
 
   const finalCounts = {
     animals: 46,
-    species: 7,
+    species: 5,
     volunteers: 16420,
     acres: 4
   };
