@@ -7,11 +7,19 @@ export interface QuizOption {
   weights: Record<string, number>;
 }
 
+export interface SliderStop {
+  label: string;
+  emoji: string;
+  weights: Record<string, number>;
+}
+
 export interface QuizQuestion {
   id: number;
   text: string;
   subtitle?: string;
+  type?: "options" | "slider";
   options: QuizOption[];
+  sliderStops?: SliderStop[];
 }
 
 export interface PersonalityProfile {
