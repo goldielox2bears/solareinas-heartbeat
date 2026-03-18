@@ -80,8 +80,7 @@ const SanctuaryWelcome = () => {
         </div>
 
         {/* Quick Navigation */}
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground mb-6">Explore our sanctuary</p>
+        <div className="mt-20 text-center">
           <div className="flex flex-wrap justify-center gap-4">
             <Button variant="outline" size="sm" asChild>
               <a href="#sanctuary-gallery">Photo Gallery</a>
