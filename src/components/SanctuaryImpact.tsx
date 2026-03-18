@@ -204,8 +204,20 @@ const SanctuaryImpact = () => {
                   <div className="text-sm font-medium text-foreground">Spain</div>
                 </div>
               </div>
+              </div>
+
+              {/* Emergency Medical Button */}
+              <div className="mt-6 text-center">
+                <button
+                  onClick={() => navigate("/gift?project=Emergency%20Medical%20Treatment")}
+                  className="w-full flex items-center justify-center gap-3 p-4 bg-destructive/10 border border-destructive/30 rounded-xl hover:bg-destructive/20 transition-colors group"
+                >
+                  <span className="text-2xl">🚨</span>
+                  <span className="font-medium text-destructive group-hover:underline">Emergency Medical Treatment</span>
+                  <span className="text-destructive font-semibold">€5,000</span>
+                </button>
+              </div>
             </div>
-          </div>
         </div>
 
         {/* Call to Action */}
