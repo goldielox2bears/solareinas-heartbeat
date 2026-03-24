@@ -10,7 +10,7 @@ import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
 import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
 import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 import familyRidingTrail from "@/assets/family-camp/family-riding-trail.jpeg";
-import vintageBeachFamily from "@/assets/family-camp/vintage-beach-family.jpeg";
+import beachMomDaughter from "@/assets/family-camp/beach-mom-daughter.jpeg";
 import kidOnMule from "@/assets/family-camp/kid-on-mule.jpeg";
 import trailSelfieFamily from "@/assets/family-camp/trail-selfie-family.jpeg";
 import kidMuleTrail from "@/assets/family-camp/kid-mule-trail.jpeg";
