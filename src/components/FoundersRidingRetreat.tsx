@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Footprints } from "lucide-react";
+import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Footprints, Waves, Ship, Music, Landmark } from "lucide-react";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
 
 import tentInterior from "@/assets/summer-ride/tent-interior.jpeg";
@@ -22,33 +22,89 @@ import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
 import alhambraPalace from "@/assets/summer-ride/alhambra-palace.jpeg";
 import alhambraGardens from "@/assets/summer-ride/alhambra-gardens.jpeg";
 
-// span classes: col/row spans for collage layout — 4-col grid, 4 rows total
+// span classes: col/row spans for collage layout — 4-col grid
 const photos = [
   { src: riderVista, alt: "Rider overlooking Sierra Nevada mountains", className: "col-span-2 row-span-2" },
   { src: sunsetPaddleboard, alt: "Sunset paddleboarding at the coast", className: "col-span-2" },
   { src: groupRiding, alt: "Group riding through Sierra Nevada mountains", className: "" },
   { src: muleSummit, alt: "Mule on a rocky mountain summit", className: "" },
-  { src: tentInterior, alt: "Inside a cozy mountain tent", className: "" },
-  { src: paintedTent, alt: "Custom hand-painted tent in the wilderness", className: "" },
+  { src: alhambraPalace, alt: "The Alhambra palace reflected in still water", className: "" },
+  { src: alhambraGardens, alt: "The Alhambra gardens and ancient towers", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with horses and dogs", className: "col-span-2" },
   { src: kayakGroupSelfie, alt: "Group kayaking adventure selfie", className: "" },
   { src: packMules, alt: "Pack mules on a forest trail", className: "" },
-  { src: alhambraPalace, alt: "The Alhambra palace reflected in still water", className: "" },
-  { src: alhambraGardens, alt: "The Alhambra gardens and ancient towers", className: "" },
+  { src: tentInterior, alt: "Inside a cozy mountain tent", className: "" },
+  { src: paintedTent, alt: "Custom hand-painted tent in the wilderness", className: "" },
   { src: kayakCliffs, alt: "Kayaking along dramatic sea cliffs", className: "" },
   { src: founderWithDog, alt: "Founder walking with a dog in the hills", className: "" },
 ];
 
 const inclusions = [
-  { icon: Mountain, label: "3-day horse & mule trek" },
-  { icon: Tent, label: "Custom painted tents" },
-  { icon: UtensilsCrossed, label: "All meals included" },
+  { icon: Music, label: "Flamenco dinner show" },
+  { icon: Ship, label: "Mediterranean catamaran cruise" },
+  { icon: Landmark, label: "Alhambra guided visit" },
+  { icon: Mountain, label: "2-day horseback Sierra trek" },
+  { icon: Tent, label: "Mountain camp under the stars" },
+  { icon: Waves, label: "Kayaking & snorkeling" },
+  { icon: UtensilsCrossed, label: "All meals & accommodation" },
   { icon: Users, label: "Expert local guides" },
-  { icon: Compass, label: "Trail navigation & route finding" },
-  { icon: Sunrise, label: "Mountain sunrise rituals" },
-  { icon: Footprints, label: "Wilderness hiking" },
+  { icon: Compass, label: "Desert & film set experience" },
   { icon: MapPin, label: "Cultural & historical immersion" },
+  { icon: Sunrise, label: "Coastal restoration days" },
   { icon: Star, label: "Founding Steward status" },
+];
+
+const itinerary = [
+  {
+    day: "Day 1",
+    title: "Arrive in Málaga",
+    description: "Arrive in the warmth and colour of southern Spain. Settle into a local hotel, then begin your Andalusian journey with an evening of traditional cuisine, music, and emotion at a flamenco dinner show.",
+  },
+  {
+    day: "Day 2",
+    title: "Mediterranean Reset & Granada",
+    description: "Ease into holiday mode with a catamaran cruise on the Mediterranean. Let the sea air and open horizon wash away the residue of travel. Later, journey to Granada and settle into one of Spain's most enchanting historic cities.",
+  },
+  {
+    day: "Day 3",
+    title: "The Alhambra & Ancient Granada",
+    description: "Spend the day exploring the Alhambra, one of the most extraordinary monumental complexes in Europe, where Islamic art, gardens, and royal architecture tell the story of centuries of cultural exchange. In the evening, enjoy a Moroccan-inspired dinner.",
+  },
+  {
+    day: "Day 4",
+    title: "Markets, Mountain Roads & Cortijo Stay",
+    description: "Wander through Granada's market streets and test your skills in the traditional souk atmosphere — bargaining, browsing, tasting, and discovering artisan treasures. Then climb into the Sierra Nevada and sleep in an authentic mountain cortijo.",
+  },
+  {
+    day: "Day 5",
+    title: "Ride into the High Sierras",
+    description: "Wake to crisp mountain air and a traditional herder's breakfast. Meet your horse or mule and begin your trek through routes that have connected communities and mountain life for generations. Tonight, sleep under the stars with comfort camps and stargazing.",
+  },
+  {
+    day: "Day 6",
+    title: "Sierra Crossing & Cabo de Gata",
+    description: "Continue across the sierras to a memorable lunch stop at a renowned retreat setting, then descend from the mountains. Say goodbye to your trusted mount and transfer to Cabo de Gata, where protected coastline and sea air welcome you.",
+  },
+  {
+    day: "Day 7",
+    title: "Beach Restoration",
+    description: "Spend the day at leisure among crystal-clear waters, quiet coves, and dramatic volcanic formations. Rest, swim, walk, journal, and simply breathe. After the mountain effort, the sea becomes medicine.",
+  },
+  {
+    day: "Day 8",
+    title: "Kayak, Snorkel & Reawaken",
+    description: "Explore the nature reserve more actively by kayak and snorkel. Move your body again, reconnect with energy and play, and experience the coast from water level. These days by the sea are designed to feel deeply restorative.",
+  },
+  {
+    day: "Day 9",
+    title: "Into the Desert",
+    description: "Leave the coast and head to Tabernas — Europe's only desert — where raw landscapes and old film legends collide. Enjoy a live Wild West experience in the territory of classic spaghetti westerns. Sleep in the Wild West and take in the strange beauty.",
+  },
+  {
+    day: "Day 10",
+    title: "Return to Málaga",
+    description: "Travel back to Málaga for departure, carrying home not just memories, but the feeling of having truly moved through Andalusia — its sea, culture, mountains, silence, horses, and desert.",
+  },
 ];
 
 const FoundersRidingRetreat = () => {
@@ -60,15 +116,17 @@ const FoundersRidingRetreat = () => {
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
           <Badge variant="secondary" className="mb-4 text-xs tracking-widest uppercase">
-            6 Spots · July 2–5
+            Small Group · 10 Days · Purpose-Led
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-4">
-            Founders Riding Retreat
+          <h2 className="text-4xl md:text-5xl font-light text-foreground mb-2">
+            Sea to Mountains to Sea
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            A pure equine experience in the Sierra Nevada mountains of southern Spain.
-            Four days with horses and mules through epic terrain — sleep under the stars
-            and become a Founding Steward of Solareinas.
+          <p className="text-lg md:text-xl text-primary font-light mb-4">
+            An Epic Andalusian Journey
+          </p>
+          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+            Discover Andalusia in its fullest form — sea, mountains, heritage, horses, desert, and soul —
+            while helping support a ranch dedicated to animals, nature, and purposeful living.
           </p>
         </div>
 
@@ -89,54 +147,50 @@ const FoundersRidingRetreat = () => {
           ))}
         </div>
 
-        {/* Content: Itinerary + Details */}
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-          {/* Itinerary */}
-          <div>
+        {/* Short description */}
+        <div className="max-w-3xl mx-auto text-center mb-12 md:mb-16">
+          <p className="text-muted-foreground leading-relaxed">
+            From Málaga's flamenco spirit to Granada's ancient majesty, from horseback trails in the
+            UNESCO-recognised Sierra Nevada to the crystalline waters of Cabo de Gata, and finally into
+            the cinematic wildness of Europe's only true desert in Tabernas — this 10-day journey lets
+            you experience Andalusia through all the senses. A meaningful portion of contributions
+            supports the ranch and helps fund animal care, land stewardship, and the long-term rescue mission.
+          </p>
+        </div>
+
+        {/* Itinerary + Details */}
+        <div className="grid md:grid-cols-5 gap-8 md:gap-12">
+          {/* Itinerary - 3 cols */}
+          <div className="md:col-span-3">
             <h3 className="text-2xl font-light text-foreground mb-6 flex items-center gap-2">
               <Calendar className="h-5 w-5 text-primary" />
-              Your Journey
+              Your 10-Day Journey
             </h3>
-            <div className="space-y-6">
-              <div className="relative pl-6 border-l-2 border-primary/30">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary" />
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">
-                  July 2 · Arrival
-                </p>
-                <h4 className="text-lg font-medium text-foreground mb-1">
-                  Welcome to Solareinas
-                </h4>
-                <p className="text-muted-foreground">
-                  Arrive at the ranch for a wood-fired pizza dinner under the stars.
-                  Meet the resident animals and settle into the land.
-                </p>
-              </div>
-
-              <div className="relative pl-6 border-l-2 border-primary/30">
-                <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary" />
-                <p className="text-sm text-muted-foreground uppercase tracking-wide mb-1">
-                  July 3–5 · The Trek
-                </p>
-                <h4 className="text-lg font-medium text-foreground mb-1">
-                  Into the Sierra Nevada
-                </h4>
-                <p className="text-muted-foreground">
-                  Three days riding horses and mules through epic mountain terrain.
-                  Hand-painted tents, home-cooked meals, wilderness hiking,
-                  sunrise rituals, and deep cultural immersion —
-                  guided by the family that has guided and stewarded these paths for generations.
-                </p>
-              </div>
+            <div className="space-y-4">
+              {itinerary.map((day, i) => (
+                <div key={i} className="relative pl-6 border-l-2 border-primary/30">
+                  <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-primary" />
+                  <p className="text-xs text-muted-foreground uppercase tracking-wide mb-0.5">
+                    {day.day}
+                  </p>
+                  <h4 className="text-base font-medium text-foreground mb-1">
+                    {day.title}
+                  </h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {day.description}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Details Card */}
-          <div className="space-y-6">
-            <Card className="shadow-warm border-primary/10">
+          {/* Details Card - 2 cols */}
+          <div className="md:col-span-2 space-y-6">
+            <Card className="shadow-warm border-primary/10 sticky top-24">
               <CardContent className="p-6 space-y-5">
                 <div>
                   <h3 className="text-xl font-medium text-foreground mb-3">What's Included</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {inclusions.map(({ icon: Icon, label }) => (
                       <div key={label} className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Icon className="h-4 w-4 text-primary shrink-0" />
@@ -149,32 +203,34 @@ const FoundersRidingRetreat = () => {
                 <div className="border-t border-border pt-4">
                   <div className="flex items-center gap-2 mb-2">
                     <Star className="h-4 w-4 text-copper-aged" />
-                    <span className="text-sm font-medium text-foreground">Founding Steward Status</span>
+                    <span className="text-sm font-medium text-foreground">Travel With Purpose</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Every participant becomes a Founding Steward — first access to newly built
-                    volunteer cabins and a lasting place in the Solareinas story.
+                    Every journey helps protect another life. When you travel with us, you are also
+                    helping support the animals and land that make the ranch's mission possible.
+                    Founding Stewards receive first access to newly built volunteer cabins and a
+                    lasting place in the Solareinas story.
                   </p>
                 </div>
 
                 <div className="border-t border-border pt-4 flex items-baseline justify-between">
                   <div>
-                    <p className="text-2xl font-light text-foreground">€1,500</p>
+                    <p className="text-2xl font-light text-foreground">€2,900</p>
                     <p className="text-xs text-muted-foreground">contribution per person · all-inclusive</p>
-                    <p className="text-xs text-primary font-medium mt-1">€450 deposit to reserve your spot</p>
+                    <p className="text-xs text-primary font-medium mt-1">€870 deposit to reserve your place</p>
                   </div>
-                  <Badge variant="outline" className="text-xs">6 spots</Badge>
+                  <Badge variant="outline" className="text-xs">Small group</Badge>
                 </div>
 
                 <p className="text-xs text-muted-foreground italic">
-                  100% of contributions fund the sanctuary and its animals.
+                  Travel beautifully, and help support the ranch.
                 </p>
+
+                <Button variant="steward" size="lg" className="w-full text-base" onClick={() => setFormOpen(true)}>
+                  Reserve Your Place
+                </Button>
               </CardContent>
             </Card>
-
-            <Button variant="steward" size="lg" className="w-full text-base" onClick={() => setFormOpen(true)}>
-              Reserve Your Spot
-            </Button>
           </div>
         </div>
       </div>
