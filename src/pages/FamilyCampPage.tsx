@@ -32,6 +32,8 @@ const photos = [
   { src: beachUmbrellas, alt: "Beach umbrella vibes", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with animals", className: "col-span-2" },
   { src: kayakCliffs, alt: "Sea cliffs exploration", className: "" },
+  { src: trailSelfieFamily, alt: "Family selfie on the trail", className: "" },
+  { src: kidMuleTrail, alt: "Kid riding a mule on a mountain trail", className: "" },
 ];
 
 const inclusions = [
