@@ -19,6 +19,7 @@ import beachFamily from "@/assets/family-camp/beach-family-cropped.jpeg";
 import snorkelingFamily from "@/assets/family-camp/snorkeling-family.jpeg";
 import beachUmbrellas from "@/assets/family-camp/beach-umbrellas.jpeg";
 import palmTreesBeach from "@/assets/family-camp/palm-trees-beach.jpeg";
+import familySunsetMarshes from "@/assets/family-camp/family-sunset-marshes.jpeg";
 
 const photos = [
   { src: familyRidingTrail, alt: "Family riding together on a trail", className: "col-span-2 row-span-2" },
@@ -34,6 +35,7 @@ const photos = [
   { src: kayakCliffs, alt: "Sea cliffs exploration", className: "" },
   { src: trailSelfieFamily, alt: "Family selfie on the trail", className: "" },
   { src: kidMuleTrail, alt: "Kid riding a mule on a mountain trail", className: "" },
+  { src: familySunsetMarshes, alt: "Family holding hands at sunset by the marshes", className: "" },
 ];
 
 const inclusions = [
