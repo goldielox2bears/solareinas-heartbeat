@@ -118,6 +118,7 @@ const FamilyCampPage = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 md:mb-16">
+            <img src={explorelifeLogo} alt="ExploreLife.Live" className="w-24 h-24 mx-auto mb-4 rounded-full" />
             <Badge variant="secondary" className="mb-4 text-xs tracking-widest uppercase">
               Family Adventure · 10 Days · Max 3 Families
             </Badge>
