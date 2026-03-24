@@ -10,12 +10,12 @@ import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
 import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
 import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 import familyRidingTrail from "@/assets/family-camp/family-riding-trail.jpeg";
-import vintageBeachFamily from "@/assets/family-camp/vintage-beach-family.jpeg";
+import beachMomDaughter from "@/assets/family-camp/beach-mom-daughter.jpeg";
 import kidOnMule from "@/assets/family-camp/kid-on-mule.jpeg";
 import trailSelfieFamily from "@/assets/family-camp/trail-selfie-family.jpeg";
 import kidMuleTrail from "@/assets/family-camp/kid-mule-trail.jpeg";
 import beachKid from "@/assets/family-camp/beach-kid-playing.jpeg";
-import beachFamily from "@/assets/family-camp/beach-family-sand.jpeg";
+import beachFamily from "@/assets/family-camp/beach-family-cropped.jpeg";
 import snorkelingFamily from "@/assets/family-camp/snorkeling-family.jpeg";
 import beachUmbrellas from "@/assets/family-camp/beach-umbrellas.jpeg";
 import palmTreesBeach from "@/assets/family-camp/palm-trees-beach.jpeg";
@@ -28,7 +28,7 @@ const photos = [
   { src: sunsetPaddleboard, alt: "Family catamaran cruise on the Mediterranean", className: "" },
   { src: palmTreesBeach, alt: "Palm trees on the Andalusian coast", className: "" },
   { src: kidOnMule, alt: "Kid riding with family in the mountains", className: "col-span-2" },
-  { src: vintageBeachFamily, alt: "Vintage family beach memories", className: "" },
+  { src: beachMomDaughter, alt: "Mom and daughter beach moment", className: "" },
   { src: beachUmbrellas, alt: "Beach umbrella vibes", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with animals", className: "col-span-2" },
   { src: kayakCliffs, alt: "Sea cliffs exploration", className: "" },
