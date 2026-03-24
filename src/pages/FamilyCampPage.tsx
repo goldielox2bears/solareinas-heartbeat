@@ -14,9 +14,13 @@ import groupRiding from "@/assets/summer-ride/group-riding-mountains.jpeg";
 import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 import peacefulGrazing from "@/assets/summer-ride/peaceful-grazing.jpeg";
 import horsesGrazing from "@/assets/summer-ride/horses-grazing-pines.jpeg";
+import beachKid from "@/assets/family-camp/beach-kid-playing.jpeg";
+import beachFamily from "@/assets/family-camp/beach-family-sand.jpeg";
 
 const photos = [
   { src: riderVista, alt: "Mountain vista family adventure", className: "col-span-2 row-span-2" },
+  { src: beachKid, alt: "Kid playing on the beach in Andalusia", className: "" },
+  { src: beachFamily, alt: "Family beach time together", className: "" },
   { src: sunsetPaddleboard, alt: "Family catamaran cruise on the Mediterranean", className: "col-span-2" },
   { src: groupRiding, alt: "Family riding through Sierra Nevada", className: "" },
   { src: kayakGroupSelfie, alt: "Family kayaking adventure", className: "" },
