@@ -28,7 +28,7 @@ const photos = [
   { src: sunsetPaddleboard, alt: "Family catamaran cruise on the Mediterranean", className: "" },
   { src: palmTreesBeach, alt: "Palm trees on the Andalusian coast", className: "" },
   { src: kidOnMule, alt: "Kid riding with family in the mountains", className: "col-span-2" },
-  { src: vintageBeachFamily, alt: "Vintage family beach memories", className: "" },
+  { src: beachMomDaughter, alt: "Mom and daughter beach moment", className: "" },
   { src: beachUmbrellas, alt: "Beach umbrella vibes", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with animals", className: "col-span-2" },
   { src: kayakCliffs, alt: "Sea cliffs exploration", className: "" },
