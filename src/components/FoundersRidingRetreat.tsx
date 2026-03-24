@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Footprints, Waves, Ship, Music, Landmark } from "lucide-react";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
+import explorelifeLogo from "@/assets/explorelife-logo.png";
 
 import tentInterior from "@/assets/summer-ride/tent-interior.jpeg";
 import paintedTent from "@/assets/summer-ride/painted-tent-exterior.jpeg";
@@ -115,6 +116,7 @@ const FoundersRidingRetreat = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12 md:mb-16">
+          <img src={explorelifeLogo} alt="ExploreLife.Live" className="w-24 h-24 mx-auto mb-4 rounded-full" />
           <Badge variant="secondary" className="mb-4 text-xs tracking-widest uppercase">
             Small Group · 10 Days · Purpose-Led
           </Badge>

@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Waves, Ship, Camera, Baby, TreePine, Sun } from "lucide-react";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
+import explorelifeLogo from "@/assets/explorelife-logo.png";
 
 import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
 import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
@@ -117,6 +118,7 @@ const FamilyCampPage = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12 md:mb-16">
+            <img src={explorelifeLogo} alt="ExploreLife.Live" className="w-24 h-24 mx-auto mb-4 rounded-full" />
             <Badge variant="secondary" className="mb-4 text-xs tracking-widest uppercase">
               Family Adventure · 10 Days · Max 3 Families
             </Badge>
