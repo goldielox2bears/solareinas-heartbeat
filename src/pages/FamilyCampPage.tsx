@@ -19,19 +19,17 @@ import beachUmbrellas from "@/assets/family-camp/beach-umbrellas.jpeg";
 import palmTreesBeach from "@/assets/family-camp/palm-trees-beach.jpeg";
 
 const photos = [
-  { src: riderVista, alt: "Mountain vista family adventure", className: "col-span-2 row-span-2" },
+  { src: familyRidingTrail, alt: "Family riding together on a trail", className: "col-span-2 row-span-2" },
   { src: beachKid, alt: "Kid playing on the beach in Andalusia", className: "" },
   { src: beachFamily, alt: "Family beach time together", className: "" },
   { src: snorkelingFamily, alt: "Family snorkeling adventure", className: "col-span-2" },
   { src: sunsetPaddleboard, alt: "Family catamaran cruise on the Mediterranean", className: "" },
   { src: palmTreesBeach, alt: "Palm trees on the Andalusian coast", className: "" },
-  { src: groupRiding, alt: "Family riding through Sierra Nevada", className: "col-span-2" },
-  { src: kayakGroupSelfie, alt: "Family kayaking adventure", className: "" },
+  { src: kidOnMule, alt: "Kid riding with family in the mountains", className: "col-span-2" },
+  { src: vintageBeachFamily, alt: "Vintage family beach memories", className: "" },
   { src: beachUmbrellas, alt: "Beach umbrella vibes", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with animals", className: "col-span-2" },
   { src: kayakCliffs, alt: "Sea cliffs exploration", className: "" },
-  { src: peacefulGrazing, alt: "Peaceful mountain setting", className: "" },
-  { src: horsesGrazing, alt: "Horses grazing in the pines", className: "" },
 ];
 
 const inclusions = [
