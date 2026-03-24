@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import srrLogo from "@/assets/srr-logo-transparent.png";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown } from "lucide-react";
 
 const SanctuaryNavigation = () => {
   const { user, signOut } = useAuth();
@@ -18,12 +24,16 @@ const SanctuaryNavigation = () => {
     { label: "Residents", href: "/#rescue", scrollId: "rescue" },
     { label: "Free Herd Circle", href: "/#volunteers", scrollId: "volunteers" },
     { label: "Join Us", href: "/volunteer-signup" },
-    { label: "Retreat", href: "/#giving", scrollId: "giving" },
     { label: "The Market", href: "/market" },
     { label: "Quiz", href: "/quiz" },
   ];
 
-  const handleNavClick = (link: typeof navLinks[0]) => {
+  const retreatOptions = [
+    { label: "Adults", href: "/#giving", scrollId: "giving" },
+    { label: "Family", href: "/family-camp" },
+  ];
+
+  const handleNavClick = (link: { label: string; href: string; scrollId?: string }) => {
     setMobileOpen(false);
     if (link.scrollId) {
       navigate(`/#${link.scrollId}`);
@@ -63,6 +73,24 @@ const SanctuaryNavigation = () => {
                 {link.label}
               </a>
             ))}
+
+            {/* Retreat Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-gentle outline-none">
+                Retreat <ChevronDown className="h-3.5 w-3.5" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center">
+                {retreatOptions.map((option) => (
+                  <DropdownMenuItem
+                    key={option.label}
+                    className="cursor-pointer"
+                    onClick={() => handleNavClick(option)}
+                  >
+                    {option.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
           
           {/* Desktop Auth Buttons */}
@@ -117,6 +145,16 @@ const SanctuaryNavigation = () => {
                     onClick={() => handleNavClick(link)}
                   >
                     {link.label}
+                  </button>
+                ))}
+                <div className="px-3 py-2 text-xs text-muted-foreground uppercase tracking-wide">Retreat</div>
+                {retreatOptions.map((option) => (
+                  <button
+                    key={option.label}
+                    className="text-left px-6 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
+                    onClick={() => handleNavClick(option)}
+                  >
+                    {option.label}
                   </button>
                 ))}
                 <div className="border-t border-border my-3" />
