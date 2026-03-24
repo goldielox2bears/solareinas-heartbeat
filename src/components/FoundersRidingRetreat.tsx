@@ -19,6 +19,8 @@ import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
 import kayakGroupSelfie from "@/assets/summer-ride/kayak-group-selfie.jpeg";
 import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
+import alhambraPalace from "@/assets/summer-ride/alhambra-palace.jpeg";
+import alhambraGardens from "@/assets/summer-ride/alhambra-gardens.jpeg";
 
 // span classes: col/row spans for collage layout — 4-col grid, 4 rows total
 const photos = [
@@ -31,6 +33,8 @@ const photos = [
   { src: ranchLifeDogs, alt: "Ranch life with horses and dogs", className: "col-span-2" },
   { src: kayakGroupSelfie, alt: "Group kayaking adventure selfie", className: "" },
   { src: packMules, alt: "Pack mules on a forest trail", className: "" },
+  { src: alhambraPalace, alt: "The Alhambra palace reflected in still water", className: "" },
+  { src: alhambraGardens, alt: "The Alhambra gardens and ancient towers", className: "" },
   { src: kayakCliffs, alt: "Kayaking along dramatic sea cliffs", className: "" },
   { src: founderWithDog, alt: "Founder walking with a dog in the hills", className: "" },
 ];
