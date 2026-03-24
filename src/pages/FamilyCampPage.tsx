@@ -15,7 +15,7 @@ import kidOnMule from "@/assets/family-camp/kid-on-mule.jpeg";
 import trailSelfieFamily from "@/assets/family-camp/trail-selfie-family.jpeg";
 import kidMuleTrail from "@/assets/family-camp/kid-mule-trail.jpeg";
 import beachKid from "@/assets/family-camp/beach-kid-playing.jpeg";
-import beachFamily from "@/assets/family-camp/beach-family-sand.jpeg";
+import beachFamily from "@/assets/family-camp/beach-family-cropped.jpeg";
 import snorkelingFamily from "@/assets/family-camp/snorkeling-family.jpeg";
 import beachUmbrellas from "@/assets/family-camp/beach-umbrellas.jpeg";
 import palmTreesBeach from "@/assets/family-camp/palm-trees-beach.jpeg";
