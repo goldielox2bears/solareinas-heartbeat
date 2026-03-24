@@ -147,6 +147,16 @@ const SanctuaryNavigation = () => {
                     {link.label}
                   </button>
                 ))}
+                <div className="px-3 py-2 text-xs text-muted-foreground uppercase tracking-wide">Retreat</div>
+                {retreatOptions.map((option) => (
+                  <button
+                    key={option.label}
+                    className="text-left px-6 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
+                    onClick={() => handleNavClick(option)}
+                  >
+                    {option.label}
+                  </button>
+                ))}
                 <div className="border-t border-border my-3" />
                 {isAdmin && (
                   <button
