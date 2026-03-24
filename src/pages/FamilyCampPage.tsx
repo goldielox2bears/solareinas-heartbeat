@@ -12,6 +12,8 @@ import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 import familyRidingTrail from "@/assets/family-camp/family-riding-trail.jpeg";
 import vintageBeachFamily from "@/assets/family-camp/vintage-beach-family.jpeg";
 import kidOnMule from "@/assets/family-camp/kid-on-mule.jpeg";
+import trailSelfieFamily from "@/assets/family-camp/trail-selfie-family.jpeg";
+import kidMuleTrail from "@/assets/family-camp/kid-mule-trail.jpeg";
 import beachKid from "@/assets/family-camp/beach-kid-playing.jpeg";
 import beachFamily from "@/assets/family-camp/beach-family-sand.jpeg";
 import snorkelingFamily from "@/assets/family-camp/snorkeling-family.jpeg";
