@@ -12,6 +12,8 @@ import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
 import familyRidingTrail from "@/assets/family-camp/family-riding-trail.jpeg";
 import vintageBeachFamily from "@/assets/family-camp/vintage-beach-family.jpeg";
 import kidOnMule from "@/assets/family-camp/kid-on-mule.jpeg";
+import trailSelfieFamily from "@/assets/family-camp/trail-selfie-family.jpeg";
+import kidMuleTrail from "@/assets/family-camp/kid-mule-trail.jpeg";
 import beachKid from "@/assets/family-camp/beach-kid-playing.jpeg";
 import beachFamily from "@/assets/family-camp/beach-family-sand.jpeg";
 import snorkelingFamily from "@/assets/family-camp/snorkeling-family.jpeg";
@@ -30,6 +32,8 @@ const photos = [
   { src: beachUmbrellas, alt: "Beach umbrella vibes", className: "" },
   { src: ranchLifeDogs, alt: "Ranch life with animals", className: "col-span-2" },
   { src: kayakCliffs, alt: "Sea cliffs exploration", className: "" },
+  { src: trailSelfieFamily, alt: "Family selfie on the trail", className: "" },
+  { src: kidMuleTrail, alt: "Kid riding a mule on a mountain trail", className: "" },
 ];
 
 const inclusions = [
