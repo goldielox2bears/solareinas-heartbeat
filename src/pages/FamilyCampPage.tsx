@@ -7,13 +7,11 @@ import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
 
 import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
-import kayakGroupSelfie from "@/assets/summer-ride/kayak-group-selfie.jpeg";
 import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
-import riderVista from "@/assets/summer-ride/rider-mountain-vista.jpeg";
-import groupRiding from "@/assets/summer-ride/group-riding-mountains.jpeg";
 import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
-import peacefulGrazing from "@/assets/summer-ride/peaceful-grazing.jpeg";
-import horsesGrazing from "@/assets/summer-ride/horses-grazing-pines.jpeg";
+import familyRidingTrail from "@/assets/family-camp/family-riding-trail.jpeg";
+import vintageBeachFamily from "@/assets/family-camp/vintage-beach-family.jpeg";
+import kidOnMule from "@/assets/family-camp/kid-on-mule.jpeg";
 import beachKid from "@/assets/family-camp/beach-kid-playing.jpeg";
 import beachFamily from "@/assets/family-camp/beach-family-sand.jpeg";
 import snorkelingFamily from "@/assets/family-camp/snorkeling-family.jpeg";
