@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Waves, Ship, Camera, Baby, TreePine, Sun } from "lucide-react";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
+import explorelifeLogo from "@/assets/explorelife-logo.png";
 
 import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
 import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
