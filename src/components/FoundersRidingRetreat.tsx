@@ -16,6 +16,9 @@ import muleSummit from "@/assets/summer-ride/mule-rocky-summit.jpeg";
 import guidesWithHorse from "@/assets/summer-ride/guides-with-horse.jpeg";
 import groupRiding from "@/assets/summer-ride/group-riding-mountains.jpeg";
 import ranchLifeDogs from "@/assets/summer-ride/ranch-life-dogs.jpeg";
+import sunsetPaddleboard from "@/assets/summer-ride/sunset-paddleboard.jpeg";
+import kayakGroupSelfie from "@/assets/summer-ride/kayak-group-selfie.jpeg";
+import kayakCliffs from "@/assets/summer-ride/kayak-cliffs.jpeg";
 
 // span classes: col/row spans for collage layout — 4-col grid, 4 rows total
 const photos = [
