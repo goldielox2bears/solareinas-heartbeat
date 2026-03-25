@@ -139,7 +139,7 @@ const AdminPanel = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      return data as MarketOrder[];
+      return data as unknown as MarketOrder[];
     },
     enabled: isAdmin,
   });
