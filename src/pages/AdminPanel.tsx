@@ -63,6 +63,7 @@ const AdminPanel = () => {
   const queryClient = useQueryClient();
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [sponsorshipFilter, setSponsorshipFilter] = useState<string>('pending');
+  const [orderFilter, setOrderFilter] = useState<string>('all');
 
   // Fetch volunteer applications
   const { data: applications, isLoading } = useQuery({
@@ -114,6 +115,40 @@ const AdminPanel = () => {
       return data as { id: string; primary_result: string; secondary_result: string; is_blended: boolean; answers: Record<string, number>; created_at: string }[];
     },
     enabled: isAdmin,
+  });
+
+  // Fetch market orders
+  const { data: marketOrders, isLoading: ordersLoading } = useQuery({
+    queryKey: ['admin-market-orders'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('market_orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data as MarketOrder[];
+    },
+    enabled: isAdmin,
+  });
+
+  // Update market order status mutation
+  const updateOrderStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase
+        .from('market_orders')
+        .update({ status })
+        .eq('id', id);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-market-orders'] });
+      toast({ title: 'Success', description: 'Order status updated' });
+    },
+    onError: () => {
+      toast({ title: 'Error', description: 'Failed to update order status', variant: 'destructive' });
+    },
   });
 
   // Update volunteer application status mutation
