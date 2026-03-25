@@ -56,6 +56,18 @@ type Sponsorship = {
   };
 };
 
+type MarketOrder = {
+  id: string;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string | null;
+  notes: string | null;
+  items: { name: string; qty: number; price: number }[];
+  total_eur: string;
+  status: string;
+  created_at: string;
+};
+
 const AdminPanel = () => {
   const { isAdmin, loading: adminLoading } = useAdmin();
   const { user } = useAuth();
