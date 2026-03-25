@@ -24,7 +24,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { Loader2, CheckCircle, XCircle, Clock, Users, Heart, Brain } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Clock, Users, Heart, Brain, ShoppingCart } from 'lucide-react';
 
 type VolunteerApplication = {
   id: string;
@@ -56,6 +56,18 @@ type Sponsorship = {
   };
 };
 
+type MarketOrder = {
+  id: string;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string | null;
+  notes: string | null;
+  items: { name: string; qty: number; price: number }[];
+  total_eur: string;
+  status: string;
+  created_at: string;
+};
+
 const AdminPanel = () => {
   const { isAdmin, loading: adminLoading } = useAdmin();
   const { user } = useAuth();
@@ -63,6 +75,7 @@ const AdminPanel = () => {
   const queryClient = useQueryClient();
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [sponsorshipFilter, setSponsorshipFilter] = useState<string>('pending');
+  const [orderFilter, setOrderFilter] = useState<string>('all');
 
   // Fetch volunteer applications
   const { data: applications, isLoading } = useQuery({
@@ -114,6 +127,40 @@ const AdminPanel = () => {
       return data as { id: string; primary_result: string; secondary_result: string; is_blended: boolean; answers: Record<string, number>; created_at: string }[];
     },
     enabled: isAdmin,
+  });
+
+  // Fetch market orders
+  const { data: marketOrders, isLoading: ordersLoading } = useQuery({
+    queryKey: ['admin-market-orders'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('market_orders')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data as unknown as MarketOrder[];
+    },
+    enabled: isAdmin,
+  });
+
+  // Update market order status mutation
+  const updateOrderStatusMutation = useMutation({
+    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+      const { error } = await supabase
+        .from('market_orders')
+        .update({ status })
+        .eq('id', id);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['admin-market-orders'] });
+      toast({ title: 'Success', description: 'Order status updated' });
+    },
+    onError: () => {
+      toast({ title: 'Error', description: 'Failed to update order status', variant: 'destructive' });
+    },
   });
 
   // Update volunteer application status mutation
@@ -220,6 +267,19 @@ const AdminPanel = () => {
     rejected: sponsorships?.filter((s) => s.status === 'rejected').length || 0,
   };
 
+  // Filter market orders
+  const filteredOrders = marketOrders?.filter((o) => {
+    if (orderFilter === 'all') return true;
+    return o.status === orderFilter;
+  });
+
+  // Get order counts
+  const orderCounts = {
+    all: marketOrders?.length || 0,
+    pending: marketOrders?.filter((o) => o.status === 'pending').length || 0,
+    fulfilled: marketOrders?.filter((o) => o.status === 'fulfilled').length || 0,
+  };
+
   const getStatusBadge = (status: string) => {
     const variants: Record<string, { variant: "default" | "secondary" | "destructive" | "outline"; icon: React.ReactNode }> = {
       pending: { variant: 'outline', icon: <Clock className="h-3 w-3 mr-1" /> },
@@ -285,7 +345,7 @@ const AdminPanel = () => {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Tabs defaultValue="volunteers" className="space-y-6">
-           <TabsList className="grid w-full max-w-lg grid-cols-3">
+           <TabsList className="grid w-full max-w-2xl grid-cols-4">
             <TabsTrigger value="volunteers" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Volunteers
@@ -305,6 +365,13 @@ const AdminPanel = () => {
               Quiz
               {quizCompletions && (
                 <Badge variant="secondary" className="ml-1">{quizCompletions.length}</Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="orders" className="flex items-center gap-2">
+              <ShoppingCart className="h-4 w-4" />
+              Orders
+              {orderCounts.pending > 0 && (
+                <Badge variant="secondary" className="ml-1">{orderCounts.pending}</Badge>
               )}
             </TabsTrigger>
           </TabsList>
@@ -666,6 +733,132 @@ const AdminPanel = () => {
                         ))}
                       </TableBody>
                     </Table>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* Market Orders Tab */}
+          <TabsContent value="orders" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Total Orders</CardDescription>
+                  <CardTitle className="text-3xl">{orderCounts.all}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Pending</CardDescription>
+                  <CardTitle className="text-3xl text-yellow-600">{orderCounts.pending}</CardTitle>
+                </CardHeader>
+              </Card>
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardDescription>Fulfilled</CardDescription>
+                  <CardTitle className="text-3xl text-green-600">{orderCounts.fulfilled}</CardTitle>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle>Market Orders</CardTitle>
+                  <Select value={orderFilter} onValueChange={setOrderFilter}>
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Filter by status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Orders</SelectItem>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="fulfilled">Fulfilled</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </CardHeader>
+              <CardContent>
+                {ordersLoading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                  </div>
+                ) : filteredOrders?.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    No orders found
+                  </div>
+                ) : (
+                  <div className="overflow-x-auto">
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Date</TableHead>
+                          <TableHead>Customer</TableHead>
+                          <TableHead>Email</TableHead>
+                          <TableHead>Items</TableHead>
+                          <TableHead>Total</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Actions</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredOrders?.map((order) => (
+                          <TableRow key={order.id}>
+                            <TableCell className="text-sm text-muted-foreground">
+                              {new Date(order.created_at).toLocaleDateString()}
+                            </TableCell>
+                            <TableCell className="font-medium">
+                              {order.customer_name}
+                              {order.customer_phone && (
+                                <span className="block text-xs text-muted-foreground">{order.customer_phone}</span>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-sm">
+                              <a href={`mailto:${order.customer_email}`} className="text-primary hover:underline">
+                                {order.customer_email}
+                              </a>
+                            </TableCell>
+                            <TableCell>
+                              <div className="space-y-1">
+                                {order.items.map((item, idx) => (
+                                  <div key={idx} className="text-sm">
+                                    {item.name} ×{item.qty}
+                                  </div>
+                                ))}
+                              </div>
+                            </TableCell>
+                            <TableCell className="font-medium">€{order.total_eur}</TableCell>
+                            <TableCell>{getStatusBadge(order.status)}</TableCell>
+                            <TableCell>
+                              {order.status === 'pending' && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={() => updateOrderStatusMutation.mutate({ id: order.id, status: 'fulfilled' })}
+                                  disabled={updateOrderStatusMutation.isPending}
+                                >
+                                  <CheckCircle className="h-4 w-4 mr-1" />
+                                  Fulfill
+                                </Button>
+                              )}
+                              {order.status === 'fulfilled' && (
+                                <span className="text-xs text-muted-foreground">Fulfilled</span>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </div>
+                )}
+                {filteredOrders?.some(o => o.notes) && (
+                  <div className="mt-4 space-y-2">
+                    <h4 className="text-sm font-medium text-muted-foreground">Order Notes</h4>
+                    {filteredOrders?.filter(o => o.notes).map(o => (
+                      <div key={o.id} className="text-sm border rounded p-2">
+                        <span className="font-medium">{o.customer_name}:</span> {o.notes}
+                      </div>
+                    ))}
                   </div>
                 )}
               </CardContent>
