@@ -42,7 +42,7 @@ const oliveOilProducts: Product[] = [
   },
   {
     id: "case-of-six",
-    name: "Case of Six",
+    name: "Olive Oil — Case of Six",
     subtitle: "The Perfect Gift",
     price: 135,
     originalPrice: 150,
