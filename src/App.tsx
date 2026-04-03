@@ -18,6 +18,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import MadeHereForUsPage from "./pages/MadeHereForUsPage";
 import QuizPage from "./pages/QuizPage";
 import FamilyCampPage from "./pages/FamilyCampPage";
+import CowgirlsForChangePage from "./pages/CowgirlsForChangePage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -44,6 +45,7 @@ const App = () => (
             <Route path="/made-here-for-us" element={<MadeHereForUsPage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/family-camp" element={<FamilyCampPage />} />
+            <Route path="/cowgirls-for-change" element={<CowgirlsForChangePage />} />
             <Route path="/admin" element={
               <AuthGuard requireAuth>
                 <AdminPanel />
