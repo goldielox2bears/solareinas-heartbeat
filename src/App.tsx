@@ -18,6 +18,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import MadeHereForUsPage from "./pages/MadeHereForUsPage";
 import QuizPage from "./pages/QuizPage";
 import FamilyCampPage from "./pages/FamilyCampPage";
+import CowgirlsForChangePage from "./pages/CowgirlsForChangePage";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 
