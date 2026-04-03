@@ -31,6 +31,7 @@ const SanctuaryNavigation = () => {
   const retreatOptions = [
     { label: "Adults", href: "/#giving", scrollId: "giving" },
     { label: "Family", href: "/family-camp" },
+    { label: "Cowgirls for Change", href: "/cowgirls-for-change" },
   ];
 
   const handleNavClick = (link: { label: string; href: string; scrollId?: string }) => {

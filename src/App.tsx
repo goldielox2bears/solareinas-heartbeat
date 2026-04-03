@@ -45,6 +45,7 @@ const App = () => (
             <Route path="/made-here-for-us" element={<MadeHereForUsPage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/family-camp" element={<FamilyCampPage />} />
+            <Route path="/cowgirls-for-change" element={<CowgirlsForChangePage />} />
             <Route path="/admin" element={
               <AuthGuard requireAuth>
                 <AdminPanel />
