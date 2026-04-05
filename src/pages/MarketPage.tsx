@@ -148,6 +148,15 @@ const skincareProducts: Product[] = [
     icon: Sparkles,
     highlight: true,
   },
+  {
+    id: "sea-silk-body-scrub",
+    name: "Sea Silk Foaming Polish",
+    subtitle: "Salt + sugar scrub • Reusable tin • 200g",
+    price: 24,
+    description: "A ranch-made body polish inspired by salt air, sun-warmed skin, and the wild cleansing energy of the sea. This rich foaming blend of salt and sugar smooths away roughness, softly cleanses, and leaves skin fresh, polished, and awakened with a clean coastal tingle. Shower-safe reusable tin.",
+    icon: Waves,
+    highlight: false,
+  },
 ];
 
 // Category: Mane & Animal Care
