@@ -18,10 +18,10 @@ const BrandSealBlock = ({ className = "" }: BrandSealBlockProps) => {
         {/* Brand Text */}
         <div className="space-y-2">
           <h4 className="text-lg font-medium text-foreground">
-            Made Here, For Us — by Solareinas
+            Made Here, For You — by Solareinas
           </h4>
           <p className="text-sm text-muted-foreground italic">
-            Made for us. Made for them.
+            Made for you. Made for them.
           </p>
         </div>
       </div>

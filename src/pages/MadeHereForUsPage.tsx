@@ -10,7 +10,7 @@ import whiteHorse from "@/assets/library/white-horse-grazing.jpeg";
 import oliveHarvest from "@/assets/library/olive-harvest.jpeg";
 import sanctuaryDog from "@/assets/library/sanctuary-dog.jpeg";
 
-const MadeHereForUsPage = () => {
+const MadeHereForYouPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SanctuaryNavigation />
@@ -25,12 +25,12 @@ const MadeHereForUsPage = () => {
         <div className="max-w-4xl mx-auto text-center">
           <img 
             src={madeHereLogo} 
-            alt="Made Here, For Us — by Solareinas" 
+            alt="Made Here, For You — by Solareinas" 
             className="w-40 h-32 object-contain mx-auto mb-8"
           />
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground mb-6 leading-tight">
-            Made Here, For Us —<br />
+            Made Here, For You —<br />
             <span className="text-primary">by Solareinas</span>
           </h1>
           
@@ -237,11 +237,11 @@ const MadeHereForUsPage = () => {
       <footer className="py-12 px-6 bg-gradient-steward text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-lg opacity-90 mb-4">
-            Made for us. Made for them.
+            Made for you. Made for them.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm opacity-80">
             <Link to="/shop" className="hover:opacity-100 transition-opacity">Shop</Link>
-            <Link to="/made-here-for-us" className="hover:opacity-100 transition-opacity">Our Story</Link>
+            <Link to="/made-here-for-you" className="hover:opacity-100 transition-opacity">Our Story</Link>
             <Link to="/#rescue" className="hover:opacity-100 transition-opacity">Impact</Link>
             <a href="mailto:hello@solareinas.com" className="hover:opacity-100 transition-opacity">Contact</a>
           </div>
@@ -251,4 +251,4 @@ const MadeHereForUsPage = () => {
   );
 };
 
-export default MadeHereForUsPage;
+export default MadeHereForYouPage;

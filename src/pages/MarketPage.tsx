@@ -397,7 +397,7 @@ const MarketPage = () => {
             <div className="relative flex justify-center">
               <img
                 src={madeHereLogo}
-                alt="Made Here, For Us — by Solareinas"
+                alt="Made Here, For You — by Solareinas"
                 className="w-48 md:w-64 h-auto mix-blend-multiply dark:mix-blend-screen"
               />
             </div>
@@ -406,7 +406,7 @@ const MarketPage = () => {
             <div className="text-center md:text-left">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/50 text-foreground/80 mb-8">
                 <Leaf className="w-4 h-4" />
-                <span className="text-sm font-medium">Made Here, For Us — by Solareinas</span>
+                <span className="text-sm font-medium">Made Here, For You — by Solareinas</span>
               </div>
 
               <h1 className="text-4xl md:text-5xl font-light text-foreground mb-6 leading-tight">
