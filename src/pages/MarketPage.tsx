@@ -185,7 +185,7 @@ const animalCareProducts: Product[] = [
     name: "Tack Balm",
     subtitle: "Ranch-made • Conditioner • Leather protect",
     price: 14,
-    description: "Protect your saddles, bridles, and western tack with our ranch-made tack conditioner. Keeps leather supple, nourished, and ready for the next ride.",
+    description: "Protect your saddles, bridles, cowboy boots, leather work boots, and western tack with our ranch-made tack conditioner. Keeps leather supple, nourished, and ready for the next ride.",
     icon: Star,
     highlight: false,
   },
