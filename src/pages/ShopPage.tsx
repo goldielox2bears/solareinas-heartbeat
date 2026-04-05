@@ -51,7 +51,7 @@ const ShopPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary mb-6">
               <ShoppingBag className="w-4 h-4" />
-              <span className="text-sm font-medium">Made Here, For Us — by Solareinas</span>
+              <span className="text-sm font-medium">Made Here, For You — by Solareinas</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
               The Collection
@@ -125,11 +125,11 @@ const ShopPage = () => {
       <footer className="py-12 px-6 bg-gradient-steward text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-lg opacity-90 mb-4">
-            Made for us. Made for them.
+            Made for you. Made for them.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm opacity-80">
             <Link to="/shop" className="hover:opacity-100 transition-opacity">Shop</Link>
-            <Link to="/made-here-for-us" className="hover:opacity-100 transition-opacity">Our Story</Link>
+            <Link to="/made-here-for-you" className="hover:opacity-100 transition-opacity">Our Story</Link>
             <Link to="/#rescue" className="hover:opacity-100 transition-opacity">Impact</Link>
             <a href="mailto:hello@solareinas.com" className="hover:opacity-100 transition-opacity">Contact</a>
           </div>

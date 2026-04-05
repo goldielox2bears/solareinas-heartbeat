@@ -15,7 +15,7 @@ import GiftPage from "./pages/GiftPage";
 import MarketPage from "./pages/MarketPage";
 import ShopPage from "./pages/ShopPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
-import MadeHereForUsPage from "./pages/MadeHereForUsPage";
+import MadeHereForYouPage from "./pages/MadeHereForYouPage";
 import QuizPage from "./pages/QuizPage";
 import FamilyCampPage from "./pages/FamilyCampPage";
 import CowgirlsForChangePage from "./pages/CowgirlsForChangePage";
@@ -42,7 +42,7 @@ const App = () => (
             <Route path="/market" element={<MarketPage />} />
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/shop/:slug" element={<ProductDetailPage />} />
-            <Route path="/made-here-for-us" element={<MadeHereForUsPage />} />
+            <Route path="/made-here-for-you" element={<MadeHereForYouPage />} />
             <Route path="/quiz" element={<QuizPage />} />
             <Route path="/family-camp" element={<FamilyCampPage />} />
             <Route path="/cowgirls-for-change" element={<CowgirlsForChangePage />} />
