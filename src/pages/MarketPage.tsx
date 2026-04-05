@@ -495,7 +495,7 @@ const MarketPage = () => {
               <span className="text-sm font-medium">Ranch Basics</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-              Mane & Animal Care
+              Ranch Basics
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Inspired by the care we give our horses. Made for you (and them).
