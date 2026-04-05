@@ -176,7 +176,7 @@ const animalCareProducts: Product[] = [
     name: "Tack Soap",
     subtitle: "Ranch-made • Deep clean • Leather care",
     price: 12,
-    description: "Our ranch-made formula cleans the grit and grime, crafted specifically for saddles, bridles, and western tack. Gentle on leather, tough on dirt.",
+    description: "Our ranch-made formula cleans the grit and grime, crafted specifically for saddles, bridles, cowboy boots, leather work boots, and western tack. Gentle on leather, tough on dirt.",
     icon: Droplets,
     highlight: false,
   },
