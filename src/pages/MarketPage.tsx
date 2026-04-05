@@ -492,7 +492,7 @@ const MarketPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-patina text-white mb-6">
               <Heart className="w-4 h-4" />
-              <span className="text-sm font-medium">Mane & Animal Care</span>
+              <span className="text-sm font-medium">Ranch Basics</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
               Mane & Animal Care
