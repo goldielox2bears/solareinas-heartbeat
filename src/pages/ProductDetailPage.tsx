@@ -295,7 +295,7 @@ const ProductDetailPage = () => {
       <footer className="py-12 px-6 bg-gradient-steward text-primary-foreground">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-lg opacity-90 mb-4">
-            Made for us. Made for them.
+            Made for you. Made for them.
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm opacity-80">
             <Link to="/shop" className="hover:opacity-100 transition-opacity">Shop</Link>
