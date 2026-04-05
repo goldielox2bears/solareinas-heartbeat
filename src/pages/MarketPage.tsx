@@ -142,8 +142,8 @@ const skincareProducts: Product[] = [
   {
     id: "the-beauty-balm",
     name: "THE Beauty Balm",
-    subtitle: "Skin protector • Nourishing • Travel tin",
-    price: 18,
+    subtitle: "Skin protector • Nourishing • 150ml",
+    price: 28,
     description: "Your harsh weather saver or simply your nighttime best friend ritual. Infused with skin protecting and nourishing ingredients in a handy take-anywhere tin.",
     icon: Sparkles,
     highlight: true,
