@@ -159,7 +159,7 @@ const skincareProducts: Product[] = [
   },
 ];
 
-// Category: Mane & Animal Care
+// Category: Ranch Basics
 const animalCareProducts: Product[] = [
   {
     id: "the-grove-bar-tack",
@@ -486,16 +486,16 @@ const MarketPage = () => {
         </div>
       </section>
 
-      {/* Mane & Animal Care Category */}
+      {/* Ranch Basics Category */}
       <section className="py-16 px-6 bg-card/50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-patina text-white mb-6">
               <Heart className="w-4 h-4" />
-              <span className="text-sm font-medium">Mane & Animal Care</span>
+              <span className="text-sm font-medium">Ranch Basics</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-              Mane & Animal Care
+              Ranch Basics
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Inspired by the care we give our horses. Made for you (and them).
