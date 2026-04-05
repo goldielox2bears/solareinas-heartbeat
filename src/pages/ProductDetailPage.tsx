@@ -299,7 +299,7 @@ const ProductDetailPage = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-6 text-sm opacity-80">
             <Link to="/shop" className="hover:opacity-100 transition-opacity">Shop</Link>
-            <Link to="/made-here-for-us" className="hover:opacity-100 transition-opacity">Our Story</Link>
+            <Link to="/made-here-for-you" className="hover:opacity-100 transition-opacity">Our Story</Link>
             <Link to="/#rescue" className="hover:opacity-100 transition-opacity">Impact</Link>
             <a href="mailto:hello@solareinas.com" className="hover:opacity-100 transition-opacity">Contact</a>
           </div>
