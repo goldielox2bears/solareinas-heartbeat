@@ -486,7 +486,7 @@ const MarketPage = () => {
         </div>
       </section>
 
-      {/* Mane & Animal Care Category */}
+      {/* Ranch Basics Category */}
       <section className="py-16 px-6 bg-card/50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
