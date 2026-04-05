@@ -159,7 +159,7 @@ const skincareProducts: Product[] = [
   },
 ];
 
-// Category: Mane & Animal Care
+// Category: Ranch Basics
 const animalCareProducts: Product[] = [
   {
     id: "the-grove-bar-tack",
