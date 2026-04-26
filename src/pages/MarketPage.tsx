@@ -460,10 +460,10 @@ const MarketPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-copper text-white mb-6">
               <Droplets className="w-4 h-4" />
-              <span className="text-sm font-medium">Ranch Bar & Skincare</span>
+              <span className="text-sm font-medium">Ranch Apothecary</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-              Ranch Bar & Skincare
+              Ranch Apothecary
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Hand-crafted with estate olives, solar power, and love. Slow-cured. Never rushed.
