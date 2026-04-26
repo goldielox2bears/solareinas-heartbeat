@@ -432,7 +432,7 @@ const MarketPage = () => {
               <span className="text-sm font-medium">Estate Grown · First Cold Pressed</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-              Olive Oil
+              The Olive Grove
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Hand-picked. First cold pressed. Grown in living soil. Bottled in recycled wine bottles
