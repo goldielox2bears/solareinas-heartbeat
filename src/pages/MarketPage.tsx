@@ -131,10 +131,10 @@ const skincareProducts: Product[] = [
   },
   {
     id: "sea-silk-body-scrub",
-    name: "Sea Silk Foaming Polish",
-    subtitle: "Salt + sugar scrub • Reusable tin • 200g",
+    name: "Andaluz Polish",
+    subtitle: "Foaming body polish • Sugar + Mediterranean sea salt + ranch olive oil • 200g",
     price: 24,
-    description: "A ranch-made body polish inspired by salt air, sun-warmed skin, and the wild cleansing energy of the sea. This rich foaming blend of salt and sugar smooths away roughness, softly cleanses, and leaves skin fresh, polished, and awakened with a clean coastal tingle. Shower-safe reusable tin.",
+    description: "Where the grove meets the sea. A small-batch foaming body polish made with Mediterranean sea salt, sugar, and Solareinas ranch olive oil — scent inspired by sea air and mountain herbs. Sugar smooths and polishes; sea salt awakens and exfoliates; ranch olive oil softens the rinse-off finish. Use 1–2 times weekly.",
     icon: Waves,
     highlight: false,
   },
@@ -423,7 +423,7 @@ const MarketPage = () => {
         </div>
       </section>
 
-      {/* Olive Oil Category */}
+      {/* The Olive Grove Category */}
       <section className="py-16 px-6 bg-gradient-to-b from-background to-card/30">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
@@ -435,8 +435,9 @@ const MarketPage = () => {
               The Olive Grove
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hand-picked. First cold pressed. Grown in living soil. Bottled in recycled wine bottles
-              with an elegant pouring spout.
+              Hand-picked from our trees. First cold pressed. Grown in living soil. Bottled in
+              recycled wine bottles with an elegant pouring spout — for the table, the kitchen, and
+              the gift you're proud to give.
             </p>
           </div>
 
@@ -454,7 +455,7 @@ const MarketPage = () => {
         </div>
       </section>
 
-      {/* Ranch Bar & Skincare Category */}
+      {/* Ranch Apothecary Category */}
       <section className="py-16 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
@@ -466,8 +467,9 @@ const MarketPage = () => {
               Ranch Apothecary
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Hand-crafted with estate olives, solar power, and love. Slow-cured. Never rushed.
-              Made for skin that works hard and deserves to glow.
+              The botica of the ranch. Daily skincare and body care, made by hand from what grows
+              here — olive oil from our groves, lavender from our garden, herbs from the hills. For
+              the small rituals that hold a day together.
             </p>
           </div>
 
@@ -477,7 +479,7 @@ const MarketPage = () => {
         </div>
       </section>
 
-      {/* Ranch Basics Category */}
+      {/* The Tack Room Category */}
       <section className="py-16 px-6 bg-card/50">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
@@ -489,7 +491,9 @@ const MarketPage = () => {
               The Tack Room
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Inspired by the care we give our horses. Made for you (and them).
+              The shelf of multi-purpose ranch staples — the soaps and balms made for hands,
+              leather, horses, dogs, and the long days that need all of them. Olive-oil castile.
+              Traditional methods passed through generations. Honest tools.
             </p>
           </div>
 
