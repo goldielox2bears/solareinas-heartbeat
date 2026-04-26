@@ -483,10 +483,10 @@ const MarketPage = () => {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-patina text-white mb-6">
               <Heart className="w-4 h-4" />
-              <span className="text-sm font-medium">Ranch Basics</span>
+              <span className="text-sm font-medium">The Tack Room</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-              Ranch Basics
+              The Tack Room
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Inspired by the care we give our horses. Made for you (and them).
