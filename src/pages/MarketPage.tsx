@@ -140,10 +140,10 @@ const skincareProducts: Product[] = [
   },
 ];
 
-// Category: Ranch Basics
+// Category: The Tack Room
 const animalCareProducts: Product[] = [
   {
-    id: "the-grove-bar-tack",
+    id: "the-grove-bar",
     name: "THE GROVE BAR",
     subtitle: "Olive oil soap • Slow-cured • Ranch bar",
     price: 9,
@@ -151,6 +151,16 @@ const animalCareProducts: Product[] = [
     icon: Droplets,
     highlight: true,
     isHero: true,
+  },
+  {
+    id: "soap-three",
+    name: "Olive Oil Soap Trio",
+    subtitle: "Set of Three Bars",
+    price: 25,
+    description: "Three bars of authentic hand-crafted olive oil soap. A beautiful gift set, sustainably made with estate olives and 100% solar energy.",
+    icon: Sun,
+    highlight: false,
+    savings: "SAVE €2",
   },
   {
     id: "tack-soap",
