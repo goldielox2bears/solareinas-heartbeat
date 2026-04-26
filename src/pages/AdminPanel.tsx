@@ -24,7 +24,10 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from '@/hooks/use-toast';
-import { Loader2, CheckCircle, XCircle, Clock, Users, Heart, Brain, ShoppingCart } from 'lucide-react';
+import { Loader2, CheckCircle, XCircle, Clock, Users, Heart, Brain, ShoppingCart, Github, ExternalLink } from 'lucide-react';
+
+// Paste your GitHub repo URL here once connected via Lovable → Connectors → GitHub
+const GITHUB_REPO_URL = '';
 
 type VolunteerApplication = {
   id: string;
