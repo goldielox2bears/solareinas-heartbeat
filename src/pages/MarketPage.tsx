@@ -53,28 +53,8 @@ const oliveOilProducts: Product[] = [
   },
 ];
 
-// Category: Ranch Bar & Skincare
+// Category: Ranch Apothecary
 const skincareProducts: Product[] = [
-  {
-    id: "the-grove-bar",
-    name: "THE GROVE BAR",
-    subtitle: "Olive oil soap • Slow-cured • Ranch bar",
-    price: 9,
-    description: "Our signature olive oil soap is hand-crafted using estate-grown olives, pressed on solar power, and cured slowly for 6 months. No palm oil. No shortcuts.",
-    icon: Droplets,
-    highlight: true,
-    isHero: true,
-  },
-  {
-    id: "soap-three",
-    name: "Olive Oil Soap Trio",
-    subtitle: "Set of Three Bars",
-    price: 25,
-    description: "Three bars of authentic hand-crafted olive oil soap. A beautiful gift set, sustainably made with estate olives and 100% solar energy.",
-    icon: Sun,
-    highlight: false,
-    savings: "SAVE €2",
-  },
   {
     id: "workday-hand-balm",
     name: "workday hand balm",
@@ -96,11 +76,11 @@ const skincareProducts: Product[] = [
   },
   {
     id: "ranch-glow-serum",
-    name: "ranch glow serum",
-    subtitle: "Fresh-air glow • Daily hydration • 30ml",
+    name: "The Daily Dew",
+    subtitle: "Hydrating serum • Hyaluronic acid + inulin + niacinamide • 30ml",
     price: 24,
-    description: "A lightweight daily serum that delivers deep hydration without heaviness. Pure olive oil base enriched with rosehip and vitamin E for that healthy, outdoor glow.",
-    icon: Sparkles,
+    description: "A daily hydrating serum that pulls moisture from the air into the skin. Hyaluronic acid, inulin, and niacinamide plump, hydrate, and brighten — light, dewy, fast-absorbing. Mid-morning. Window light. Skin softening into the day.",
+    icon: Droplets,
     highlight: false,
   },
   {
@@ -141,12 +121,13 @@ const skincareProducts: Product[] = [
   },
   {
     id: "the-beauty-balm",
-    name: "THE Beauty Balm",
-    subtitle: "Skin protector • Nourishing • 150ml",
+    name: "The Solareinas Balm",
+    subtitle: "Overnight hero balm • Restore + golden • 150ml",
     price: 28,
-    description: "Your harsh weather saver or simply your nighttime best friend ritual. Infused with skin protecting and nourishing ingredients in a handy take-anywhere tin.",
-    icon: Sparkles,
+    description: "The overnight beauty balm — to freshen, restore, and golden the skin while you sleep. A luxury botanical balm, slow-melting, deeply nourishing. End of day. Lamplight. The bottle on the bedside table.",
+    icon: Moon,
     highlight: true,
+    isHero: true,
   },
   {
     id: "sea-silk-body-scrub",
