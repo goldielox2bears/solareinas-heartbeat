@@ -43,6 +43,9 @@ const oliveOilProducts: Product[] = [
     description: "One elegant 750ml bottle of Estate Grown Extra Virgin Olive Oil, complete with pouring spout. Includes a pamphlet sharing the story of the Rescue and Regenerative Agriculture.",
     icon: Wine,
     highlight: false,
+    heroIngredients: ["Estate-grown extra virgin olive oil", "Cold-pressed", "Recycled wine bottle"],
+    keyBenefits: ["First cold pressed for peak flavor", "Grown in living, regenerative soil", "100% solar-pressed"],
+    texture: "Fresh, peppery, golden-green",
   },
   {
     id: "case-of-six",
@@ -54,6 +57,9 @@ const oliveOilProducts: Product[] = [
     icon: Gift,
     highlight: true,
     savings: "SAVE 10%",
+    heroIngredients: ["Estate-grown extra virgin olive oil", "Cold-pressed", "Recycled wine bottles"],
+    keyBenefits: ["Six bottles for sharing or stocking the kitchen", "10% savings vs single bottles", "Includes story pamphlet"],
+    texture: "Fresh, peppery, golden-green",
   },
 ];
 
@@ -67,6 +73,9 @@ const skincareProducts: Product[] = [
     description: "A small-batch olive and beeswax balm for hardworking hands. Made with olive oil from our groves, shea butter, and ranch-grown lavender. Absorbs quickly without leaving residue.",
     icon: Hand,
     highlight: false,
+    heroIngredients: ["Olive oil from our groves", "Beeswax", "Shea butter", "Ranch-grown lavender"],
+    keyBenefits: ["Deep nourishment for working hands", "Quick absorption — no greasy residue", "Protective barrier against the elements", "Subtle lavender from our garden"],
+    texture: "Rich, balm-soft, fast-absorbing",
   },
   {
     id: "balm-gift",
@@ -77,6 +86,9 @@ const skincareProducts: Product[] = [
     icon: Flower2,
     highlight: true,
     savings: "SAVE €6",
+    heroIngredients: ["Olive oil from our groves", "Beeswax", "Shea butter", "Ranch-grown lavender"],
+    keyBenefits: ["Three full-size tins", "Gift-ready set", "Save €6 vs single tins"],
+    texture: "Rich, balm-soft, fast-absorbing",
   },
   {
     id: "ranch-glow-serum",
@@ -86,6 +98,9 @@ const skincareProducts: Product[] = [
     description: "A daily hydrating serum that pulls moisture from the air into the skin. Hyaluronic acid, inulin, and niacinamide plump, hydrate, and brighten — light, dewy, fast-absorbing. Mid-morning. Window light. Skin softening into the day.",
     icon: Droplets,
     highlight: false,
+    heroIngredients: ["Hyaluronic acid", "Inulin", "Niacinamide", "Supporting humectants"],
+    keyBenefits: ["Pulls moisture from the air into your skin", "Plumps, hydrates, and brightens", "Light, dewy, fast-absorbing finish", "The daily hydration anchor of the ritual"],
+    texture: "Light, dewy water-gel",
   },
   {
     id: "soft-earth-polish",
@@ -93,8 +108,11 @@ const skincareProducts: Product[] = [
     subtitle: "Polish + rinse • Glow • 100g jar",
     price: 18,
     description: "A gentle exfoliating powder that activates with water. Made with finely ground olive pits and white clay to polish away dullness and reveal fresh, glowing skin.",
-    icon: Star,
+    icon: Sparkles,
     highlight: false,
+    heroIngredients: ["Olive pit powder from our pressing", "French white kaolin clay", "Oat flour"],
+    keyBenefits: ["Gentle physical exfoliation", "Removes dead skin and dullness", "Doubles as a treatment mask", "Zero microplastics"],
+    texture: "Powder that activates with water — fine, soft, earthy",
   },
   {
     id: "afterglow-body-butter",
@@ -102,8 +120,11 @@ const skincareProducts: Product[] = [
     subtitle: "Lavender + Sage • Whipped • 200ml",
     price: 22,
     description: "A luxuriously whipped body butter that melts into skin, leaving it impossibly soft. Scented with ranch-grown lavender and wild sage.",
-    icon: Waves,
+    icon: Flower2,
     highlight: true,
+    heroIngredients: ["Shea butter", "Olive oil from our groves", "Coconut oil", "Ranch-grown lavender + wild sage"],
+    keyBenefits: ["Intensely moisturizing without heaviness", "Whipped texture melts into skin", "Calming lavender + sage scent", "After-shower luxury"],
+    texture: "Whipped, cloud-soft, slow-melting",
   },
   {
     id: "the-beauty-balm",
@@ -114,6 +135,9 @@ const skincareProducts: Product[] = [
     icon: Moon,
     highlight: true,
     isHero: true,
+    heroIngredients: ["Luxury botanical balm formulation", "Final ingredient list to be confirmed"],
+    keyBenefits: ["Overnight skin freshening and restoration", "Multi-use luxury finish", "The hero of the ritual line", "End-of-day ritual"],
+    texture: "Rich, golden, slow-melting",
   },
   {
     id: "sea-silk-body-scrub",
@@ -123,6 +147,9 @@ const skincareProducts: Product[] = [
     description: "Where the grove meets the sea. A small-batch foaming body polish made with Mediterranean sea salt, sugar, and Solareinas ranch olive oil — scent inspired by sea air and mountain herbs. Sugar smooths and polishes; sea salt awakens and exfoliates; ranch olive oil softens the rinse-off finish. Use 1–2 times weekly.",
     icon: Waves,
     highlight: false,
+    heroIngredients: ["Mediterranean sea salt", "Sugar", "Ranch olive oil", "Sea air + mountain herb scent"],
+    keyBenefits: ["Sugar smooths and polishes", "Sea salt awakens and exfoliates", "Olive oil softens the rinse-off finish", "Foaming, dual-grain texture"],
+    texture: "Foaming, dual-grain — sugar + salt",
   },
 ];
 
@@ -137,6 +164,9 @@ const animalCareProducts: Product[] = [
     icon: Droplets,
     highlight: true,
     isHero: true,
+    heroIngredients: ["100% extra virgin olive oil", "No palm oil — ever", "Naturally retained glycerin"],
+    keyBenefits: ["Slow-cured for 6 months minimum", "Gentle on humans, horses, and dogs", "Long-lasting bar that gets better with age", "Solar-powered, zero-waste production"],
+    texture: "Hard-milled castile bar, creamy lather",
   },
   {
     id: "soap-three",
@@ -147,6 +177,9 @@ const animalCareProducts: Product[] = [
     icon: Sun,
     highlight: false,
     savings: "SAVE €2",
+    heroIngredients: ["100% extra virgin olive oil", "No palm oil", "Hand-cut bars"],
+    keyBenefits: ["Three full bars in a gift-ready set", "Save €2 vs single bars", "Sustainably crafted from estate olives"],
+    texture: "Hard-milled castile bar, creamy lather",
   },
   {
     id: "tack-soap",
@@ -156,6 +189,9 @@ const animalCareProducts: Product[] = [
     description: "Our ranch-made formula cleans the grit and grime, crafted specifically for saddles, bridles, cowboy boots, leather work boots, and western tack. Gentle on leather, tough on dirt.",
     icon: Droplets,
     highlight: false,
+    heroIngredients: ["Ranch olive oil base", "Traditional saddle-soap formula", "No palm oil"],
+    keyBenefits: ["Cleans grit and grime from leather", "Saddles, bridles, boots, western tack", "Gentle on leather, tough on dirt", "Made on the same ranch the leather works"],
+    texture: "Dense bar, deep lather",
   },
   {
     id: "tack-balm",
@@ -163,8 +199,11 @@ const animalCareProducts: Product[] = [
     subtitle: "Ranch-made • Conditioner • Leather protect",
     price: 14,
     description: "Protect your saddles, bridles, cowboy boots, leather work boots, and western tack with our ranch-made tack conditioner. Keeps leather supple, nourished, and ready for the next ride.",
-    icon: Star,
+    icon: Shirt,
     highlight: false,
+    heroIngredients: ["Ranch olive oil", "Beeswax", "Conditioning oils"],
+    keyBenefits: ["Conditions and protects leather", "Keeps tack supple and weather-ready", "Saddles, bridles, boots, western tack", "Companion to Tack Soap"],
+    texture: "Soft balm, melts on contact",
   },
   {
     id: "its-all-about-the-mane",
@@ -172,8 +211,11 @@ const animalCareProducts: Product[] = [
     subtitle: "Soothe + soften • Ranch-made • 100ml",
     price: 16,
     description: "A nourishing hair oil inspired by the care we give our horses' manes. Light yet deeply conditioning, it tames frizz and adds shine without weighing hair down.",
-    icon: Heart,
+    icon: Leaf,
     highlight: false,
+    heroIngredients: ["Cold-pressed olive oil", "Argan oil", "Rosemary extract", "Natural vitamin E"],
+    keyBenefits: ["Tames frizz and flyaways", "Adds healthy shine", "Nourishes without weighing hair down", "Safe for all hair types"],
+    texture: "Light hair oil — never greasy",
   },
   {
     id: "bruised-ego",
@@ -183,6 +225,9 @@ const animalCareProducts: Product[] = [
     description: "Ranch life can be rough. Our arnica-based bruise calming lotion soothes bumps and knocks with gentle, natural care. A ranch bag essential.",
     icon: Heart,
     highlight: false,
+    heroIngredients: ["Arnica", "Olive oil base", "Calming botanicals"],
+    keyBenefits: ["Soothes everyday bumps and knocks", "Gentle, natural, all-skin-types", "Born from a real volunteer story", "A ranch-bag essential"],
+    texture: "Light lotion, fast-absorbing",
   },
 ];
 
