@@ -354,80 +354,141 @@ const MarketPage = () => {
     }
   };
 
-  const renderProductCard = (product: Product) => (
-    <Card
-      key={product.id}
-      className={`relative overflow-hidden transition-all duration-300 hover:shadow-warm border-2 ${
-        product.highlight
-          ? 'border-primary bg-gradient-to-br from-primary/5 to-sanctuary-amber/10'
-          : 'border-border'
-      }`}
-    >
-      {product.highlight && 'savings' in product && product.savings && (
-        <div className="absolute top-4 right-4">
-          <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
-            {product.savings}
-          </span>
-        </div>
-      )}
-      {'isHero' in product && product.isHero && (
-        <div className="absolute top-4 left-4">
-          <span className="px-3 py-1 rounded-full bg-gradient-copper text-white text-xs font-medium flex items-center gap-1">
-            <Star className="w-3 h-3" /> Hero
-          </span>
-        </div>
-      )}
-      <CardContent className="p-8">
-        <div className="text-center space-y-4">
-          <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center ${
-            product.highlight ? 'bg-primary text-primary-foreground' : 'bg-secondary/50'
-          }`}>
-            <product.icon className="w-8 h-8" />
-          </div>
+  const renderProductCard = (product: Product) => {
+    const hasHoverInfo = !!(product.heroIngredients?.length || product.keyBenefits?.length || product.texture);
 
-          <div>
-            <h3 className="text-xl font-medium text-foreground">{product.name}</h3>
-            <p className="text-sm text-muted-foreground">{product.subtitle}</p>
-          </div>
-
-          <div className="text-3xl font-semibold text-foreground">
-            {'originalPrice' in product && product.originalPrice && (
-              <span className="text-lg text-muted-foreground line-through mr-2">€{product.originalPrice}</span>
-            )}
-            €{product.price}
-          </div>
-
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {product.description}
-          </p>
-
-          {/* Quantity Selector */}
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-10 w-10 rounded-full"
-              onClick={() => updateCart(product.id, -1)}
-              disabled={(cart[product.id] || 0) === 0}
-            >
-              <Minus className="w-4 h-4" />
-            </Button>
-            <span className="text-xl font-medium w-8 text-center">
-              {cart[product.id] || 0}
+    const cardEl = (
+      <Card
+        className={`relative overflow-hidden transition-all duration-300 hover:shadow-warm border-2 ${
+          product.highlight
+            ? 'border-primary bg-gradient-to-br from-primary/5 to-sanctuary-amber/10'
+            : 'border-border'
+        }`}
+      >
+        {product.highlight && 'savings' in product && product.savings && (
+          <div className="absolute top-4 right-4">
+            <span className="px-3 py-1 rounded-full bg-primary text-primary-foreground text-xs font-medium">
+              {product.savings}
             </span>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-10 w-10 rounded-full"
-              onClick={() => updateCart(product.id, 1)}
-            >
-              <Plus className="w-4 h-4" />
-            </Button>
           </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
+        )}
+        {'isHero' in product && product.isHero && (
+          <div className="absolute top-4 left-4">
+            <span className="px-3 py-1 rounded-full bg-gradient-copper text-white text-xs font-medium flex items-center gap-1">
+              <Star className="w-3 h-3" /> Hero
+            </span>
+          </div>
+        )}
+        <CardContent className="p-8">
+          <div className="text-center space-y-4">
+            <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center ${
+              product.highlight ? 'bg-primary text-primary-foreground' : 'bg-secondary/50'
+            }`}>
+              <product.icon className="w-8 h-8" />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-medium text-foreground">{product.name}</h3>
+              <p className="text-sm text-muted-foreground">{product.subtitle}</p>
+            </div>
+
+            <div className="text-3xl font-semibold text-foreground">
+              {'originalPrice' in product && product.originalPrice && (
+                <span className="text-lg text-muted-foreground line-through mr-2">€{product.originalPrice}</span>
+              )}
+              €{product.price}
+            </div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {product.description}
+            </p>
+
+            {/* Quantity Selector */}
+            <div className="flex items-center justify-center gap-4 pt-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-10 w-10 rounded-full"
+                onClick={() => updateCart(product.id, -1)}
+                disabled={(cart[product.id] || 0) === 0}
+              >
+                <Minus className="w-4 h-4" />
+              </Button>
+              <span className="text-xl font-medium w-8 text-center">
+                {cart[product.id] || 0}
+              </span>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-10 w-10 rounded-full"
+                onClick={() => updateCart(product.id, 1)}
+              >
+                <Plus className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+
+    if (!hasHoverInfo) {
+      return <div key={product.id}>{cardEl}</div>;
+    }
+
+    return (
+      <HoverCard key={product.id} openDelay={150} closeDelay={100}>
+        <HoverCardTrigger asChild>
+          <div>{cardEl}</div>
+        </HoverCardTrigger>
+        <HoverCardContent
+          side="top"
+          align="center"
+          className="w-72 md:w-80 border-2 border-primary/20 bg-gradient-to-br from-background to-sanctuary-amber/5 shadow-warm rounded-xl p-5 space-y-4"
+        >
+          {product.heroIngredients && product.heroIngredients.length > 0 && (
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-1.5">
+                Hero Ingredients
+              </p>
+              <ul className="space-y-0.5">
+                {product.heroIngredients.map((ing, i) => (
+                  <li key={i} className="text-sm text-foreground/90 leading-snug">
+                    {ing}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {product.keyBenefits && product.keyBenefits.length > 0 && (
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-1.5">
+                Why You'll Love It
+              </p>
+              <ul className="space-y-0.5">
+                {product.keyBenefits.map((benefit, i) => (
+                  <li key={i} className="text-sm text-muted-foreground leading-snug">
+                    — {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {product.texture && (
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-wider text-primary mb-1.5">
+                Texture
+              </p>
+              <p className="text-sm text-foreground/90 italic leading-snug">
+                {product.texture}
+              </p>
+            </div>
+          )}
+        </HoverCardContent>
+      </HoverCard>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
