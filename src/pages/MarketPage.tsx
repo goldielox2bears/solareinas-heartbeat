@@ -57,19 +57,19 @@ const oliveOilProducts: Product[] = [
 const skincareProducts: Product[] = [
   {
     id: "workday-hand-balm",
-    name: "workday hand balm",
-    subtitle: "Nourish balm • Ranch-tested • 60ml tin",
+    name: "Ranch Hands Balm",
+    subtitle: "Olive + beeswax balm • For hardworking hands • 60ml tin",
     price: 12,
-    description: "A rich, protective balm created for hands that work hard. Made with olive oil, shea butter, and ranch-grown lavender. Absorbs quickly without leaving residue.",
+    description: "A small-batch olive and beeswax balm for hardworking hands. Made with olive oil from our groves, shea butter, and ranch-grown lavender. Absorbs quickly without leaving residue.",
     icon: Hand,
     highlight: false,
   },
   {
     id: "balm-gift",
-    name: "Hand Balm Gift Pack",
+    name: "Ranch Hands Balm Gift Pack",
     subtitle: "Set of Three Tins",
     price: 30,
-    description: "Three 60ml tins of our nourishing hand balm — the perfect gift for anyone who works with their hands. Olive oil, shea butter, and ranch-grown lavender.",
+    description: "Three 60ml tins of Ranch Hands Balm — the perfect gift for anyone who works with their hands. Olive oil, shea butter, and ranch-grown lavender.",
     icon: Flower2,
     highlight: true,
     savings: "SAVE €6",
@@ -85,7 +85,7 @@ const skincareProducts: Product[] = [
   },
   {
     id: "soft-earth-polish",
-    name: "soft earth powder polish",
+    name: "Soft Earth Powder Polish",
     subtitle: "Polish + rinse • Glow • 100g jar",
     price: 18,
     description: "A gentle exfoliating powder that activates with water. Made with finely ground olive pits and white clay to polish away dullness and reveal fresh, glowing skin.",
@@ -94,7 +94,7 @@ const skincareProducts: Product[] = [
   },
   {
     id: "afterglow-body-butter",
-    name: "afterglow body butter",
+    name: "Afterglow Body Butter",
     subtitle: "Lavender + Sage • Whipped • 200ml",
     price: 22,
     description: "A luxuriously whipped body butter that melts into skin, leaving it impossibly soft. Scented with ranch-grown lavender and wild sage.",
@@ -103,7 +103,7 @@ const skincareProducts: Product[] = [
   },
   {
     id: "its-all-about-the-mane",
-    name: "it's all about the mane",
+    name: "It's All About the Mane",
     subtitle: "Soothe + soften • Ranch-made • 100ml",
     price: 16,
     description: "A nourishing hair oil inspired by the care we give our horses' manes. Light yet deeply conditioning, it tames frizz and adds shine without weighing hair down.",
