@@ -346,7 +346,44 @@ const AdminPanel = () => {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        {/* GitHub Sync Card */}
+        <Card>
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Github className="h-5 w-5" />
+              GitHub Sync
+            </CardTitle>
+            <CardDescription>
+              Lovable syncs every change to GitHub automatically. Open the repo to see commit history and the latest sync time.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {GITHUB_REPO_URL ? (
+              <div className="flex flex-wrap gap-2">
+                <Button asChild variant="outline">
+                  <a href={`${GITHUB_REPO_URL}/commits`} target="_blank" rel="noopener noreferrer">
+                    <Clock className="h-4 w-4 mr-2" />
+                    View commit history
+                    <ExternalLink className="h-3 w-3 ml-2" />
+                  </a>
+                </Button>
+                <Button asChild variant="ghost">
+                  <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer">
+                    <Github className="h-4 w-4 mr-2" />
+                    Open repository
+                    <ExternalLink className="h-3 w-3 ml-2" />
+                  </a>
+                </Button>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Set <code className="px-1 py-0.5 rounded bg-muted">GITHUB_REPO_URL</code> at the top of <code className="px-1 py-0.5 rounded bg-muted">src/pages/AdminPanel.tsx</code> to your repository URL (e.g. <code className="px-1 py-0.5 rounded bg-muted">https://github.com/your-org/your-repo</code>) to enable the link.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
         <Tabs defaultValue="volunteers" className="space-y-6">
            <TabsList className="grid w-full max-w-2xl grid-cols-4">
             <TabsTrigger value="volunteers" className="flex items-center gap-2">
