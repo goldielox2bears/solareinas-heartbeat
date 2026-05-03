@@ -86,6 +86,13 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Wild Heart on Bone — bold editorial palette */
+    --bone: 40 30% 95%;
+    --ink: 25 18% 12%;
+    --rust: 14 70% 38%;
+    --marigold: 42 95% 55%;
+    --tape: 35 45% 75%;
   }
 
   .dark {
@@ -134,5 +141,67 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: 'Playfair Display', Georgia, serif; }
+  .font-hand { font-family: 'Caveat', cursive; }
+
+  .hard-shadow-ink {
+    box-shadow: 6px 6px 0 0 hsl(var(--ink));
+  }
+  .hard-shadow-ink-sm {
+    box-shadow: 4px 4px 0 0 hsl(var(--ink));
+  }
+
+  .kicker {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: hsl(var(--rust));
+  }
+
+  .scribble-under {
+    position: relative;
+    display: inline-block;
+  }
+  .scribble-under::after {
+    content: '';
+    position: absolute;
+    left: -2%;
+    right: -2%;
+    bottom: -0.18em;
+    height: 0.35em;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'><path d='M2 10 Q 50 2 100 8 T 198 6' stroke='%23E8A317' stroke-width='5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .tape-strip {
+    position: absolute;
+    background: hsl(var(--tape) / 0.7);
+    width: 80px;
+    height: 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .stamp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    background: hsl(var(--marigold));
+    color: hsl(var(--ink));
+    border: 2px solid hsl(var(--ink));
+    padding: 0.25rem 0.75rem;
+    transform: rotate(-4deg);
+    box-shadow: 3px 3px 0 0 hsl(var(--ink));
   }
 }
