@@ -31,9 +31,9 @@ const SanctuaryHero = () => {
       <div className="relative z-10 flex-1 flex items-end pb-20 md:pb-28">
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
           <div className="max-w-3xl">
-            <div className="kicker text-marigold mb-4">
+            <div className="kicker mb-4 !text-marigold">
               <span className="text-bone/70 mr-2">EST. SIERRA NEVADA</span>
-              <span>— A LIVING SANCTUARY</span>
+              <span className="text-marigold">— A LIVING SANCTUARY</span>
             </div>
 
             <h1 className="font-display font-black text-bone text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-6">
