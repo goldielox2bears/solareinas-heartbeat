@@ -21,6 +21,9 @@ const buttonVariants = cva(
         steward: "bg-gradient-copper text-white hover:shadow-warm transition-warm font-medium tracking-wide",
         sanctuary: "bg-gradient-patina text-white hover:shadow-sanctuary transition-gentle",
         gentle: "bg-sanctuary-stone text-foreground hover:bg-sanctuary-earth transition-gentle shadow-gentle",
+        bold: "bg-rust text-bone border-2 border-ink hard-shadow-ink hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-ink-sm rounded-none font-display font-bold tracking-wide transition-all",
+        boldOutline: "bg-bone text-ink border-2 border-ink hard-shadow-ink hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-ink-sm rounded-none font-display font-bold tracking-wide transition-all",
+        marigold: "bg-marigold text-ink border-2 border-ink hard-shadow-ink hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-ink-sm rounded-none font-display font-bold tracking-wide transition-all",
       },
       size: {
         default: "h-10 px-4 py-2",
