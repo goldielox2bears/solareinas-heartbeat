@@ -66,6 +66,11 @@ export default {
 				patina: {
 					teal: 'hsl(var(--patina-teal))'
 				},
+				bone: 'hsl(var(--bone))',
+				ink: 'hsl(var(--ink))',
+				rust: 'hsl(var(--rust))',
+				marigold: 'hsl(var(--marigold))',
+				tape: 'hsl(var(--tape))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -129,7 +134,14 @@ export default {
 			boxShadow: {
 				'gentle': 'var(--shadow-gentle)',
 				'warm': 'var(--shadow-warm)',
-				'sanctuary': 'var(--shadow-sanctuary)'
+				'sanctuary': 'var(--shadow-sanctuary)',
+				'ink': '6px 6px 0 0 hsl(var(--ink))',
+				'ink-sm': '4px 4px 0 0 hsl(var(--ink))'
+			},
+			fontFamily: {
+				display: ['"Playfair Display"', 'Georgia', 'serif'],
+				hand: ['Caveat', 'cursive'],
+				sans: ['Inter', 'system-ui', 'sans-serif']
 			},
 			transitionTimingFunction: {
 				'gentle': 'var(--transition-gentle)',

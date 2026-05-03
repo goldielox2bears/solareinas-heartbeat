@@ -13,6 +13,7 @@ import RescueLedger from "@/components/RescueLedger";
 import FreeHerdCircle from "@/components/FreeHerdCircle";
 import FoundersRidingRetreat from "@/components/FoundersRidingRetreat";
 import SustainabilitySection from "@/components/SustainabilitySection";
+import Marquee from "@/components/wildheart/Marquee";
 
 const Index = () => {
   const { user, signOut, loading } = useAuth();
@@ -41,6 +42,15 @@ const Index = () => {
         
         {/* Sanctuary Section */}
         <SanctuaryWelcome />
+        <Marquee
+          items={[
+            "47 ANIMALS RESCUED",
+            "12 ACRES STEWARDED",
+            "230+ STEWARDS",
+            "ROOTED IN SIERRA NEVADA",
+            "MADE BY HAND",
+          ]}
+        />
         <section id="rescue">
           <RescueLedger />
         </section>

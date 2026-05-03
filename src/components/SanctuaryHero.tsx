@@ -3,18 +3,19 @@ import heroLogoSrc from "@/assets/srr-logo-white.jpg";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import TransparentLogo from "@/components/TransparentLogo";
+import Stamp from "@/components/wildheart/Stamp";
 
 const SanctuaryHero = () => {
   return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
+    <section className="relative min-h-screen flex flex-col overflow-hidden bg-ink">
       {/* Hero Background */}
-      <div 
+      <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none"
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-ink/30 to-ink/80 pointer-events-none" />
       </div>
-      
+
       {/* Logo - Top Right Corner */}
       <div className="absolute top-16 right-0 md:top-20 md:right-0 z-10">
         <TransparentLogo
@@ -25,37 +26,61 @@ const SanctuaryHero = () => {
           feather={26}
         />
       </div>
-      
-      {/* Hero Actions - Bottom Third */}
-      <div className="relative z-10 flex-1 flex items-end justify-center pb-20 md:pb-32">
-        <div className="text-center text-white px-6 max-w-4xl">
-          <p className="text-xl md:text-2xl font-light max-w-2xl mx-auto leading-relaxed mb-8">
-            A quiet invitation to step into the sanctuary you've helped create
-          </p>
-          {/* Identity-based CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-4">
-            <Button asChild variant="steward" size="lg" className="min-w-48">
-              <Link to="/sponsor-animal">🧡 For Stewards</Link>
-            </Button>
-            <Button asChild variant="sanctuary" size="lg" className="min-w-48">
-              <Link to="/volunteer-signup">🌾 Join the Free Herd</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="min-w-48 bg-amber-500 text-white border-amber-400 hover:bg-amber-400">
-              <a href="/#giving" onClick={(e) => { e.preventDefault(); document.getElementById('giving')?.scrollIntoView({ behavior: 'smooth' }); }}>🐴 Retreat</a>
-            </Button>
+
+      {/* Editorial headline + actions, bottom-left aligned */}
+      <div className="relative z-10 flex-1 flex items-end pb-20 md:pb-28">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+          <div className="max-w-3xl">
+            <div className="kicker text-marigold mb-4">
+              <span className="text-bone/70 mr-2">EST. SIERRA NEVADA</span>
+              <span>— A LIVING SANCTUARY</span>
+            </div>
+
+            <h1 className="font-display font-black text-bone text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight mb-6">
+              A sanctuary you helped{" "}
+              <span className="font-hand text-marigold scribble-under font-bold italic">
+                build
+              </span>
+              .
+            </h1>
+
+            <p className="font-display text-bone/85 text-xl md:text-2xl max-w-xl mb-10">
+              A quiet invitation to step into the place your generosity made real.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <Button asChild variant="bold" size="lg" className="min-w-48 text-base">
+                <Link to="/sponsor-animal">For Stewards</Link>
+              </Button>
+              <Button asChild variant="marigold" size="lg" className="min-w-48 text-base">
+                <Link to="/volunteer-signup">Join the Free Herd</Link>
+              </Button>
+              <Button asChild variant="boldOutline" size="lg" className="min-w-48 text-base">
+                <a
+                  href="/#giving"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById("giving")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Retreat
+                </a>
+              </Button>
+            </div>
+
+            <div className="mt-8 flex items-center gap-4">
+              <Stamp rotation={-6}>steward approved</Stamp>
+              <p className="font-hand text-bone text-xl">
+                your heart &amp; hands are welcome here
+              </p>
+            </div>
           </div>
-          
-          <p className="text-sm opacity-80">
-            Your generosity makes this possible — Your heart and hands are welcome here
-          </p>
         </div>
       </div>
-      
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-sanctuary-float">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-gentle-fade" />
-        </div>
+
+      {/* Scroll indicator — rotated stamp */}
+      <div className="absolute bottom-6 right-8 z-10 hidden md:block">
+        <Stamp rotation={6} className="text-sm">scroll ↓</Stamp>
       </div>
     </section>
   );
