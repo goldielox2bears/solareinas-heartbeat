@@ -438,6 +438,41 @@ const MarketPage = () => {
               {product.description}
             </p>
 
+            {product.ingredientDetails && product.ingredientDetails.length > 0 && (
+              <Accordion type="single" collapsible className="text-left pt-2">
+                <AccordionItem value="ingredients" className="border-t border-b-0">
+                  <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-3">
+                    Key Ingredient Benefits
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4 pt-2">
+                      {product.ingredientDetails.map((ing, i) => (
+                        <div key={i} className="space-y-1.5">
+                          <p className="text-sm font-semibold text-foreground">
+                            {ing.emoji} {ing.name}
+                          </p>
+                          <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                            INCI: {ing.inci}
+                          </p>
+                          {ing.intro && (
+                            <p className="text-xs text-muted-foreground leading-relaxed">{ing.intro}</p>
+                          )}
+                          <ul className="list-disc pl-5 space-y-0.5">
+                            {ing.benefits.map((b, j) => (
+                              <li key={j} className="text-xs text-foreground/80 leading-snug">{b}</li>
+                            ))}
+                          </ul>
+                          {ing.outro && (
+                            <p className="text-xs text-muted-foreground italic leading-relaxed pt-1">{ing.outro}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            )}
+
             {/* Quantity Selector */}
             <div className="flex items-center justify-center gap-4 pt-4">
               <Button
