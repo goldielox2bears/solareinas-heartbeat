@@ -17,6 +17,15 @@ import oliveOilLabel from "@/assets/olive-oil-label.png";
 import oneOfOneBadge from "@/assets/one-of-one-tag.png";
 import madeHereLogo from "@/assets/made-here-logo.png";
 
+interface IngredientDetail {
+  emoji: string;
+  name: string;
+  inci: string;
+  intro?: string;
+  benefits: string[];
+  outro?: string;
+}
+
 interface Product {
   id: string;
   name: string;
@@ -31,6 +40,7 @@ interface Product {
   heroIngredients?: string[];
   keyBenefits?: string[];
   texture?: string;
+  ingredientDetails?: IngredientDetail[];
 }
 
 // Category: Olive Oil
