@@ -35,7 +35,7 @@ const MadeHereForYouPage = () => {
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Everything we create is born on this land, made with our hands, and shared with purpose. 
+            We work in harmony with our land, everything we create is made with our hands and shared with purpose. 
             Not for profit. For the animals. For the earth. For you.
           </p>
         </div>
