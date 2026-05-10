@@ -16,6 +16,37 @@ interface CommunityTestimonial {
 
 const SanctuaryTestimonials = () => {
   const [communityTestimonials, setCommunityTestimonials] = useState<CommunityTestimonial[]>([]);
+  const [email, setEmail] = useState("");
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    setSubscribing(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("notify-newsletter-signup", {
+        body: { email: trimmed, source: "sanctuary_news" },
+      });
+      if (error) throw error;
+      if (data?.alreadySubscribed) {
+        toast.success("You're already on the list — welcome back!");
+      } else {
+        toast.success("You're in! Watch your inbox for Sanctuary News.");
+      }
+      setSubscribed(true);
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubscribing(false);
+    }
+  };
 
   useEffect(() => {
     fetchCommunityTestimonials();
