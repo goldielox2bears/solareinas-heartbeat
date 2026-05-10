@@ -647,9 +647,14 @@ const MarketPage = () => {
               Ranch Apothecary
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              The botica of the ranch. Daily skincare and body care, made by hand from what grows
-              here — olive oil from our groves, lavender from our garden, herbs from the hills. For
-              the small rituals that hold a day together.
+              The Botanical Bounty of the ranch! Daily skincare and body care, made by hand from what grows
+              here — olive oil from our groves. For the small rituals that hold a day together.
+            </p>
+            <p className="text-muted-foreground max-w-2xl mx-auto mt-4 italic">
+              Every formula carries this promise:<br />
+              To nourish.<br />
+              To restore.<br />
+              To honor the rhythm of nature and body as one.
             </p>
           </div>
 
