@@ -6,6 +6,7 @@ import ImpactGuaranteeBlock from "@/components/shop/ImpactGuaranteeBlock";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,6 +17,15 @@ import { supabase } from "@/integrations/supabase/client";
 import oliveOilLabel from "@/assets/olive-oil-label.png";
 import oneOfOneBadge from "@/assets/one-of-one-tag.png";
 import madeHereLogo from "@/assets/made-here-logo.png";
+
+interface IngredientDetail {
+  emoji: string;
+  name: string;
+  inci: string;
+  intro?: string;
+  benefits: string[];
+  outro?: string;
+}
 
 interface Product {
   id: string;
@@ -31,6 +41,7 @@ interface Product {
   heroIngredients?: string[];
   keyBenefits?: string[];
   texture?: string;
+  ingredientDetails?: IngredientDetail[];
 }
 
 // Category: Olive Oil
@@ -135,7 +146,23 @@ const skincareProducts: Product[] = [
     icon: Moon,
     highlight: true,
     isHero: true,
-    heroIngredients: ["Luxury botanical balm formulation", "Final ingredient list to be confirmed"],
+    heroIngredients: ["Rosehip Seed Oil", "Açaí Virgin Oil", "Calendula Macerated Oil", "Marine Extract", "Bakuchiol", "Ascorbyl Palmitate (Vitamin C)", "Pumpkin Seed Oil", "Blackcurrant Seed Oil", "Squalane", "Babassu Oil", "Jojoba Oil", "Sea Buckthorn Oil", "Beeswax", "Frankincense Essential Oil"],
+    ingredientDetails: [
+      { emoji: "🌹", name: "Rosehip Seed Oil", inci: "Rosa Canina Seed Oil", intro: "Rich in essential fatty acids and naturally occurring vitamin A compounds, rosehip oil helps support:", benefits: ["skin elasticity", "visible softness", "moisture barrier repair", "the appearance of fine lines"], outro: "Rosehip is especially valued in mature skincare for improving the look of dry, tired, or uneven skin." },
+      { emoji: "🫐", name: "Açaí Virgin Oil", inci: "Euterpe Oleracea Fruit Oil", intro: "Açaí oil is naturally rich in:", benefits: ["anthocyanins", "polyphenols", "omega fatty acids"], outro: "These antioxidants help defend skin against environmental stress while supporting a smoother, more radiant appearance. Açaí also contributes to the balm's luxurious skin feel and overnight nourishment." },
+      { emoji: "🌼", name: "Calendula Macerated Oil", inci: "Calendula Officinalis Flower Extract (in oil)", intro: "Calendula is traditionally used to comfort and soothe delicate or stressed skin. Benefits include:", benefits: ["calming visible redness", "supporting the skin barrier", "improving comfort in dry or reactive skin", "reinforcing the restorative nature of the balm"], outro: "Calendula aligns with the Solareinas philosophy of gentle, regenerative skincare." },
+      { emoji: "🌊", name: "Marine Extract", inci: "Helianthus Annuus Seed Oil, Fucus Vesiculosus Extract", intro: "Fucus vesiculosus (seaweed extract) is rich in marine minerals and antioxidant compounds. This ingredient helps support:", benefits: ["skin vitality", "resilience", "antioxidant defense", "protection from environmental stressors"], outro: "Marine botanicals are often used in premium skincare to reinforce healthy-looking skin." },
+      { emoji: "🌿", name: "Bakuchiol", inci: "Bakuchiol", intro: "Bakuchiol is a plant-derived active known as a gentle alternative to retinol. Benefits may include:", benefits: ["improving the appearance of fine lines", "supporting firmer-looking skin", "smoothing texture", "promoting overnight skin renewal"], outro: "Unlike traditional retinoids, bakuchiol is generally well tolerated by sensitive skin." },
+      { emoji: "🍊", name: "Ascorbyl Palmitate", inci: "Ascorbyl Palmitate", intro: "An oil-soluble form of vitamin C that supports:", benefits: ["antioxidant protection", "brighter-looking skin", "environmental defense", "overall skin vitality"], outro: "This stable vitamin C derivative works well in anhydrous botanical balms." },
+      { emoji: "🌰", name: "Pumpkin Seed Oil", inci: "Cucurbita Pepo Seed Oil", intro: "Pumpkin seed oil contains phytosterols and essential fatty acids that help:", benefits: ["nourish dry skin", "support elasticity", "reinforce the lipid barrier", "improve skin comfort"], outro: "It is especially beneficial in mature skincare formulations." },
+      { emoji: "🖤", name: "Blackcurrant Seed Oil", inci: "Ribes Nigrum Seed Oil", intro: "Rich in gamma-linolenic acid (GLA), blackcurrant seed oil helps support:", benefits: ["barrier repair", "hydration retention", "skin softness", "resilience in stressed or mature skin"], outro: "This oil is commonly used in premium facial care for sensitive or dry skin." },
+      { emoji: "💧", name: "Squalane", inci: "Squalane", intro: "Squalane is a biomimetic lipid naturally compatible with the skin. Benefits include:", benefits: ["lightweight nourishment", "improved softness", "reduced moisture loss", "elegant, non-greasy glide"], outro: "Squalane helps the balm absorb beautifully while supporting the skin barrier." },
+      { emoji: "🌴", name: "Babassu Oil", inci: "Orbignya Oleifera Seed Oil", intro: "Babassu oil provides:", benefits: ["a soft-melt texture", "silky skin feel", "lightweight nourishment", "barrier support without heaviness"], outro: "It helps balance richer oils for a more elegant finish." },
+      { emoji: "🌿", name: "Jojoba Oil", inci: "Simmondsia Chinensis Seed Oil", intro: "Jojoba is technically a liquid wax ester that closely resembles skin's natural sebum. Benefits include:", benefits: ["balancing moisture", "improving softness", "supporting barrier integrity", "enhancing formula stability"], outro: "Jojoba contributes to the balm's smooth, refined texture." },
+      { emoji: "🌞", name: "Sea Buckthorn Oil", inci: "Hippophae Rhamnoides Fruit Oil", intro: "Naturally rich in carotenoids and omega-7 fatty acids, sea buckthorn helps support:", benefits: ["skin vitality", "visible radiance", "nourishment for dry or mature skin", "antioxidant defense"], outro: "This ingredient contributes to the balm's warm golden hue." },
+      { emoji: "🐝", name: "Beeswax", inci: "Cera Alba", intro: "Beeswax creates a breathable protective layer on the skin that helps:", benefits: ["reduce moisture loss", "seal in hydration", "support overnight repair", "improve balm texture and structure"] },
+      { emoji: "🌲", name: "Frankincense Essential Oil", inci: "Boswellia Carterii Oil", intro: "Traditionally used in skincare rituals for:", benefits: ["grounding aroma", "skin comfort", "calming effect", "luxurious sensory experience"], outro: "Frankincense complements the balm's restorative nighttime ritual." },
+    ],
     keyBenefits: [
       "Overnight skin nourishment",
       "Hydration retention",
@@ -410,6 +437,41 @@ const MarketPage = () => {
             <p className="text-sm text-muted-foreground leading-relaxed">
               {product.description}
             </p>
+
+            {product.ingredientDetails && product.ingredientDetails.length > 0 && (
+              <Accordion type="single" collapsible className="text-left pt-2">
+                <AccordionItem value="ingredients" className="border-t border-b-0">
+                  <AccordionTrigger className="text-sm font-medium text-primary hover:no-underline py-3">
+                    Key Ingredient Benefits
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="space-y-4 pt-2">
+                      {product.ingredientDetails.map((ing, i) => (
+                        <div key={i} className="space-y-1.5">
+                          <p className="text-sm font-semibold text-foreground">
+                            {ing.emoji} {ing.name}
+                          </p>
+                          <p className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                            INCI: {ing.inci}
+                          </p>
+                          {ing.intro && (
+                            <p className="text-xs text-muted-foreground leading-relaxed">{ing.intro}</p>
+                          )}
+                          <ul className="list-disc pl-5 space-y-0.5">
+                            {ing.benefits.map((b, j) => (
+                              <li key={j} className="text-xs text-foreground/80 leading-snug">{b}</li>
+                            ))}
+                          </ul>
+                          {ing.outro && (
+                            <p className="text-xs text-muted-foreground italic leading-relaxed pt-1">{ing.outro}</p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            )}
 
             {/* Quantity Selector */}
             <div className="flex items-center justify-center gap-4 pt-4">
