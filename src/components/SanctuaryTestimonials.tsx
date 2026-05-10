@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Star } from "lucide-react";
+import { Star, Loader2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface CommunityTestimonial {
   id: string;
@@ -15,6 +16,37 @@ interface CommunityTestimonial {
 
 const SanctuaryTestimonials = () => {
   const [communityTestimonials, setCommunityTestimonials] = useState<CommunityTestimonial[]>([]);
+  const [email, setEmail] = useState("");
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = email.trim();
+    if (!trimmed || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+    setSubscribing(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("notify-newsletter-signup", {
+        body: { email: trimmed, source: "sanctuary_news" },
+      });
+      if (error) throw error;
+      if (data?.alreadySubscribed) {
+        toast.success("You're already on the list — welcome back!");
+      } else {
+        toast.success("You're in! Watch your inbox for Sanctuary News.");
+      }
+      setSubscribed(true);
+      setEmail("");
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setSubscribing(false);
+    }
+  };
 
   useEffect(() => {
     fetchCommunityTestimonials();
@@ -114,16 +146,25 @@ const SanctuaryTestimonials = () => {
             Get quarterly 'Sanctuary News' with exclusive photo updates, resident stories, and behind-the-scenes insights
           </p>
           
-          <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
-            <input 
-              type="email" 
+          <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-xl text-foreground bg-white/90 placeholder:text-muted-foreground"
+              disabled={subscribing || subscribed}
+              className="flex-1 px-4 py-3 rounded-xl text-foreground bg-white/90 placeholder:text-muted-foreground disabled:opacity-60"
             />
-            <button className="bg-white text-primary px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-colors whitespace-nowrap">
-              Subscribe
+            <button
+              type="submit"
+              disabled={subscribing || subscribed}
+              className="bg-white text-primary px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-colors whitespace-nowrap disabled:opacity-70 inline-flex items-center justify-center gap-2"
+            >
+              {subscribing && <Loader2 className="w-4 h-4 animate-spin" />}
+              {subscribed ? "Subscribed ✓" : subscribing ? "Subscribing…" : "Subscribe"}
             </button>
-          </div>
+          </form>
           
           <p className="text-sm opacity-75 mt-4">
             No spam, just heartwarming updates. Unsubscribe anytime.

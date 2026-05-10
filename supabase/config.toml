@@ -5,3 +5,6 @@ verify_jwt = false
 
 [functions.send-market-order]
 verify_jwt = false
+
+[functions.notify-newsletter-signup]
+verify_jwt = false
