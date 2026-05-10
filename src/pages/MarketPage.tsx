@@ -595,7 +595,7 @@ const MarketPage = () => {
               </h1>
 
               <p className="text-xl text-muted-foreground font-light max-w-xl">
-                Everything we create is born on this land, made with our hands, and shared with purpose.
+                We work in harmony with our land, everything we create is made with our hands and shared with purpose.
                 100% of profits support the animals and land.
               </p>
             </div>
