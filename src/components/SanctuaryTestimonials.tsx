@@ -146,16 +146,25 @@ const SanctuaryTestimonials = () => {
             Get quarterly 'Sanctuary News' with exclusive photo updates, resident stories, and behind-the-scenes insights
           </p>
           
-          <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
-            <input 
-              type="email" 
+          <form onSubmit={handleSubscribe} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-xl text-foreground bg-white/90 placeholder:text-muted-foreground"
+              disabled={subscribing || subscribed}
+              className="flex-1 px-4 py-3 rounded-xl text-foreground bg-white/90 placeholder:text-muted-foreground disabled:opacity-60"
             />
-            <button className="bg-white text-primary px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-colors whitespace-nowrap">
-              Subscribe
+            <button
+              type="submit"
+              disabled={subscribing || subscribed}
+              className="bg-white text-primary px-6 py-3 rounded-xl font-medium hover:bg-white/90 transition-colors whitespace-nowrap disabled:opacity-70 inline-flex items-center justify-center gap-2"
+            >
+              {subscribing && <Loader2 className="w-4 h-4 animate-spin" />}
+              {subscribed ? "Subscribed ✓" : subscribing ? "Subscribing…" : "Subscribe"}
             </button>
-          </div>
+          </form>
           
           <p className="text-sm opacity-75 mt-4">
             No spam, just heartwarming updates. Unsubscribe anytime.
