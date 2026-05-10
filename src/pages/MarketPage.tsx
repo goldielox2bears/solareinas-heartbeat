@@ -646,16 +646,19 @@ const MarketPage = () => {
             <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
               Ranch Apothecary
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              The Botanical Bounty of the ranch! Daily skincare and body care, made by hand from what grows
-              here — olive oil from our groves. For the small rituals that hold a day together.
+            <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              The Botanical Bounty of the ranch! Daily skincare and body care, made by hand from what
+              grows here — olive oil from our groves. For the small rituals that hold a day together.
             </p>
-            <p className="text-muted-foreground max-w-2xl mx-auto mt-4 italic">
-              Every formula carries this promise:<br />
-              To nourish.<br />
-              To restore.<br />
-              To honor the rhythm of nature and body as one.
-            </p>
+            <div className="max-w-xl mx-auto mt-8 pt-6 border-t border-border/40">
+              <p className="text-sm uppercase tracking-[0.2em] text-primary/80 mb-3">
+                Every formula carries this promise
+              </p>
+              <p className="font-display text-xl md:text-2xl text-foreground/90 italic leading-relaxed">
+                To nourish. To restore.<br />
+                To honor the rhythm of nature and body as one.
+              </p>
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
