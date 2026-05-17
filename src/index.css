@@ -2,127 +2,110 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Josefin+Slab:wght@300;400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 @layer base {
   :root {
-    /* Sanctuary Earth Palette */
-    --background: 45 15% 97%;
-    --foreground: 25 20% 25%;
+    /* Prairie Americana Palette */
+    --background: 43 30% 97%;
+    --foreground: 30 25% 18%;
 
-    --card: 42 25% 95%;
-    --card-foreground: 25 20% 25%;
+    --card: 40 28% 94%;
+    --card-foreground: 30 25% 18%;
 
-    --popover: 42 25% 95%;
-    --popover-foreground: 25 20% 25%;
+    --popover: 40 28% 94%;
+    --popover-foreground: 30 25% 18%;
 
-    /* Steward Orange - warm, generous */
-    --primary: 25 85% 60%;
-    --primary-foreground: 45 15% 97%;
+    /* Saddle Brown - primary action */
+    --primary: 22 55% 38%;
+    --primary-foreground: 43 30% 97%;
 
-    /* Sage Green - peaceful, grounded */
-    --secondary: 95 25% 75%;
-    --secondary-foreground: 25 20% 25%;
+    /* Forest Green - secondary */
+    --secondary: 120 25% 28%;
+    --secondary-foreground: 43 30% 97%;
 
-    /* Soft earth tones */
-    --muted: 42 20% 92%;
-    --muted-foreground: 25 15% 55%;
+    /* Parchment muted */
+    --muted: 40 20% 91%;
+    --muted-foreground: 30 15% 48%;
 
-    /* Free Herd Amber - warm community */
-    --accent: 45 90% 65%;
-    --accent-foreground: 25 20% 25%;
+    /* Warm Gold - accent */
+    --accent: 38 65% 52%;
+    --accent-foreground: 30 25% 18%;
 
     --destructive: 0 75% 60%;
-    --destructive-foreground: 45 15% 97%;
+    --destructive-foreground: 43 30% 97%;
 
-    --border: 42 15% 88%;
-    --input: 42 15% 90%;
-    --ring: 25 85% 60%;
+    --border: 38 18% 82%;
+    --input: 38 18% 86%;
+    --ring: 22 55% 38%;
 
     --radius: 0.75rem;
 
-    /* Custom Sanctuary Colors */
-    --sanctuary-sage: 95 25% 70%;
-    --sanctuary-earth: 35 40% 80%;
-    --sanctuary-amber: 45 85% 70%;
-    --sanctuary-stone: 25 10% 85%;
-    
-    /* Aged Copper & Patina Colors */
-    --copper-aged: 25 55% 45%;
-    --copper-patina: 165 35% 50%;
-    --copper-rust: 15 65% 40%;
-    --patina-teal: 175 40% 45%;
-    
+    /* Custom Sanctuary Colors — Prairie remapped */
+    --sanctuary-sage: 120 22% 42%;
+    --sanctuary-earth: 30 35% 72%;
+    --sanctuary-amber: 38 65% 60%;
+    --sanctuary-stone: 30 12% 82%;
+
+    /* Aged Copper & Patina — kept, shifted warmer */
+    --copper-aged: 22 50% 38%;
+    --copper-patina: 140 28% 44%;
+    --copper-rust: 14 60% 35%;
+    --patina-teal: 155 32% 40%;
+
     /* Gradients */
     --gradient-steward: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--sanctuary-amber)));
     --gradient-sanctuary: linear-gradient(180deg, hsl(var(--sanctuary-sage)), hsl(var(--sanctuary-earth)));
     --gradient-peaceful: linear-gradient(135deg, hsl(var(--background)), hsl(var(--sanctuary-stone)));
     --gradient-copper: linear-gradient(45deg, hsl(var(--copper-aged)), hsl(var(--copper-rust)));
     --gradient-patina: linear-gradient(45deg, hsl(var(--patina-teal)), hsl(var(--copper-patina)));
-    
+
     /* Shadows */
     --shadow-gentle: 0 4px 20px -8px hsl(var(--primary) / 0.15);
     --shadow-warm: 0 8px 32px -12px hsl(var(--sanctuary-amber) / 0.25);
     --shadow-sanctuary: 0 12px 40px -16px hsl(var(--sanctuary-sage) / 0.3);
-    
+
     /* Transitions */
     --transition-gentle: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-warm: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
+    /* Wild Heart on Bone — Prairie remapped */
+    --bone: 43 35% 94%;
+    --ink: 30 22% 14%;
+    --rust: 22 58% 32%;
+    --marigold: 38 70% 50%;
+    --tape: 32 40% 72%;
+
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Wild Heart on Bone — bold editorial palette */
-    --bone: 40 30% 95%;
-    --ink: 25 18% 12%;
-    --rust: 14 70% 38%;
-    --marigold: 42 95% 55%;
-    --tape: 35 45% 75%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
+    --background: 30 18% 8%;
+    --foreground: 43 30% 92%;
+    --card: 30 18% 10%;
+    --card-foreground: 43 30% 92%;
+    --popover: 30 18% 10%;
+    --popover-foreground: 43 30% 92%;
+    --primary: 38 65% 55%;
+    --primary-foreground: 30 22% 14%;
+    --secondary: 120 20% 22%;
+    --secondary-foreground: 43 30% 92%;
+    --muted: 30 15% 18%;
+    --muted-foreground: 38 15% 60%;
+    --accent: 38 60% 48%;
+    --accent-foreground: 30 22% 14%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --destructive-foreground: 43 30% 92%;
+    --border: 30 15% 22%;
+    --input: 30 15% 22%;
+    --ring: 38 65% 55%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -141,13 +124,13 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Josefin Slab', Georgia, serif;
   }
 }
 
 @layer utilities {
-  .font-display { font-family: 'Playfair Display', Georgia, serif; }
-  .font-hand { font-family: 'Caveat', cursive; }
+  .font-display { font-family: 'Abril Fatface', Georgia, serif; }
+  .font-hand { font-family: 'Libre Baskerville', Georgia, serif; font-style: italic; }
 
   .hard-shadow-ink {
     box-shadow: 6px 6px 0 0 hsl(var(--ink));
@@ -157,11 +140,11 @@ All colors MUST be HSL.
   }
 
   .kicker {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Josefin Slab', serif;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: hsl(var(--rust));
   }
 
@@ -176,7 +159,7 @@ All colors MUST be HSL.
     right: -2%;
     bottom: -0.18em;
     height: 0.35em;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'><path d='M2 10 Q 50 2 100 8 T 198 6' stroke='%23E8A317' stroke-width='5' fill='none' stroke-linecap='round'/></svg>");
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'><path d='M2 10 Q 50 2 100 8 T 198 6' stroke='%23A0742A' stroke-width='5' fill='none' stroke-linecap='round'/></svg>");
     background-repeat: no-repeat;
     background-size: 100% 100%;
     pointer-events: none;
@@ -195,7 +178,7 @@ All colors MUST be HSL.
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Caveat', cursive;
+    font-family: 'Josefin Slab', serif;
     font-weight: 700;
     background: hsl(var(--marigold));
     color: hsl(var(--ink));
