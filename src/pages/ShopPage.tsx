@@ -9,6 +9,7 @@ import ImpactGuaranteeBlock from "@/components/shop/ImpactGuaranteeBlock";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, Mail, ShoppingBag } from "lucide-react";
+import SEO from "@/components/SEO";
 import { toast } from "sonner";
 
 const ShopPage = () => {
@@ -35,6 +36,11 @@ const ShopPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Shop — Ranch-Made Goods | Solareinas Ranch"
+        description="Hand-made olive oil, skincare, and ranch basics grown and crafted at our Sierra Nevada sanctuary. Every gift supports rescued animals."
+        path="/shop"
+      />
       <SanctuaryNavigation />
       
       {/* Trust Strip */}

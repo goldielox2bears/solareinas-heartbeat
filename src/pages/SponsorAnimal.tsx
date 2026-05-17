@@ -11,6 +11,7 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Heart, Star, Gift, Calendar, Euro } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import SEO from '@/components/SEO';
 
 interface Animal {
   id: string;
@@ -172,6 +173,12 @@ export default function SponsorAnimal() {
   }
 
   return (
+    <>
+    <SEO
+      title="Sponsor an Animal — Become a Steward | Solareinas Ranch"
+      description="Meet our rescued animals and become a steward. Your support funds food, vet care, and a safe home in the Sierra Nevada."
+      path="/sponsor-animal"
+    />
     <div className="min-h-screen bg-background">
       <SanctuaryNavigation />
       

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Mountain, Tent, UtensilsCrossed, Users, Star, MapPin, Calendar, Compass, Sunrise, Waves, Ship, Camera, Baby, TreePine, Sun } from "lucide-react";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
+import SEO from "@/components/SEO";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
 import explorelifeLogo from "@/assets/explorelife-logo.png";
 
@@ -112,6 +113,11 @@ const FamilyCampPage = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Family Camp — Unplugged Sierra Nevada Retreat | Solareinas Ranch"
+        description="An unplugged multi-generational ranch retreat in the Sierra Nevada. Horses, hikes, beach days, and time together off-screen."
+        path="/family-camp"
+      />
       <SanctuaryNavigation />
 
       <section className="pt-28 pb-16 md:pt-32 md:pb-24 px-6 bg-background">

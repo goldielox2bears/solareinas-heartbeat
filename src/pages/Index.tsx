@@ -8,6 +8,7 @@ import SanctuaryGallery from "@/components/SanctuaryGallery";
 import SanctuaryImpact from "@/components/SanctuaryImpact";
 import SanctuaryResidents from "@/components/SanctuaryResidents";
 import SanctuaryTestimonials from "@/components/SanctuaryTestimonials";
+import SEO from "@/components/SEO";
 
 import RescueLedger from "@/components/RescueLedger";
 import FreeHerdCircle from "@/components/FreeHerdCircle";
@@ -35,6 +36,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Solareinas Ranch — Sierra Nevada Sanctuary & Retreat"
+        description="A Sierra Nevada ranch sanctuary: rescued animals, regenerative land, family retreats, and botanical goods made by hand."
+        path="/"
+      />
       <SanctuaryNavigation />
       
       <main>

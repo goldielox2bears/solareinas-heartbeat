@@ -5,6 +5,7 @@ import QuizProgress from "@/components/quiz/QuizProgress";
 import QuizResult from "@/components/quiz/QuizResult";
 import { questions, calculateResult, type QuizResult as QuizResultType } from "@/components/quiz/quizData";
 import { trackQuizEvent, saveQuizCompletion } from "@/lib/quizAnalytics";
+import SEO from "@/components/SEO";
 
 type QuizStage = "intro" | "questions" | "result";
 
@@ -56,6 +57,11 @@ const QuizPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Travel Personality Quiz — Find Your Retreat | Solareinas Ranch"
+        description="Take our 10-question quiz to discover which Solareinas Ranch retreat fits your travel personality."
+        path="/quiz"
+      />
       {stage === "intro" && <QuizIntro onStart={handleStart} />}
 
       {stage === "questions" && (
