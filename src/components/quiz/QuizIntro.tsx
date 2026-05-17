@@ -27,9 +27,9 @@ const QuizIntro = ({ onStart }: QuizIntroProps) => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 text-sm text-muted-foreground">
+        <div className="flex flex-wrap justify-center gap-3 text-sm font-medium">
           {["🌿 Personality type", "🐾 Animal match", "⛺ Retreat pick"].map((item) => (
-            <span key={item} className="bg-secondary/60 px-3 py-1.5 rounded-full">
+            <span key={item} className="bg-primary text-primary-foreground px-3 py-1.5 rounded-full shadow-sm">
               {item}
             </span>
           ))}
