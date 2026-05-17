@@ -1,0 +1,22 @@
+# Solareinas Ranch (Ranch Rescue)
+
+> A regenerative ranch sanctuary in the Sierra Nevada — rescued animals, restoration projects, family retreats, and an artisan market made by hand.
+
+Solareinas Ranch is a living sanctuary supported by a community of "stewards." We rehabilitate animals, steward the land regeneratively, host immersive retreats, and offer botanical goods grown and made on the ranch. All gifts are processed manually; we use the language of "gifts" and "support" rather than purchases.
+
+## Pages
+
+- [Home](/): Sanctuary overview, residents, impact, and ways to support.
+- [Sponsor an Animal](/sponsor-animal): Become a steward for a rescued animal.
+- [Volunteer / Free Herd](/volunteer-signup): Apply to join the volunteer family program.
+- [The Market](/market): Botanical bounty — olive oil, skincare, ranch basics.
+- [Shop](/shop): Dynamic product catalog from the ranch.
+- [Made Here For You](/made-here-for-you): One-of-one upcycled goods.
+- [Founders Riding Retreat](/gift): 10-day adult retreat.
+- [Family Camp](/family-camp): Unplugged multi-generational retreat.
+- [Cowgirls for Change](/cowgirls-for-change): Advocacy retreat.
+- [Travel Personality Quiz](/quiz): Find the retreat that fits you.
+
+## Optional
+
+- [Sign In](/auth): Steward account access.
