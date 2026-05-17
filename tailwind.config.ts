@@ -139,9 +139,9 @@ export default {
 				'ink-sm': '4px 4px 0 0 hsl(var(--ink))'
 			},
 			fontFamily: {
-				display: ['"Playfair Display"', 'Georgia', 'serif'],
-				hand: ['Caveat', 'cursive'],
-				sans: ['Inter', 'system-ui', 'sans-serif']
+				display: ['"Abril Fatface"', 'Georgia', 'serif'],
+				hand: ['"Libre Baskerville"', 'Georgia', 'serif'],
+				sans: ['"Josefin Slab"', 'Georgia', 'serif'],
 			},
 			transitionTimingFunction: {
 				'gentle': 'var(--transition-gentle)',
