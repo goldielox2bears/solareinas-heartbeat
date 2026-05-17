@@ -440,5 +440,6 @@ export default function SponsorAnimal() {
         </div>
       </section>
     </div>
+    </>
   );
 }
