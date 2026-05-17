@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ArrowLeft, Check, Droplets, Leaf, Loader2, Minus, Plus, ShoppingBag, Sparkles, Star } from "lucide-react";
 import { toast } from "sonner";
+import SEO from "@/components/SEO";
 
 const ProductDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -55,6 +56,12 @@ const ProductDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={`${product.name} — Solareinas Ranch`}
+        description={(product.description || `${product.name} — made by hand at our Sierra Nevada ranch sanctuary.`).slice(0, 158)}
+        path={`/shop/${product.slug}`}
+        type="product"
+      />
       <SanctuaryNavigation />
       
       {/* Trust Strip */}

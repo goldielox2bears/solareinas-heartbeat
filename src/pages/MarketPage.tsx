@@ -17,6 +17,7 @@ import { supabase } from "@/integrations/supabase/client";
 import oliveOilLabel from "@/assets/olive-oil-label.png";
 import oneOfOneBadge from "@/assets/one-of-one-tag.png";
 import madeHereLogo from "@/assets/made-here-logo.png";
+import SEO from "@/components/SEO";
 
 interface IngredientDetail {
   emoji: string;
@@ -562,6 +563,11 @@ const MarketPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="The Market — Botanical Bounty of the Ranch | Solareinas Ranch"
+        description="The botanical bounty of the ranch: olive oil from our groves, skincare, and ranch basics made by hand in the Sierra Nevada."
+        path="/market"
+      />
       <SanctuaryNavigation />
 
       {/* Trust Strip */}
