@@ -5,6 +5,7 @@ import BrandSealBlock from "@/components/shop/BrandSealBlock";
 import ImpactGuaranteeBlock from "@/components/shop/ImpactGuaranteeBlock";
 import { Button } from "@/components/ui/button";
 import { Heart, Leaf, ShoppingBag, Sparkles, TreePine, Users } from "lucide-react";
+import SEO from "@/components/SEO";
 import madeHereLogo from "@/assets/made-here-logo.png";
 import whiteHorse from "@/assets/library/white-horse-grazing.jpeg";
 import oliveHarvest from "@/assets/library/olive-harvest.jpeg";
@@ -13,6 +14,11 @@ import sanctuaryDog from "@/assets/library/sanctuary-dog.jpeg";
 const MadeHereForYouPage = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Made Here For You — One-of-One Goods | Solareinas Ranch"
+        description="Upcycled one-of-one clothing and goods made by hand at our Sierra Nevada sanctuary."
+        path="/made-here-for-you"
+      />
       <SanctuaryNavigation />
       
       {/* Trust Strip */}

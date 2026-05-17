@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import SEO from '@/components/SEO';
 
 const Auth = () => {
   const { user, signIn, signUp } = useAuth();
@@ -75,6 +76,11 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gradient-peaceful flex items-center justify-center p-6">
+      <SEO
+        title="Sign In — Steward Account | Solareinas Ranch"
+        description="Sign in to your Solareinas Ranch steward account."
+        path="/auth"
+      />
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">

@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Heart, ArrowLeft, Check } from "lucide-react";
+import SEO from "@/components/SEO";
 
 interface Animal {
   id: string;
@@ -204,6 +205,11 @@ const GiftPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title="Founders Riding Retreat — A 10-Day Journey | Solareinas Ranch"
+        description="A 10-day founders riding retreat in the Sierra Nevada. Horses, mountains, restoration, and time to think."
+        path="/gift"
+      />
       <SanctuaryNavigation />
       
       <div className="pt-24 pb-16 px-6">

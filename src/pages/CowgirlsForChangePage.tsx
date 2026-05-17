@@ -8,6 +8,7 @@ import {
   Tent, Compass
 } from "lucide-react";
 import SanctuaryNavigation from "@/components/SanctuaryNavigation";
+import SEO from "@/components/SEO";
 import RetreatSignupForm from "@/components/RetreatSignupForm";
 import explorelifeLogo from "@/assets/explorelife-logo.png";
 
@@ -101,6 +102,11 @@ const CowgirlsForChangePage = () => {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Cowgirls for Change — Advocacy Retreat | Solareinas Ranch"
+        description="An advocacy ranch retreat for women leading change. Ride, reflect, and connect in the Sierra Nevada."
+        path="/cowgirls-for-change"
+      />
       <SanctuaryNavigation />
 
       <section className="pt-28 pb-16 md:pt-32 md:pb-24 px-6 bg-background">
