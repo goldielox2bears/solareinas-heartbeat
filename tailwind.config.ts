@@ -115,6 +115,10 @@ export default {
 				'sanctuary-float': {
 					'0%, 100%': { transform: 'translateY(0px)' },
 					'50%': { transform: 'translateY(-8px)' }
+				},
+				'marquee': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-50%)' }
 				}
 			},
 			animation: {
@@ -122,7 +126,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'gentle-fade': 'gentle-fade 2s ease-in-out infinite alternate',
 				'warm-pulse': 'warm-pulse 3s ease-in-out infinite',
-				'sanctuary-float': 'sanctuary-float 6s ease-in-out infinite'
+				'sanctuary-float': 'sanctuary-float 6s ease-in-out infinite',
+				'marquee': 'marquee 40s linear infinite'
 			},
 			backgroundImage: {
 				'gradient-steward': 'var(--gradient-steward)',
