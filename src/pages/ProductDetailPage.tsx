@@ -58,7 +58,7 @@ const ProductDetailPage = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title={`${product.name} — Solareinas Ranch`}
-        description={(product.description || `${product.name} — made by hand at our Sierra Nevada ranch sanctuary.`).slice(0, 158)}
+        description={`${product.name} — made by hand at our Sierra Nevada ranch sanctuary. Every gift supports rescued animals.`.slice(0, 158)}
         path={`/shop/${product.slug}`}
         type="product"
       />
