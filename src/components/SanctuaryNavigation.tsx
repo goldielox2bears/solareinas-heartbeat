@@ -20,17 +20,17 @@ const SanctuaryNavigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const navLinks = [
-    { label: "Our Why", href: "/#sanctuary", scrollId: "sanctuary" },
-    { label: "Residents", href: "/#rescue", scrollId: "rescue" },
-    { label: "Free Herd Circle", href: "/#volunteers", scrollId: "volunteers" },
-    { label: "Join Us", href: "/volunteer-signup" },
-    { label: "The Market", href: "/market" },
-    { label: "Quiz", href: "/quiz" },
+    { label: "Shop", href: "/shop" },
+    { label: "Choose Your Ritual", href: "/#rituals", scrollId: "rituals" },
+    { label: "Meet the Animals", href: "/#meet-the-animals", scrollId: "meet-the-animals" },
+    { label: "Our Impact", href: "/#impact", scrollId: "impact" },
+    { label: "Sustainability", href: "/#sustainability", scrollId: "sustainability" },
+    { label: "FREE HERD", href: "/#volunteers", scrollId: "volunteers" },
   ];
 
   const retreatOptions = [
-    { label: "Adults", href: "/#giving", scrollId: "giving" },
-    { label: "Family", href: "/family-camp" },
+    { label: "Founders Riding Retreat", href: "/#giving", scrollId: "giving" },
+    { label: "Family Camp", href: "/family-camp" },
     { label: "Cowgirls for Change", href: "/cowgirls-for-change" },
   ];
 
@@ -105,17 +105,24 @@ const SanctuaryNavigation = () => {
                 Admin Panel
               </Button>
             )}
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => navigate('/shop')}
+            >
+              Shop Ranch-Made
+            </Button>
             {user ? (
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => signOut()}
               >
                 Sign Out
               </Button>
             ) : (
-              <Button 
-                variant="default" 
+              <Button
+                variant="outline"
                 size="sm"
                 onClick={() => navigate('/auth')}
               >
