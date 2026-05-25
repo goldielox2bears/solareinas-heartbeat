@@ -1,65 +1,54 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-const retreats = [
-  {
-    title: "Founders Riding Retreat",
-    desc: "A 10-day epic journey across Sierra Nevada — for adults seeking the deepest experience.",
-    href: "/#giving",
-    scrollId: "giving",
-  },
-  {
-    title: "Family Camp",
-    desc: "Unplugged family days on the ranch — for grown-ups and little ones alike.",
-    href: "/family-camp",
-  },
-  {
-    title: "Cowgirls for Change",
-    desc: "An advocacy retreat for women ready to ride, gather, and act.",
-    href: "/cowgirls-for-change",
-  },
-];
+import retreatImage from "@/assets/library/horseback-riding-bw.jpeg";
 
 const RetreatSecondary = () => {
   return (
-    <section id="retreats" className="py-20 md:py-24 bg-secondary/20">
-      <div className="max-w-6xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-12 max-w-3xl mx-auto">
-          <p className="kicker mb-3">— STAY A WHILE</p>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground mb-4">
-            Want to Experience the Farm in Person?
-          </h2>
-          <p className="font-display text-lg text-muted-foreground">
-            Our retreats are the deeper invitation — a chance to slow down,
-            reconnect, meet the animals, and experience the land behind the products.
-          </p>
-        </div>
+    <section id="retreats" className="py-20 md:py-24 bg-background">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 items-stretch">
+          <div className="editorial-card rounded-md p-8 md:p-12 flex flex-col justify-center">
+            <p className="kicker mb-4">— Stay a while</p>
+            <h2 className="font-display text-3xl md:text-4xl text-foreground mb-5 leading-tight">
+              Want to Experience the <span className="font-serif-italic text-sanctuary-clay">Farm?</span>
+            </h2>
+            <p className="font-body text-foreground/75 text-base md:text-lg leading-relaxed mb-8 max-w-md">
+              Our retreats are the deeper invitation — a chance to slow down, reconnect,
+              meet the animals, and experience the land behind the products.
+            </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {retreats.map((r) => (
-            <Card key={r.title} className="border-2 border-border hover:border-primary/40 transition-all">
-              <CardContent className="p-6 flex flex-col h-full">
-                <h3 className="font-display text-2xl text-foreground mb-2">{r.title}</h3>
-                <p className="text-muted-foreground mb-5 flex-1">{r.desc}</p>
-                <Button asChild variant="outline" className="self-start">
-                  {r.scrollId ? (
-                    <a
-                      href={r.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById(r.scrollId!)?.scrollIntoView({ behavior: "smooth" });
-                      }}
-                    >
-                      Explore Retreat
-                    </a>
-                  ) : (
-                    <Link to={r.href}>Explore Retreat</Link>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+            <div className="flex flex-col gap-2 mb-8">
+              <Link to="/family-camp" className="text-sm text-foreground/80 hover:text-sanctuary-clay border-b border-border pb-2 transition-colors">
+                <span className="font-display italic text-lg">Family Camp</span>
+                <span className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mt-1">Unplugged family days on the ranch</span>
+              </Link>
+              <Link to="/cowgirls-for-change" className="text-sm text-foreground/80 hover:text-sanctuary-clay border-b border-border pb-2 transition-colors">
+                <span className="font-display italic text-lg">Cowgirls for Change</span>
+                <span className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mt-1">An advocacy retreat for women</span>
+              </Link>
+              <a
+                href="#giving"
+                onClick={(e) => { e.preventDefault(); document.getElementById('giving')?.scrollIntoView({ behavior: 'smooth' }); }}
+                className="text-sm text-foreground/80 hover:text-sanctuary-clay pb-2 transition-colors"
+              >
+                <span className="font-display italic text-lg">Founders Riding Retreat</span>
+                <span className="block text-xs uppercase tracking-[0.18em] text-muted-foreground mt-1">A 10-day epic journey for adults</span>
+              </a>
+            </div>
+
+            <Button asChild className="self-start rounded-none uppercase text-[0.72rem] tracking-[0.22em]">
+              <a
+                href="#giving"
+                onClick={(e) => { e.preventDefault(); document.getElementById('giving')?.scrollIntoView({ behavior: 'smooth' }); }}
+              >
+                Explore Retreats
+              </a>
+            </Button>
+          </div>
+
+          <div className="rounded-md overflow-hidden min-h-[360px] md:min-h-[480px] relative">
+            <img src={retreatImage} alt="Solareinas retreats" className="absolute inset-0 w-full h-full object-cover" />
+          </div>
         </div>
       </div>
     </section>
