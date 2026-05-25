@@ -43,6 +43,7 @@ interface Product {
   keyBenefits?: string[];
   texture?: string;
   ingredientDetails?: IngredientDetail[];
+  image?: string;
 }
 
 // Category: Olive Oil
