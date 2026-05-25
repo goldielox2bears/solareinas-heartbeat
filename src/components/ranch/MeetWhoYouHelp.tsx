@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 interface Animal {
@@ -20,71 +19,81 @@ const MeetWhoYouHelp = () => {
       .from("animals")
       .select("id, name, species, story, photo_url")
       .eq("available_for_sponsorship", true)
-      .limit(4)
+      .limit(3)
       .then(({ data }) => {
         if (data) setAnimals(data as Animal[]);
       });
   }, []);
 
+  const featured = animals[0];
+
   return (
     <section id="meet-the-animals" className="py-20 md:py-28 bg-background">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-14 max-w-3xl mx-auto">
-          <p className="kicker mb-3">— THE THANK-YOU</p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
-            Meet Who Your Support Helps
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
+        <div className="text-center mb-14 max-w-2xl mx-auto">
+          <p className="kicker mb-4">— The thank-you</p>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground leading-tight">
+            Meet Who Your Support <span className="font-serif-italic text-sanctuary-clay">Helps</span>
           </h2>
-          <p className="font-display text-lg md:text-xl text-muted-foreground">
-            Each animal here has a story, a care need, and a reason to say thank you.
-            When you choose a Solareinas product, you become part of theirs.
-          </p>
+          <div className="editorial-rule w-24 mx-auto mt-6" />
         </div>
 
-        {animals.length === 0 ? (
-          <div className="text-center text-muted-foreground">
-            Meet the herd —{" "}
-            <Link to="/sponsor-animal" className="underline text-primary">
-              see all residents
-            </Link>
-            .
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {animals.map((a) => (
-              <Card
-                key={a.id}
-                className="overflow-hidden border-2 border-border hover:border-primary/40 hover:shadow-warm transition-all"
-              >
-                <div className="h-56 bg-secondary/40 flex items-center justify-center overflow-hidden">
+        {featured ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5 items-stretch">
+            <div className="rounded-md overflow-hidden bg-secondary/30 min-h-[360px] md:min-h-[480px]">
+              {featured.photo_url ? (
+                <img src={featured.photo_url} alt={featured.name} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-8xl">🐴</div>
+              )}
+            </div>
+
+            <div className="editorial-card rounded-md p-8 md:p-12 flex flex-col justify-center">
+              <p className="kicker mb-4">Meet who your support helps</p>
+              <h3 className="font-display text-3xl md:text-4xl text-foreground mb-5">
+                Thank you from{" "}
+                <span className="font-serif-italic text-sanctuary-clay">{featured.name}</span> ♡
+              </h3>
+              <p className="font-body text-foreground/75 text-base md:text-lg leading-relaxed mb-8">
+                {featured.story ||
+                  `Your support helps provide feed, supplements, hoof care, and daily care for ${featured.name} and the other animals at Solareinas Farm.`}
+              </p>
+              <Button asChild className="self-start rounded-none uppercase text-[0.72rem] tracking-[0.22em]">
+                <Link to={`/sponsor/${featured.id}`}>Meet {featured.name}</Link>
+              </Button>
+            </div>
+
+            {animals.slice(1).map((a) => (
+              <div key={a.id} className="md:col-span-1 editorial-card rounded-md overflow-hidden grid grid-cols-2">
+                <div className="bg-secondary/30">
                   {a.photo_url ? (
-                    <img
-                      src={a.photo_url}
-                      alt={a.name}
-                      className="w-full h-full object-contain"
-                    />
+                    <img src={a.photo_url} alt={a.name} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="text-6xl">🐴</div>
+                    <div className="w-full h-full flex items-center justify-center text-5xl">🐴</div>
                   )}
                 </div>
-                <CardContent className="p-5">
-                  <p className="kicker mb-1">THANK YOU FROM</p>
-                  <h3 className="font-display text-2xl text-foreground mb-2">{a.name}</h3>
+                <div className="p-5 flex flex-col justify-center">
+                  <p className="kicker mb-2">Thank you from</p>
+                  <h4 className="font-display text-2xl text-foreground mb-2">{a.name}</h4>
                   <p className="text-sm text-muted-foreground line-clamp-3 mb-4">
-                    {a.story ||
-                      `Your support helps with daily feed, supplements, hoof care and safe shelter for ${a.name}.`}
+                    {a.story || `Your gift cares for ${a.name}.`}
                   </p>
-                  <Button asChild variant="outline" size="sm" className="w-full">
-                    <Link to={`/sponsor/${a.id}`}>Meet {a.name}</Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                  <Link to={`/sponsor/${a.id}`} className="text-xs uppercase tracking-[0.22em] text-sanctuary-clay hover:underline">
+                    Meet {a.name} →
+                  </Link>
+                </div>
+              </div>
             ))}
+          </div>
+        ) : (
+          <div className="text-center text-muted-foreground">
+            <Link to="/sponsor-animal" className="underline text-sanctuary-clay">Meet the herd →</Link>
           </div>
         )}
 
-        <div className="text-center mt-10">
-          <Button asChild variant="bold" size="lg">
-            <Link to="/sponsor-animal">Meet the Whole Herd</Link>
+        <div className="text-center mt-12">
+          <Button asChild variant="ghost" className="font-display italic text-base text-foreground hover:text-sanctuary-clay">
+            <Link to="/sponsor-animal">Meet the whole herd →</Link>
           </Button>
         </div>
       </div>

@@ -1,81 +1,81 @@
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, Leaf, Flame, Gift, HeartHandshake } from "lucide-react";
 
 const categories = [
   {
     title: "Skin + Body",
-    icon: Sparkles,
-    description:
-      "Small-batch care for everyday rituals — balms, oils, soaps, and creams inspired by ranch life and natural ingredients.",
+    description: "Nourish your body with nature — balms, oils, soaps, and creams inspired by ranch life.",
     href: "/shop?ritual=skin-body",
+    image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=800&auto=format&fit=crop",
   },
   {
     title: "Equine + Ranch Care",
-    icon: Leaf,
-    description:
-      "Useful care made for the animals we love, the hands that care for them, and the rhythms of daily farm life.",
+    description: "Useful care for the animals we love, the hands that care for them, and daily farm life.",
     href: "/shop?ritual=equine-ranch",
+    image: "https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=800&auto=format&fit=crop",
   },
   {
     title: "Home + Calm",
-    icon: Flame,
-    description:
-      "Candles, sprays, and simple rituals that bring the peace of the farm into your home.",
+    description: "Bring the calm of the farm home — candles, sprays, and simple rituals.",
     href: "/shop?ritual=home-calm",
+    image: "https://images.unsplash.com/photo-1602874801006-91d0b7e6e91d?w=800&auto=format&fit=crop",
   },
   {
     title: "Gift Boxes",
-    icon: Gift,
-    description:
-      "Thoughtful ranch-made gifts with purpose — ideal for animal lovers, nature lovers, and anyone who values meaningful care.",
+    description: "Thoughtful ranch-made gifts with purpose for the people you love.",
     href: "/shop?ritual=gift-boxes",
+    image: "https://images.unsplash.com/photo-1549887534-1541e9326642?w=800&auto=format&fit=crop",
   },
   {
-    title: "Animal Support Collection",
-    icon: HeartHandshake,
-    description:
-      "Products connected to specific animals and care needs — funding feed, supplements, shelter, farrier care, and wellbeing.",
+    title: "Animal Support",
+    description: "Products tied to specific animals and care needs — feed, shelter, farrier, wellbeing.",
     href: "/shop?ritual=animal-support",
+    image: "https://images.unsplash.com/photo-1553284965-e2815db2e5a3?w=800&auto=format&fit=crop",
   },
 ];
 
 const ChooseYourRitual = () => {
   return (
     <section id="rituals" className="py-20 md:py-28 bg-background">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
         <div className="text-center mb-14">
-          <p className="kicker mb-3">— THE COLLECTION</p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-4">
-            Choose Your Ritual
+          <p className="kicker mb-4">— The Collection</p>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground">
+            Choose Your <span className="font-serif-italic text-sanctuary-clay">Ritual</span>
           </h2>
-          <p className="font-display text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Five ways to bring the farm into your day — and feed it back into the animals and land.
-          </p>
+          <div className="editorial-rule w-24 mx-auto mt-6" />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((c) => {
-            const Icon = c.icon;
-            return (
-              <Card
-                key={c.title}
-                className="group border-2 border-border hover:border-primary/40 hover:shadow-warm transition-all duration-300 hover:-translate-y-1 bg-card"
-              >
-                <CardContent className="p-7 flex flex-col h-full">
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-copper text-white mb-5 shadow-sm">
-                    <Icon className="w-7 h-7" />
-                  </div>
-                  <h3 className="font-display text-2xl text-foreground mb-3">{c.title}</h3>
-                  <p className="text-muted-foreground mb-6 flex-1">{c.description}</p>
-                  <Button asChild variant="outline" className="self-start">
-                    <Link to={c.href}>Explore</Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
+          {categories.map((c) => (
+            <Link
+              key={c.title}
+              to={c.href}
+              className="group editorial-card rounded-sm overflow-hidden flex flex-col hover:shadow-warm transition-all duration-300"
+            >
+              <div className="aspect-[4/5] overflow-hidden bg-secondary/30">
+                <img
+                  src={c.image}
+                  alt={c.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="p-4 md:p-5 text-center flex flex-col flex-1">
+                <p className="text-[0.65rem] uppercase tracking-[0.22em] text-foreground/80 mb-2">
+                  {c.title}
+                </p>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed flex-1">
+                  {c.description}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <Button asChild variant="ghost" className="font-display italic text-base text-foreground hover:text-sanctuary-clay">
+            <Link to="/shop">Explore all products →</Link>
+          </Button>
         </div>
       </div>
     </section>

@@ -7,11 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import srrLogo from "@/assets/srr-logo-transparent.png";
 import { useAuth } from "@/hooks/useAuth";
 import { useAdmin } from "@/hooks/useAdmin";
 import { useNavigate } from "react-router-dom";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, ChevronDown, Search, ShoppingBag } from "lucide-react";
 
 const SanctuaryNavigation = () => {
   const { user, signOut } = useAuth();
@@ -25,7 +24,7 @@ const SanctuaryNavigation = () => {
     { label: "Meet the Animals", href: "/#meet-the-animals", scrollId: "meet-the-animals" },
     { label: "Our Impact", href: "/#impact", scrollId: "impact" },
     { label: "Sustainability", href: "/#sustainability", scrollId: "sustainability" },
-    { label: "FREE HERD", href: "/#volunteers", scrollId: "volunteers" },
+    { label: "Free Herd", href: "/#volunteers", scrollId: "volunteers" },
   ];
 
   const retreatOptions = [
@@ -39,7 +38,9 @@ const SanctuaryNavigation = () => {
     if (link.scrollId) {
       navigate(`/#${link.scrollId}`);
       if (window.location.pathname === '/') {
-        document.getElementById(link.scrollId)?.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          document.getElementById(link.scrollId!)?.scrollIntoView({ behavior: 'smooth' });
+        }, 50);
       }
     } else {
       navigate(link.href);
@@ -47,44 +48,45 @@ const SanctuaryNavigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div 
-            className="flex items-center space-x-2 cursor-pointer"
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/60">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 py-4">
+        <div className="flex items-center justify-between gap-6">
+          {/* Wordmark */}
+          <button
             onClick={() => navigate('/')}
+            className="flex flex-col items-start leading-none shrink-0"
+            aria-label="Solareinas home"
           >
-            <img src={srrLogo} alt="SRR" className="h-10 sm:h-12 w-auto object-contain" />
-            <span className="text-lg sm:text-xl font-light text-foreground">Solareinas Ranch</span>
-          </div>
-          
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
+            <span className="font-display text-2xl sm:text-[1.65rem] tracking-tight text-foreground">
+              Solareinas
+            </span>
+            <span className="text-[0.6rem] uppercase tracking-[0.32em] text-muted-foreground mt-0.5">
+              Life
+            </span>
+          </button>
+
+          {/* Desktop nav */}
+          <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-muted-foreground hover:text-foreground transition-gentle"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link);
-                }}
+                onClick={(e) => { e.preventDefault(); handleNavClick(link); }}
+                className="text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 hover:text-primary transition-colors"
               >
                 {link.label}
               </a>
             ))}
 
-            {/* Retreat Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-gentle outline-none">
-                Retreat <ChevronDown className="h-3.5 w-3.5" />
+              <DropdownMenuTrigger className="flex items-center gap-1 text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 hover:text-primary transition-colors outline-none">
+                Retreats <ChevronDown className="h-3 w-3" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="center">
+              <DropdownMenuContent align="center" className="bg-card border-border">
                 {retreatOptions.map((option) => (
                   <DropdownMenuItem
                     key={option.label}
-                    className="cursor-pointer"
+                    className="cursor-pointer text-sm"
                     onClick={() => handleNavClick(option)}
                   >
                     {option.label}
@@ -92,107 +94,112 @@ const SanctuaryNavigation = () => {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            <a
+              href="/#about"
+              onClick={(e) => { e.preventDefault(); handleNavClick({ label: "About", href: "/#about", scrollId: "about" }); }}
+              className="text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 hover:text-primary transition-colors"
+            >
+              About
+            </a>
           </div>
-          
-          {/* Desktop Auth Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            {isAdmin && (
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => navigate('/admin')}
-              >
-                Admin Panel
-              </Button>
-            )}
+
+          {/* Right utilities */}
+          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
             <Button
-              variant="default"
-              size="sm"
+              variant="ghost"
+              size="icon"
+              className="hidden sm:inline-flex"
+              aria-label="Search"
               onClick={() => navigate('/shop')}
             >
-              Shop Ranch-Made
+              <Search className="h-[1.05rem] w-[1.05rem]" />
             </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label="Shop"
+              onClick={() => navigate('/shop')}
+            >
+              <ShoppingBag className="h-[1.05rem] w-[1.05rem]" />
+            </Button>
+
+            {isAdmin && (
+              <Button variant="outline" size="sm" className="hidden md:inline-flex" onClick={() => navigate('/admin')}>
+                Admin
+              </Button>
+            )}
             {user ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => signOut()}
-              >
+              <Button variant="ghost" size="sm" className="hidden md:inline-flex" onClick={() => signOut()}>
                 Sign Out
               </Button>
             ) : (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate('/auth')}
-              >
+              <Button variant="ghost" size="sm" className="hidden md:inline-flex" onClick={() => navigate('/auth')}>
                 Sign In
               </Button>
             )}
-          </div>
 
-          {/* Mobile Hamburger */}
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open menu">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-72">
-              <SheetHeader>
-                <SheetTitle className="flex items-center space-x-2">
-                  <img src={srrLogo} alt="SRR" className="h-8 w-auto object-contain" />
-                  <span className="font-light">Solareinas Ranch</span>
-                </SheetTitle>
-              </SheetHeader>
-              <div className="flex flex-col mt-6 space-y-1">
-                {navLinks.map((link) => (
+            {/* Mobile hamburger */}
+            <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+              <SheetTrigger asChild className="lg:hidden">
+                <Button variant="ghost" size="icon" aria-label="Open menu">
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 bg-background">
+                <SheetHeader>
+                  <SheetTitle>
+                    <span className="font-display text-2xl text-foreground">Solareinas</span>
+                    <span className="block text-[0.6rem] uppercase tracking-[0.32em] text-muted-foreground">Life</span>
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col mt-8 space-y-1">
+                  {navLinks.map((link) => (
+                    <button
+                      key={link.label}
+                      className="text-left px-3 py-3 text-sm uppercase tracking-[0.18em] text-foreground hover:bg-secondary/40 rounded-md transition-colors"
+                      onClick={() => handleNavClick(link)}
+                    >
+                      {link.label}
+                    </button>
+                  ))}
+                  <div className="px-3 pt-4 pb-2 text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">Retreats</div>
+                  {retreatOptions.map((option) => (
+                    <button
+                      key={option.label}
+                      className="text-left px-6 py-3 text-sm text-foreground hover:bg-secondary/40 rounded-md transition-colors"
+                      onClick={() => handleNavClick(option)}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
                   <button
-                    key={link.label}
-                    className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
-                    onClick={() => handleNavClick(link)}
+                    className="text-left px-3 py-3 text-sm uppercase tracking-[0.18em] text-foreground hover:bg-secondary/40 rounded-md transition-colors"
+                    onClick={() => handleNavClick({ label: "About", href: "/#about", scrollId: "about" })}
                   >
-                    {link.label}
+                    About
                   </button>
-                ))}
-                <div className="px-3 py-2 text-xs text-muted-foreground uppercase tracking-wide">Retreat</div>
-                {retreatOptions.map((option) => (
-                  <button
-                    key={option.label}
-                    className="text-left px-6 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
-                    onClick={() => handleNavClick(option)}
-                  >
-                    {option.label}
-                  </button>
-                ))}
-                <div className="border-t border-border my-3" />
-                {isAdmin && (
-                  <button
-                    className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
-                    onClick={() => { setMobileOpen(false); navigate('/admin'); }}
-                  >
-                    Admin Panel
-                  </button>
-                )}
-                {user ? (
-                  <button
-                    className="text-left px-3 py-3 rounded-md text-foreground hover:bg-accent transition-colors"
-                    onClick={() => { setMobileOpen(false); signOut(); }}
-                  >
-                    Sign Out
-                  </button>
-                ) : (
-                  <Button
-                    variant="default"
-                    className="mx-3"
-                    onClick={() => { setMobileOpen(false); navigate('/auth'); }}
-                  >
-                    Sign In
-                  </Button>
-                )}
-              </div>
-            </SheetContent>
-          </Sheet>
+                  <div className="editorial-rule my-4" />
+                  {isAdmin && (
+                    <button className="text-left px-3 py-3 text-sm text-foreground hover:bg-secondary/40 rounded-md"
+                      onClick={() => { setMobileOpen(false); navigate('/admin'); }}>
+                      Admin Panel
+                    </button>
+                  )}
+                  {user ? (
+                    <button className="text-left px-3 py-3 text-sm text-foreground hover:bg-secondary/40 rounded-md"
+                      onClick={() => { setMobileOpen(false); signOut(); }}>
+                      Sign Out
+                    </button>
+                  ) : (
+                    <Button className="mx-3" onClick={() => { setMobileOpen(false); navigate('/auth'); }}>
+                      Sign In
+                    </Button>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </nav>

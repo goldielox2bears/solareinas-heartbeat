@@ -144,9 +144,11 @@ export default {
 				'ink-sm': '4px 4px 0 0 hsl(var(--ink))'
 			},
 			fontFamily: {
-				display: ['"Abril Fatface"', 'Georgia', 'serif'],
-				hand: ['"Libre Baskerville"', 'Georgia', 'serif'],
-				sans: ['"Josefin Slab"', 'Georgia', 'serif'],
+				display: ['"Playfair Display"', 'Georgia', 'serif'],
+				serif: ['"Playfair Display"', 'Georgia', 'serif'],
+				hand: ['"Caveat"', '"Playfair Display"', 'cursive'],
+				body: ['"Lora"', 'Georgia', 'serif'],
+				sans: ['"Lora"', 'Georgia', 'serif'],
 			},
 			transitionTimingFunction: {
 				'gentle': 'var(--transition-gentle)',

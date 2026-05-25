@@ -1,43 +1,43 @@
 import { Wheat, Stethoscope, Hammer, Home, TreePine, Droplets } from "lucide-react";
 
 const tiles = [
-  { icon: Wheat, label: "Animal feed", note: "Daily hay, grain, supplements" },
-  { icon: Stethoscope, label: "Vet care", note: "Check-ups, treatments, medicine" },
-  { icon: Hammer, label: "Farrier care", note: "Hoof trims & shoes, every cycle" },
-  { icon: Home, label: "Shelter repairs", note: "Safe barns, fencing, fixes" },
-  { icon: TreePine, label: "Land regeneration", note: "Soil, trees, native planting" },
-  { icon: Droplets, label: "Water & farm systems", note: "Irrigation, troughs, infrastructure" },
+  { icon: Wheat, label: "Animal Feed" },
+  { icon: Stethoscope, label: "Vet Care" },
+  { icon: Hammer, label: "Farrier Care" },
+  { icon: Home, label: "Shelter Repairs" },
+  { icon: TreePine, label: "Land Regeneration" },
+  { icon: Droplets, label: "Water & Farm Systems" },
 ];
 
 const EveryProductHasPurpose = () => {
   return (
     <section id="impact" className="py-20 md:py-28 bg-secondary/30">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="text-center mb-14 max-w-3xl mx-auto">
-          <p className="kicker mb-3">— WHERE IT GOES</p>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-5">
-            Every Product Has a Purpose
+      <div className="max-w-[1100px] mx-auto px-5 sm:px-8">
+        <div className="text-center mb-14 max-w-2xl mx-auto">
+          <p className="kicker mb-4">— Where it goes</p>
+          <h2 className="font-display text-4xl md:text-5xl text-foreground leading-tight">
+            Every Product Has<br />a <span className="font-serif-italic text-sanctuary-clay">Purpose</span>
           </h2>
-          <p className="font-display text-lg md:text-xl text-muted-foreground">
+          <div className="editorial-rule w-24 mx-auto my-6" />
+          <p className="font-body text-base md:text-lg text-foreground/75 leading-relaxed">
             When you choose a Solareinas product, the profit helps care for the animals,
-            land, and daily needs of the farm — feed, supplements, vet visits, farrier
-            care, shelter, soil, water, and the quiet work that keeps it alive.
+            the land, and the daily needs of the farm — feed, vet visits, farrier care,
+            shelter, soil, water, and the quiet work that keeps it alive.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-2 md:gap-4">
           {tiles.map((t) => {
             const Icon = t.icon;
             return (
               <div
                 key={t.label}
-                className="bg-card border border-border rounded-2xl p-6 text-center hover:shadow-lg transition-shadow"
+                className="editorial-card rounded-sm p-5 text-center flex flex-col items-center gap-3"
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-gradient-copper text-white mb-4">
-                  <Icon className="w-7 h-7" />
-                </div>
-                <div className="font-display text-lg text-foreground mb-1">{t.label}</div>
-                <div className="text-sm text-muted-foreground">{t.note}</div>
+                <Icon className="w-7 h-7 text-sanctuary-clay" strokeWidth={1.2} />
+                <p className="text-[0.65rem] uppercase tracking-[0.18em] text-foreground/80 leading-tight">
+                  {t.label}
+                </p>
               </div>
             );
           })}
