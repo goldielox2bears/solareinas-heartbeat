@@ -204,6 +204,7 @@ const animalCareProducts: Product[] = [
     heroIngredients: ["100% extra virgin olive oil", "No palm oil — ever", "Naturally retained glycerin"],
     keyBenefits: ["Slow-cured for 6 months minimum", "Gentle on humans, horses, and dogs", "Long-lasting bar that gets better with age", "Solar-powered, zero-waste production"],
     texture: "Hard-milled castile bar, creamy lather",
+    image: oliveOilLabel,
   },
   {
     id: "soap-three",
@@ -418,11 +419,17 @@ const MarketPage = () => {
         )}
         <CardContent className="p-8">
           <div className="text-center space-y-4">
-            <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center ${
-              product.highlight ? 'bg-primary text-primary-foreground' : 'bg-secondary/50'
-            }`}>
-              <product.icon className="w-8 h-8" />
-            </div>
+            {product.image ? (
+              <div className="w-16 h-16 rounded-2xl mx-auto overflow-hidden">
+                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+              </div>
+            ) : (
+              <div className={`w-16 h-16 rounded-2xl mx-auto flex items-center justify-center ${
+                product.highlight ? 'bg-primary text-primary-foreground' : 'bg-secondary/50'
+              }`}>
+                <product.icon className="w-8 h-8" />
+              </div>
+            )}
 
             <div>
               <h3 className="text-xl font-medium text-foreground">{product.name}</h3>
