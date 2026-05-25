@@ -1,116 +1,104 @@
-# Solareinas Bold Refresh — "Wild Heart on Bone"
+# Rebranch Solareinas.life to a Product-Led Ranch Brand
 
-A hybrid: **Direction B's disciplined color palette** (bone, ink, terracotta-rust, one electric accent) carrying **Direction C's scrapbook energy** (polaroids, tape, stamps, mixed type, asymmetric layouts, handwritten captions).
+## Goal
 
-The result: emotional and handmade like a ranch journal, but visually **disciplined** and **bold** — never busy or cluttered. The restricted palette keeps the scrapbook from becoming chaotic.
+Shift the homepage and primary brand message from "rescue retreat" to "ranch-made products that fund the farm" — without touching the Supabase backend, existing products, animal records, retreat content, volunteer applications, or sustainability sections.
 
----
+Brand line: **Ranch-Made. Small Batch. Every Profit Feeds the Farm.**
 
-## The Visual System
+## Memory + language guardrails (kept)
 
-### Color tokens (replaces current pale cream/sage system)
+- Brand identity stays **Ranch Rescue / Solareinas**, never "The Sanctuary".
+- Vocabulary stays: gifts/support (not "buy/price/fee"), stewards (not "customers"). The shop/product copy will use "choose / bring home / support" framing instead of "buy / purchase".
+- Manual payments only (no Stripe). Resend stays for admin notifications.
+- Logos transparent, Turnstile on all public forms, strict RLS untouched.
+
+The user's prompt uses "customers/purchase" — I'll soften that to comply with the language playbook ("choose a product", "bring home", "your support") while keeping the product-first energy they asked for.
+
+## Backend — zero destructive changes
+
+- No migrations. No data deletions. No category renames in DB.
+- Reuse existing `products` table, `animals`, `volunteer_applications`, `retreat_signups`, `community_testimonials`, `newsletter_subscribers` as-is.
+- "Choose Your Ritual" categories are a **front-end grouping layer** over existing products. If products don't have a category field today, group by `slug` prefix / a small front-end lookup map; no schema change.
+- Animal thank-you cards read from existing `animals` table.
+- Volunteer form continues to write to `volunteer_applications` (already built via `VolunteerSignupForm`).
+
+If later the user wants product↔animal linking in the DB, that's a follow-up migration — not part of this pass.
+
+## Homepage rebuild (`src/pages/Index.tsx`)
+
+Replace the current section order with a product-led flow. All existing section components are preserved and re-used:
 
 ```text
---bone        soft warm white, near-paper        background
---ink         near-black with warm undertone     foreground / headlines
---rust        terracotta-rust (deep, saturated)  primary
---marigold    electric warm yellow               single accent / "stop" markers
---shadow-ink  pure ink for hard drop-shadows
---tape        translucent kraft tan              polaroid tape strips only
+SanctuaryNavigation  (updated labels)
+HeroRanchMade        (NEW — product-led hero)
+Marquee              (kept)
+ChooseYourRitual     (NEW — 5 category cards)
+EveryProductHasPurpose (NEW — impact tiles)
+MeetWhoYouHelp       (NEW — animal thank-you, reads from animals table)
+SustainabilitySection (kept, retitled "Made with Care for the Land, Too")
+FreeHerdCircle       (kept — Join the FREE HERD)
+RetreatSecondary     (NEW — compact teaser linking to Founders/Family/Cowgirls)
+SanctuaryTestimonials (kept)
+Footer               (kept)
 ```
 
-Old sage / amber / copper-patina tokens stay defined for legacy components but are no longer the dominant language. New components use only the 5 above.
+`SanctuaryHero`, `SanctuaryWelcome`, `RescueLedger`, `SanctuaryGallery`, `SanctuaryImpact`, `FoundersRidingRetreat` stay in the codebase and stay routed — just not front-and-center on `/`. The retreats keep their dedicated routes (`/family-camp`, `/cowgirls-for-change`, plus the `#giving` Founders section, which we'll move onto its own anchor inside the new RetreatSecondary teaser or keep on a sub-page).
 
-### Typography
+## New components
 
-- **Display serif:** Playfair Display 900 (anchor headlines, big and confident)
-- **Handwritten:** Caveat (captions, "from the field", taglines, polaroid scribbles)
-- **Body sans:** Inter (already loaded)
+1. **`HeroRanchMade.tsx`** — full-bleed warm imagery, brand line as H1, two CTAs: "Shop Ranch-Made Goods" → `/shop`, "Meet Who You Help" → `#meet-the-animals`. Keeps the existing TransparentLogo, Stamp, kicker style.
+2. **`ChooseYourRitual.tsx`** — 5 category cards (Skin + Body, Equine + Ranch Care, Home + Calm, Gift Boxes, Animal Support Collection) with the supplied copy and an "Explore" CTA. Filters existing products front-end by a `categoryMap` keyed off product slug/name; falls back to `/shop` if a group is empty.
+3. **`EveryProductHasPurpose.tsx`** — section title + 6 impact tiles (feed, vet care, farrier, shelter, land regeneration, water/farm systems) using copper-patina gradient icons.
+4. **`MeetWhoYouHelp.tsx`** — pulls 3–4 animals via `supabase.from('animals').select(...).limit(4)`, renders "Thank you from {name}" cards with photo, story snippet, care need, CTA to `/sponsor/{id}`.
+5. **`RetreatSecondary.tsx`** — small section "Want to Experience the Farm in Person?" with three subtle links to Founders / Family Camp / Cowgirls.
 
-Mixed deliberately: headlines are heavy serif, *one* word per section may be Caveat-script in marigold for emotional punctuation.
+All new components use existing semantic tokens (no raw colors), `font-display`, `font-hand`, `gradient-copper`, `Stamp`, etc.
 
-### Motifs (the Wild Heart layer)
+## Navigation update (`SanctuaryNavigation.tsx`)
 
-- **Polaroid frames:** white card, generous bottom margin, slight rotation (-3° to +4°), tape strip at top corner.
-- **Tape strips:** translucent kraft, rotated, used on photos and testimonial cards.
-- **Stamp badges:** circular or rectangular "RESCUED 2024", "STEWARD APPROVED", rotated -7°, ink outline, marigold fill.
-- **Hard ink shadows:** 6-8px solid ink offset on buttons and key cards (no soft glow).
-- **Scribble underline:** SVG hand-drawn underline in marigold under one word per section headline.
-- **Asymmetric grid:** no straight rows on Why We Exist or Gallery — staggered vertical offsets.
-- **Section numbers:** big rust serif "01 — SANCTUARY" kicker labels.
+New primary nav (desktop + mobile sheet):
 
-### What we drop
+- Shop (→ `/shop`)
+- Choose Your Ritual (→ `/#rituals`)
+- Meet the Animals (→ `/#meet-the-animals`)
+- Our Impact (→ `/#impact`)
+- Sustainability (→ `/#sustainability`)
+- FREE HERD (→ `/#volunteers`)
+- Retreats (dropdown: Founders, Family, Cowgirls for Change)
+- About (→ `/#about` — uses existing Welcome section anchored)
 
-- Soft pastel gradients (`bg-gradient-peaceful`, `bg-gradient-copper` on round icon circles).
-- Whisper-thin `font-light` headlines.
-- Round 16px icon emoji circles.
-- Soft shadows (`shadow-gentle`, `shadow-warm`) replaced with hard ink offsets where bold is wanted; soft retained only inside calm content cards.
+Primary nav button: **Shop Ranch-Made Goods** (→ `/shop`). Secondary: **Join the FREE HERD** (→ `/volunteer-signup`). Auth/Admin buttons preserved exactly.
 
----
+## Sustainability + FREE HERD
 
-## What gets built
+- `SustainabilitySection` keeps its content; only the heading copy is softened to "Made with Care for the Land, Too" via a prop (or inline tweak).
+- `FreeHerdCircle` keeps its existing form linkage; we'll just confirm the section anchor `id="volunteers"` and CTA copy match the new brand line.
 
-### 1. Design tokens — `src/index.css`
-Add the 5 new HSL tokens, register Playfair Display + Caveat from Google Fonts, add utility classes: `.scribble-under`, `.tape-strip`, `.polaroid`, `.hard-shadow-ink`, `.sticker`, `.stamp`, `.kicker`.
+## SEO
 
-### 2. Tailwind config — `tailwind.config.ts`
-Register `bone`, `ink`, `rust`, `marigold`, `tape` as named colors; add `font-display` (Playfair) and `font-hand` (Caveat); add `shadow-ink` (8px hard offset).
+Update `<SEO>` on `Index.tsx`:
 
-### 3. Button variants — `src/components/ui/button.tsx`
-Two new variants:
-- `bold`: rust fill, ink text, `shadow-ink`, square corners.
-- `stamp`: marigold fill, ink border, rotated -3°, Caveat font.
-Existing variants kept for back-compat.
+- title: "Solareinas — Ranch-Made. Small Batch. Every Profit Feeds the Farm."
+- description: "Small-batch skincare, equine care, home rituals & meaningful gifts from a Sierra Nevada ranch. Every profit feeds the animals and land."
+- path: `/`
 
-### 4. New shared components — `src/components/wildheart/`
-- `SectionKicker.tsx` — "01 — SANCTUARY" rail label + big serif headline with one scribbled word.
-- `Polaroid.tsx` — image wrapped in rotated white frame with tape and optional handwritten caption.
-- `Stamp.tsx` — rotated badge for impact stats / "RESCUED" markers.
-- `Marquee.tsx` — horizontal scrolling strip for rescue names + impact numbers.
+`index.html` static title/description updated to match. Per-route SEO on Shop / Quiz / Market / Family Camp / Cowgirls / Gift / Sponsor pages stays as-is.
 
-### 5. Hero rebuild — `SanctuaryHero.tsx`
-- Full-bleed photo, darker overlay.
-- Bottom-left: kicker "EST. SIERRA NEVADA — A LIVING SANCTUARY" → giant Playfair headline ("A sanctuary you helped *build*.") with "build" scribbled in marigold Caveat.
-- Three CTAs become rust + marigold + outline buttons with hard ink shadows, no emoji.
-- Top-right logo retained.
-- Replace the soft scroll indicator with a small rotated stamp ("scroll ↓").
+## What is explicitly NOT changing
 
-### 6. Welcome / Why We Exist — `SanctuaryWelcome.tsx`
-- Drop the soft `bg-gradient-peaceful`; use bone + paper grain.
-- Mission statement becomes editorial: kicker + huge serif H2 + body.
-- 4 pillars become asymmetric polaroids with handwritten captions, staggered vertically (not a clean grid). Drop the round gradient icon circles entirely.
+- No Supabase migrations.
+- No edits to `products`, `animals`, `volunteer_applications`, or any other table.
+- No removal of existing pages, routes, components, retreats, gallery, testimonials, quiz, market, or admin panel.
+- No payment integration changes (manual processing remains).
+- No design-token or palette change beyond what already exists.
 
-### 7. Navigation — `SanctuaryNavigation.tsx`
-- Switch active link to ink-on-bone with rust underline scribble on hover.
-- Logo lockup stays; primary CTA in nav becomes a `bold` button.
+## Deliverables
 
-### 8. Marquee strip
-Insert between Welcome and Rescue Ledger: scrolling row of "★ 47 RESCUED ★ 12 ACRES STEWARDED ★ 230 STEWARDS ★ ..." in rust on bone, ink top + bottom border.
+- 5 new components under `src/components/ranch/`.
+- Rewritten `src/pages/Index.tsx` orchestrating the new flow.
+- Updated `SanctuaryNavigation.tsx` (labels + primary CTA).
+- Minor copy tweak in `SustainabilitySection` heading.
+- Updated `<SEO>` on home + `index.html` static head.
 
-### 9. Market product cards — `MarketPage.tsx`
-Wrap each product image in `Polaroid` (subtle rotation alternating per index). Hero badge becomes a `Stamp`. Hover overlay keeps current sensory reveal. Section headers gain kickers.
-
-### 10. Footer CTA on `Index.tsx`
-Replace `bg-gradient-steward` block with bone background, big serif "Step into the sanctuary." (with "sanctuary" scribbled in marigold), bold buttons.
-
----
-
-## Phasing (so you can preview before full commit)
-
-**Phase 1 — Foundation + Hero (ship first to gauge reaction):**
-1. Tokens + fonts + utility classes
-2. Button variants
-3. Hero rebuild
-4. Marquee strip
-5. SectionKicker + Polaroid + Stamp components
-
-**Phase 2 — Section spread:**
-6. Welcome + Why We Exist asymmetric polaroids
-7. Navigation refresh
-8. Footer CTA
-
-**Phase 3 — Market & retreats:**
-9. Market product cards in polaroids
-10. Apply kickers to retreat pages (Founders, Family Camp, Cowgirls, Made Here For You)
-
-I'd recommend shipping Phase 1 first so you can feel the new energy before we touch every page. Confirm and I'll build Phase 1.
+After approval I'll implement in one pass and verify the build.
