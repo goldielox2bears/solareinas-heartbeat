@@ -14,10 +14,10 @@ const SanctuaryNavigation = () => {
 
   const navLinks: { label: string; href: string; scrollId?: string; external?: boolean }[] = [
     { label: "Shop", href: "/shop" },
-    { label: "Impact", href: "/#impact", scrollId: "impact" },
-    { label: "Animals", href: "/#meet-the-animals", scrollId: "meet-the-animals" },
-    { label: "Our Story", href: "/#our-story", scrollId: "our-story" },
-    { label: "Free Herd", href: "/#volunteers", scrollId: "volunteers" },
+    { label: "Impact", href: "/impact" },
+    { label: "Animals", href: "/animals" },
+    { label: "Our Story", href: "/our-story" },
+    { label: "Free Herd", href: "/free-herd" },
     { label: "ExploreLife.Live", href: "https://www.explorelife.live", external: true },
     { label: "Ranch List", href: "/#ranch-list", scrollId: "ranch-list" },
   ];
