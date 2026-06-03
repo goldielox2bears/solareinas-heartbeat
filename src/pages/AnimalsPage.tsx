@@ -39,6 +39,7 @@ export default function AnimalsPage() {
       <SEO
         title="Meet the Animals Your Purchases Help Support | Solareinas"
         description="Every animal at Solareinas Ranch has a story. Your purchases help provide their daily feed, medicine, hoof care, and shelter."
+        path="/animals"
       />
       <SanctuaryNavigation />
 
