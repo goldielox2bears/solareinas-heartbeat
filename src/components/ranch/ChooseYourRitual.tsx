@@ -39,11 +39,14 @@ const ChooseYourRitual = () => {
     <section id="rituals" className="py-20 md:py-28 bg-background">
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
         <div className="text-center mb-14">
-          <p className="kicker mb-4">— The Collection</p>
-          <h2 className="font-display text-4xl md:text-5xl text-foreground">
-            Choose Your <span className="font-serif-italic text-sanctuary-clay">Ritual</span>
+          <p className="font-label uppercase tracking-[0.3em] text-[0.7rem] text-accent mb-4">— Shop by ritual</p>
+          <h2 className="font-prairie-display text-4xl md:text-5xl text-foreground">
+            Choose Your Ritual
           </h2>
-          <div className="editorial-rule w-24 mx-auto mt-6" />
+          <div className="h-px w-20 bg-foreground/25 mx-auto mt-6 mb-5" />
+          <p className="font-prairie-body text-foreground/75 max-w-xl mx-auto">
+            Every purchase feeds the farm.
+          </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
