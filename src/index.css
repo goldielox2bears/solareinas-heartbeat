@@ -2,42 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600;1,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@500;700&family=Abril+Fatface&family=Josefin+Slab:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
 @layer base {
   :root {
-    /* Ranch-Made / Solareinas Mood — sage olive, bone cream, cocoa, copper */
-    --background: 40 28% 94%;          /* soft bone cream */
-    --foreground: 28 22% 16%;          /* deep cocoa ink */
+    /* Americana Prairie — wheat cream, forest green, saddle brown */
+    --background: 42 38% 92%;          /* wheat cream */
+    --foreground: 30 28% 14%;          /* deep walnut ink */
 
-    --card: 40 32% 96%;
-    --card-foreground: 28 22% 16%;
+    --card: 42 42% 95%;
+    --card-foreground: 30 28% 14%;
 
-    --popover: 40 32% 96%;
-    --popover-foreground: 28 22% 16%;
+    --popover: 42 42% 95%;
+    --popover-foreground: 30 28% 14%;
 
-    /* Sage Olive — primary action */
-    --primary: 82 14% 32%;
-    --primary-foreground: 42 35% 95%;
+    /* Forest green — primary action */
+    --primary: 140 25% 22%;
+    --primary-foreground: 42 42% 95%;
 
-    /* Warm Sand — secondary */
-    --secondary: 34 22% 80%;
-    --secondary-foreground: 28 22% 16%;
+    /* Warm wheat — secondary */
+    --secondary: 38 30% 82%;
+    --secondary-foreground: 30 28% 14%;
 
     /* Parchment muted */
-    --muted: 38 18% 88%;
-    --muted-foreground: 30 12% 40%;
+    --muted: 40 24% 86%;
+    --muted-foreground: 30 16% 34%;
 
-    /* Copper terracotta — accent */
-    --accent: 22 38% 46%;
-    --accent-foreground: 42 35% 95%;
+    /* Saddle brown — accent */
+    --accent: 24 42% 32%;
+    --accent-foreground: 42 42% 95%;
 
-    --destructive: 0 60% 45%;
-    --destructive-foreground: 42 35% 95%;
+    --destructive: 0 60% 40%;
+    --destructive-foreground: 42 42% 95%;
 
-    --border: 36 18% 80%;
-    --input: 36 18% 84%;
-    --ring: 82 14% 32%;
+    --border: 34 22% 76%;
+    --input: 34 22% 80%;
+    --ring: 140 25% 22%;
 
     --radius: 0.5rem;
 
@@ -123,22 +123,25 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Lora', Georgia, serif;
+    font-family: 'Libre Baskerville', 'Lora', Georgia, serif;
     font-weight: 400;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', Georgia, serif;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-family: 'Abril Fatface', 'Playfair Display', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.005em;
   }
 }
 
 @layer utilities {
-  .font-display { font-family: 'Playfair Display', Georgia, serif; }
+  .font-display { font-family: 'Abril Fatface', 'Playfair Display', Georgia, serif; font-weight: 400; }
   .font-serif-italic { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-weight: 500; }
   .font-hand { font-family: 'Caveat', 'Playfair Display', cursive; font-weight: 500; }
-  .font-body { font-family: 'Lora', Georgia, serif; }
+  .font-body { font-family: 'Libre Baskerville', 'Lora', Georgia, serif; }
+  .font-prairie-display { font-family: 'Abril Fatface', Georgia, serif; font-weight: 400; letter-spacing: -0.01em; }
+  .font-prairie-label { font-family: 'Josefin Slab', 'Lora', serif; font-weight: 500; letter-spacing: 0.05em; }
+  .font-prairie-body { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 400; }
 
   .editorial-rule {
     height: 1px;
