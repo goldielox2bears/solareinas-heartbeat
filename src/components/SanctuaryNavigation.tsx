@@ -18,23 +18,22 @@ const SanctuaryNavigation = () => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const navLinks = [
+  const navLinks: { label: string; href: string; scrollId?: string; external?: boolean }[] = [
     { label: "Shop", href: "/shop" },
-    { label: "Choose Your Ritual", href: "/#rituals", scrollId: "rituals" },
-    { label: "Meet the Animals", href: "/#meet-the-animals", scrollId: "meet-the-animals" },
-    { label: "Our Impact", href: "/#impact", scrollId: "impact" },
-    { label: "Sustainability", href: "/#sustainability", scrollId: "sustainability" },
+    { label: "Impact", href: "/#impact", scrollId: "impact" },
+    { label: "Animals", href: "/#meet-the-animals", scrollId: "meet-the-animals" },
+    { label: "Our Story", href: "/#our-story", scrollId: "our-story" },
     { label: "Free Herd", href: "/#volunteers", scrollId: "volunteers" },
+    { label: "ExploreLife.Live", href: "https://www.explorelife.live", external: true },
+    { label: "Ranch List", href: "/#ranch-list", scrollId: "ranch-list" },
   ];
 
-  const retreatOptions = [
-    { label: "Founders Riding Retreat", href: "/#giving", scrollId: "giving" },
-    { label: "Family Camp", href: "/family-camp" },
-    { label: "Cowgirls for Change", href: "/cowgirls-for-change" },
-  ];
-
-  const handleNavClick = (link: { label: string; href: string; scrollId?: string }) => {
+  const handleNavClick = (link: { label: string; href: string; scrollId?: string; external?: boolean }) => {
     setMobileOpen(false);
+    if (link.external) {
+      window.open(link.href, '_blank', 'noopener,noreferrer');
+      return;
+    }
     if (link.scrollId) {
       navigate(`/#${link.scrollId}`);
       if (window.location.pathname === '/') {
@@ -66,42 +65,17 @@ const SanctuaryNavigation = () => {
           </button>
 
           {/* Desktop nav */}
-          <div className="hidden lg:flex items-center gap-7 flex-1 justify-center">
+          <div className="hidden lg:flex items-center gap-6 flex-1 justify-center">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={(e) => { e.preventDefault(); handleNavClick(link); }}
-                className="text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 hover:text-primary transition-colors"
+                className="font-label text-[0.78rem] uppercase tracking-[0.18em] text-foreground/80 hover:text-primary transition-colors"
               >
                 {link.label}
               </a>
             ))}
-
-            <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center gap-1 text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 hover:text-primary transition-colors outline-none">
-                Retreats <ChevronDown className="h-3 w-3" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="center" className="bg-card border-border">
-                {retreatOptions.map((option) => (
-                  <DropdownMenuItem
-                    key={option.label}
-                    className="cursor-pointer text-sm"
-                    onClick={() => handleNavClick(option)}
-                  >
-                    {option.label}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <a
-              href="/#about"
-              onClick={(e) => { e.preventDefault(); handleNavClick({ label: "About", href: "/#about", scrollId: "about" }); }}
-              className="text-[0.78rem] uppercase tracking-[0.18em] text-foreground/75 hover:text-primary transition-colors"
-            >
-              About
-            </a>
           </div>
 
           {/* Right utilities */}
@@ -157,28 +131,12 @@ const SanctuaryNavigation = () => {
                   {navLinks.map((link) => (
                     <button
                       key={link.label}
-                      className="text-left px-3 py-3 text-sm uppercase tracking-[0.18em] text-foreground hover:bg-secondary/40 rounded-md transition-colors"
+                      className="text-left px-3 py-3 font-label text-sm uppercase tracking-[0.18em] text-foreground hover:bg-secondary/40 rounded-md transition-colors"
                       onClick={() => handleNavClick(link)}
                     >
                       {link.label}
                     </button>
                   ))}
-                  <div className="px-3 pt-4 pb-2 text-[0.65rem] uppercase tracking-[0.28em] text-muted-foreground">Retreats</div>
-                  {retreatOptions.map((option) => (
-                    <button
-                      key={option.label}
-                      className="text-left px-6 py-3 text-sm text-foreground hover:bg-secondary/40 rounded-md transition-colors"
-                      onClick={() => handleNavClick(option)}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
-                  <button
-                    className="text-left px-3 py-3 text-sm uppercase tracking-[0.18em] text-foreground hover:bg-secondary/40 rounded-md transition-colors"
-                    onClick={() => handleNavClick({ label: "About", href: "/#about", scrollId: "about" })}
-                  >
-                    About
-                  </button>
                   <div className="editorial-rule my-4" />
                   {isAdmin && (
                     <button className="text-left px-3 py-3 text-sm text-foreground hover:bg-secondary/40 rounded-md"
