@@ -19,13 +19,19 @@ export type Database = {
           age: number | null
           annual_sponsorship_cents: number | null
           available_for_sponsorship: boolean | null
+          care_status: string
           created_at: string
+          current_care_needs: string | null
           current_sponsors_count: number | null
+          favorite_product_connection: string | null
           id: string
+          impact_story: string | null
           max_sponsors: number | null
+          monthly_care_estimate: number | null
           monthly_sponsorship_cents: number | null
           name: string
           photo_url: string | null
+          show_on_impact_page: boolean
           species: string
           sponsor_name: string | null
           sponsor_status: string
@@ -36,13 +42,19 @@ export type Database = {
           age?: number | null
           annual_sponsorship_cents?: number | null
           available_for_sponsorship?: boolean | null
+          care_status?: string
           created_at?: string
+          current_care_needs?: string | null
           current_sponsors_count?: number | null
+          favorite_product_connection?: string | null
           id?: string
+          impact_story?: string | null
           max_sponsors?: number | null
+          monthly_care_estimate?: number | null
           monthly_sponsorship_cents?: number | null
           name: string
           photo_url?: string | null
+          show_on_impact_page?: boolean
           species: string
           sponsor_name?: string | null
           sponsor_status?: string
@@ -53,13 +65,19 @@ export type Database = {
           age?: number | null
           annual_sponsorship_cents?: number | null
           available_for_sponsorship?: boolean | null
+          care_status?: string
           created_at?: string
+          current_care_needs?: string | null
           current_sponsors_count?: number | null
+          favorite_product_connection?: string | null
           id?: string
+          impact_story?: string | null
           max_sponsors?: number | null
+          monthly_care_estimate?: number | null
           monthly_sponsorship_cents?: number | null
           name?: string
           photo_url?: string | null
+          show_on_impact_page?: boolean
           species?: string
           sponsor_name?: string | null
           sponsor_status?: string
@@ -98,6 +116,57 @@ export type Database = {
           rating?: number
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      farm_needs: {
+        Row: {
+          animal_related: boolean
+          cost_currency: string
+          created_at: string
+          description: string | null
+          estimated_cost: number | null
+          id: string
+          image_url: string | null
+          impact_unit: string | null
+          is_active: boolean
+          land_related: boolean
+          need_title: string
+          need_type: string
+          updated_at: string
+          urgency_level: string
+        }
+        Insert: {
+          animal_related?: boolean
+          cost_currency?: string
+          created_at?: string
+          description?: string | null
+          estimated_cost?: number | null
+          id?: string
+          image_url?: string | null
+          impact_unit?: string | null
+          is_active?: boolean
+          land_related?: boolean
+          need_title: string
+          need_type: string
+          updated_at?: string
+          urgency_level?: string
+        }
+        Update: {
+          animal_related?: boolean
+          cost_currency?: string
+          created_at?: string
+          description?: string | null
+          estimated_cost?: number | null
+          id?: string
+          image_url?: string | null
+          impact_unit?: string | null
+          is_active?: boolean
+          land_related?: boolean
+          need_title?: string
+          need_type?: string
+          updated_at?: string
+          urgency_level?: string
         }
         Relationships: []
       }
@@ -153,6 +222,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      impact_stats: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: string
+          is_active: boolean
+          stat_context: string | null
+          stat_label: string
+          stat_value: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          stat_context?: string | null
+          stat_label: string
+          stat_value: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          stat_context?: string | null
+          stat_label?: string
+          stat_value?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       market_orders: {
         Row: {
@@ -226,9 +328,97 @@ export type Database = {
         }
         Relationships: []
       }
+      product_categories: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name: string
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name: string
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name?: string
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      product_impact: {
+        Row: {
+          created_at: string
+          display_order: number
+          farm_need_id: string | null
+          id: string
+          impact_disclaimer: string
+          impact_statement: string
+          is_active: boolean
+          product_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          farm_need_id?: string | null
+          id?: string
+          impact_disclaimer?: string
+          impact_statement: string
+          is_active?: boolean
+          product_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          farm_need_id?: string | null
+          id?: string
+          impact_disclaimer?: string
+          impact_statement?: string
+          is_active?: boolean
+          product_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_impact_farm_need_id_fkey"
+            columns: ["farm_need_id"]
+            isOneToOne: false
+            referencedRelation: "farm_needs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_impact_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           available: boolean
+          category: string | null
           created_at: string
           descriptor_line: string | null
           faq: Json | null
@@ -236,11 +426,17 @@ export type Database = {
           hero_hook: string | null
           how_to_use: string[] | null
           id: string
+          image_url: string | null
           images: string[] | null
+          impact_summary: string | null
           ingredient_philosophy: string[] | null
+          inventory_status: string
           key_benefits: string[] | null
+          long_description: string | null
           name: string
           price_cents: number
+          related_animal_id: string | null
+          related_farm_need_id: string | null
           scent: string | null
           seo_description: string | null
           seo_title: string | null
@@ -253,6 +449,7 @@ export type Database = {
         }
         Insert: {
           available?: boolean
+          category?: string | null
           created_at?: string
           descriptor_line?: string | null
           faq?: Json | null
@@ -260,11 +457,17 @@ export type Database = {
           hero_hook?: string | null
           how_to_use?: string[] | null
           id?: string
+          image_url?: string | null
           images?: string[] | null
+          impact_summary?: string | null
           ingredient_philosophy?: string[] | null
+          inventory_status?: string
           key_benefits?: string[] | null
+          long_description?: string | null
           name: string
           price_cents: number
+          related_animal_id?: string | null
+          related_farm_need_id?: string | null
           scent?: string | null
           seo_description?: string | null
           seo_title?: string | null
@@ -277,6 +480,7 @@ export type Database = {
         }
         Update: {
           available?: boolean
+          category?: string | null
           created_at?: string
           descriptor_line?: string | null
           faq?: Json | null
@@ -284,11 +488,17 @@ export type Database = {
           hero_hook?: string | null
           how_to_use?: string[] | null
           id?: string
+          image_url?: string | null
           images?: string[] | null
+          impact_summary?: string | null
           ingredient_philosophy?: string[] | null
+          inventory_status?: string
           key_benefits?: string[] | null
+          long_description?: string | null
           name?: string
           price_cents?: number
+          related_animal_id?: string | null
+          related_farm_need_id?: string | null
           scent?: string | null
           seo_description?: string | null
           seo_title?: string | null
@@ -299,7 +509,22 @@ export type Database = {
           updated_at?: string
           why_its_different?: string[] | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "products_related_animal_id_fkey"
+            columns: ["related_animal_id"]
+            isOneToOne: false
+            referencedRelation: "animals"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "products_related_farm_need_id_fkey"
+            columns: ["related_farm_need_id"]
+            isOneToOne: false
+            referencedRelation: "farm_needs"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -545,39 +770,57 @@ export type Database = {
       }
       volunteers: {
         Row: {
+          approved_for_public: boolean
           avatar_emoji: string | null
           badges: string[]
+          contribution_type: string | null
+          country: string | null
           created_at: string
+          dates_or_season: string | null
           hours: number
           id: string
           joined_date: string
           name: string
+          photo_url: string | null
           quote: string | null
           role: string
+          testimonial: string | null
           updated_at: string
         }
         Insert: {
+          approved_for_public?: boolean
           avatar_emoji?: string | null
           badges?: string[]
+          contribution_type?: string | null
+          country?: string | null
           created_at?: string
+          dates_or_season?: string | null
           hours?: number
           id?: string
           joined_date?: string
           name: string
+          photo_url?: string | null
           quote?: string | null
           role: string
+          testimonial?: string | null
           updated_at?: string
         }
         Update: {
+          approved_for_public?: boolean
           avatar_emoji?: string | null
           badges?: string[]
+          contribution_type?: string | null
+          country?: string | null
           created_at?: string
+          dates_or_season?: string | null
           hours?: number
           id?: string
           joined_date?: string
           name?: string
+          photo_url?: string | null
           quote?: string | null
           role?: string
+          testimonial?: string | null
           updated_at?: string
         }
         Relationships: []

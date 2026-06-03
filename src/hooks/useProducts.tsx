@@ -37,7 +37,7 @@ export const useProducts = () => {
         .order("sort_order", { ascending: true });
 
       if (error) throw error;
-      return data as Product[];
+      return data as unknown as Product[];
     },
   });
 };
@@ -54,7 +54,7 @@ export const useHeroProduct = () => {
         .single();
 
       if (error && error.code !== "PGRST116") throw error;
-      return data as Product | null;
+      return data as unknown as Product | null;
     },
   });
 };
@@ -71,7 +71,7 @@ export const useProductBySlug = (slug: string) => {
         .single();
 
       if (error) throw error;
-      return data as Product;
+      return data as unknown as Product;
     },
     enabled: !!slug,
   });
