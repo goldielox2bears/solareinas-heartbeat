@@ -20,6 +20,11 @@ import QuizPage from "./pages/QuizPage";
 import FamilyCampPage from "./pages/FamilyCampPage";
 import CowgirlsForChangePage from "./pages/CowgirlsForChangePage";
 import NotFound from "./pages/NotFound";
+import AnimalsPage from "./pages/AnimalsPage";
+import ImpactPage from "./pages/ImpactPage";
+import OurStoryPage from "./pages/OurStoryPage";
+import FreeHerdPage from "./pages/FreeHerdPage";
+import RetreatsRedirectPage from "./pages/RetreatsRedirectPage";
 import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
