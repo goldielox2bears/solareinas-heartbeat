@@ -56,6 +56,11 @@ const App = () => (
                 <AdminPanel />
               </AuthGuard>
             } />
+            <Route path="/animals" element={<AnimalsPage />} />
+            <Route path="/impact" element={<ImpactPage />} />
+            <Route path="/our-story" element={<OurStoryPage />} />
+            <Route path="/free-herd" element={<FreeHerdPage />} />
+            <Route path="/retreats" element={<RetreatsRedirectPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
